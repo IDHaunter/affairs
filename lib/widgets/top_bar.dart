@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TopBar extends StatelessWidget {
+mixin DefaultColor {
+  final int r=230;
+  final int g=0;
+  final int b=150;
+}
+
+class TopBar extends StatelessWidget with DefaultColor {
   TopBar({Key? key}) : super(key: key);
 
   @override
@@ -12,7 +18,7 @@ class TopBar extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(image: Image.asset('assets/images/bg2.png').image, fit: BoxFit.contain),
         gradient: const LinearGradient(
-          colors: [Colors.red, Colors.transparent],
+          colors: [Colors.pink, Colors.transparent],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -26,7 +32,7 @@ class TopBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleAvatar(
-                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.3),
+                  backgroundColor: Color.fromRGBO( r, g, b, 0.3),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.dehaze),
@@ -34,7 +40,7 @@ class TopBar extends StatelessWidget {
                   ),
                 ),
                 CircleAvatar(
-                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.3),
+                  backgroundColor: Color.fromRGBO(r, g, b, 0.3),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.calendar_today),
@@ -59,9 +65,9 @@ class TopBar extends StatelessWidget {
                 ),
                 //Блок с округлёнными краями
                 Chip(label: Text('02.06.2020', style: TextStyle(color: Colors.white),),
-                backgroundColor: Color.fromRGBO(255, 0, 0, 0.5),),
+                backgroundColor: Color.fromRGBO(r, g, b, 0.2),),
                 CircleAvatar(
-                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.5),
+                  backgroundColor: Color.fromRGBO(r, g, b, 0.2),
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.insert_chart),
