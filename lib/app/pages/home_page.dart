@@ -1,7 +1,5 @@
-import 'package:affairs/models/data_global.dart';
-import 'package:affairs/widgets/top_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:affairs/app/widgets/top_bar.dart';
+import 'package:affairs/core/common_export.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +18,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read<DataGlobal>().changeString('Button + Pressed');
+          context.read<DataGlobal>().changeString(AppLocalizations.of(context)!.helloWorld);
         },
         elevation: 5,
         tooltip: 'Добавить новую задачу',
