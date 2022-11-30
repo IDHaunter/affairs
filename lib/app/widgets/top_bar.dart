@@ -16,7 +16,7 @@ class TopBar extends StatelessWidget with DefaultColor {
       height: 300,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        image: DecorationImage(image: Image.asset('assets/images/bg2.png').image, fit: BoxFit.contain),
+        image: DecorationImage(image: Image.asset('assets/images/bg3.png').image, fit: BoxFit.contain),
         gradient: const LinearGradient(
           colors: [Colors.pink, Colors.transparent],
           begin: Alignment.topCenter,
@@ -34,8 +34,8 @@ class TopBar extends StatelessWidget with DefaultColor {
                 CircleAvatar(
                   backgroundColor: Color.fromRGBO( r, g, b, 0.3),
                   child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.dehaze),
+                    onPressed: () {Scaffold.of(context).openDrawer();},
+                    icon: const Icon(Icons.dehaze),
                     color: Colors.white,
                   ),
                 ),
