@@ -10,27 +10,27 @@ class DarkTheme extends ITheme {
 
   DarkTheme._internal();
 
-  final Color _primary = const Color(0xFF1F2125);
+  final Color _primary = const Color(0xFFE91E63); //applicationbar
   final Color _secondary = const Color(0xFF302A2E);
-  final Color _accent = const Color(0xFFFF4081);
+  final Color _accent = const Color(0xFFFF4081); //buttons
   final Color _majorShadow = const Color(0x29B1196F);
   final Color _textPrimary = const Color(0xFFFFFFFF);
   final Color _textSecondary = const Color(0x80FFFFFF);
   final Color _icon = const Color(0xFFE91E63);
   final Color _dark = const Color(0xFF131E17);
-  final Color _failure = const Color(0xFFFF0044);
-  final Color _success = const Color(0xFFFF4081);
+  final Color _failure = const Color(0xFFFF0000);
+  final Color _success = const Color(0xFFA3FF40);
   final Color _grey = const Color(0xFFE4DCFB);
   final Color _buttonText = const Color(0xFFFFFFFF);
 
   late final Gradient _accentGradient = LinearGradient(
-    colors: [_accent, const Color(0xFFE91E63), const Color(0xFFFF4081)],
+    colors: [_accent, const Color(0xFFE91E63), const Color(0x1BFF4081)],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
 
   late final Gradient _accentGradientVertical = LinearGradient(
-    colors: [_accent, const Color(0xFFE91E63), const Color(0xFFFF4081)],
+    colors: [_accent, const Color(0xFFE91E63), Colors.transparent],
     begin: Alignment.bottomCenter,
     end: Alignment.topCenter,
   );
