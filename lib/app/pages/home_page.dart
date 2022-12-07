@@ -2,7 +2,7 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/tests/test_inherit.dart';
-
+import 'package:affairs/tests/test_inherit_notifier.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,6 +26,7 @@ class HomePage extends StatelessWidget {
           ),
           //TestInherit(),
           SimpleCalcWidget(),
+          //TestInheritNotifier(),
         ],
       ),
       floatingActionButton: FloatingActionButton(

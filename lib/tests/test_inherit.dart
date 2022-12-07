@@ -133,24 +133,42 @@ class _TestInheritState extends State<TestInherit> {
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-class SimpleCalcWidgetModel extends ChangeNotifier {
-int? _firstNumber;
-int? _secondNumber;
+class SimpleCalcModel extends ChangeNotifier {
+int _firstNumber=1;
+int _secondNumber=0;
 int sumResult=0;
 
-set firstNumber(String value) => _firstNumber = int.tryParse(value);
-set secondNumber(String value) => _firstNumber = int.tryParse(value);
-get takeSumResult => sumResult ?? 0;
+set putFirstNumber(String sValue) {
+  print('putFirstNumber' + sValue);
+  _firstNumber = int.tryParse(sValue) ?? 0; }
+set putSecondNumber(String sValue) {
+  print('putSecondNumber' + sValue);
+  _secondNumber = int.tryParse(sValue) ?? 0; }
+get takeSumResult {
+  print('takeSumResult=$sumResult' );
+  return sumResult;}
 
-void sumCalc() {
-    if (_firstNumber != null && _secondNumber != null)
-    {
-      sumResult =  _firstNumber! + _secondNumber!;
-    }
-  else { sumResult=0;
-  }
+void calcSum() {
+  sumResult =  _firstNumber + _secondNumber;
+  print('calcSum $sumResult');
   notifyListeners();
 }
+
+}
+
+//InheritedNotifier - не требует updateShouldNotify т.к. ему в параметр notifier: уже передали зачем нужно следить
+class SimpleCalcProvider extends InheritedNotifier <SimpleCalcModel> {
+  final SimpleCalcModel model;
+   const SimpleCalcProvider({
+    Key? key,
+    required this.model,
+    required Widget child,
+  }) : super(key: key, child: child, notifier: model);
+
+  //Эта функция является синтаксическим упрощением (сахаром) для dependOnInheritedWidgetOfExactType<SimpleCalcWidgetProvider>
+  static SimpleCalcModel? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SimpleCalcProvider>()?.model;
+  }
 
 }
 
@@ -162,60 +180,61 @@ class SimpleCalcWidget extends StatefulWidget {
 }
 
 class _SimpleCalcWidgetState extends State<SimpleCalcWidget> {
-  final _model = SimpleCalcWidgetModel();
+  final _model = SimpleCalcModel();
 
   @override
   Widget build(BuildContext context) {
-    return SimpleCalcWidgetProvider(
+    return SimpleCalcProvider(
       model: _model,
-      child: Column(
-        children: [Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(width: 100, child: TextField(onChanged: (newValue) {
-              SimpleCalcWidgetProvider.of(context)?.firstNumber=newValue;
-            },)),
-            Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('+')),
-            Container(width: 100, child: TextField(onChanged: (newValue) {
-              SimpleCalcWidgetProvider.of(context)?.secondNumber=newValue;
-            },)),
-            Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('=')),
-            Container(padding: EdgeInsets.symmetric(horizontal: 10), child: ResultWidget()),
-          ],
-        ),
-          ElevatedButton(onPressed: () {
-            SimpleCalcWidgetProvider.of(context)?.sumCalc();
-
-          } ,
-           child: const Text('Calculate!')),
-        ],
-      ),
+      //в качестве чайлда нужен отдельный виджет чтобы в его билд передать контекст
+      //с SimpleCalcProvider и его моделью данных,
+      //иначе dependOnInheritedWidgetOfExactType<SimpleCalcProvider> ничего не найдёт
+      child: CalcArea(),
     );
   }
 }
+
+class CalcArea extends StatelessWidget {
+  const CalcArea({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(width: 100, child: TextField(onChanged: (newValue) {
+            SimpleCalcProvider.of(context)?.putFirstNumber=newValue;
+          },)),
+          Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('+')),
+          Container(width: 100, child: TextField(onChanged: (newValue) {
+            SimpleCalcProvider.of(context)?.putSecondNumber=newValue;
+          },)),
+          Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('=')),
+          Container(padding: EdgeInsets.symmetric(horizontal: 10), child: ResultWidget()),
+        ],
+      ),
+        ElevatedButton(onPressed: () {
+          print('pressed');
+          SimpleCalcProvider.of(context)?.calcSum;
+          context.dependOnInheritedWidgetOfExactType<SimpleCalcProvider>()?.model.calcSum();
+        } ,
+            child: const Text('Calculate!')),
+      ],
+    );
+  }
+}
+
 
 class ResultWidget extends StatelessWidget {
   const ResultWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final value = SimpleCalcWidgetProvider.of(context)?.sumResult ?? '-1';
+    final value = SimpleCalcProvider.of(context)?.sumResult ?? '-1';
     //final ss = SimpleCalcWidgetProvider.of(context)?.takeSumResult.toString() ?? '-2';
     return Text(value.toString());
   }
 }
 
-//InheritedNotifier - не требует updateShouldNotify т.к. ему в параметр notifier: уже передали зачем нужно следить
-class SimpleCalcWidgetProvider extends InheritedNotifier <SimpleCalcWidgetModel> {
-  final SimpleCalcWidgetModel model;
-  const SimpleCalcWidgetProvider({
-    Key? key,
-    required this.model,
-    required Widget child,
-  }) : super(key: key, child: child, notifier: model);
 
-  //Эта функция является синтаксическим упрощением (сахаром) для dependOnInheritedWidgetOfExactType<SimpleCalcWidgetProvider>
-  static SimpleCalcWidgetModel? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<SimpleCalcWidgetProvider>()?.model;
-  }
-}
