@@ -134,7 +134,7 @@ class _TestInheritState extends State<TestInherit> {
 
 //----------------------------------------------------------------------------------------------------------------------
 class SimpleCalcModel extends ChangeNotifier {
-int _firstNumber=1;
+int _firstNumber=0;
 int _secondNumber=0;
 int sumResult=0;
 
@@ -157,6 +157,7 @@ void calcSum() {
 }
 
 //InheritedNotifier - не требует updateShouldNotify т.к. ему в параметр notifier: уже передали зачем нужно следить
+//в будущем использование пакета Provider поможет избежать  вот этого объявления и позволяет работать со stream и future
 class SimpleCalcProvider extends InheritedNotifier <SimpleCalcModel> {
   final SimpleCalcModel model;
    const SimpleCalcProvider({
@@ -166,8 +167,15 @@ class SimpleCalcProvider extends InheritedNotifier <SimpleCalcModel> {
   }) : super(key: key, child: child, notifier: model);
 
   //Эта функция является синтаксическим упрощением (сахаром) для dependOnInheritedWidgetOfExactType<SimpleCalcWidgetProvider>
-  static SimpleCalcModel? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<SimpleCalcProvider>()?.model;
+  static SimpleCalcModel? watch(BuildContext context) {
+    // dependOnInheritedWidgetOfExactType - подписывает на изменения и ребилдит того кто её вызывает при изменении модели данных
+    return context.dependOnInheritedWidgetOfExactType<SimpleCalcProvider>()?.notifier;
+  }
+
+  static SimpleCalcModel? read(BuildContext context) {
+    final widget = context.getElementForInheritedWidgetOfExactType<SimpleCalcProvider>()?.widget;
+    // getElementForInheritedWidgetOfExactType - просто читает из модели данных (не подписывая на изменения!!!)
+    return widget is SimpleCalcProvider ? widget.notifier : null;
   }
 
 }
@@ -203,20 +211,20 @@ class CalcArea extends StatelessWidget {
       children: [Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(width: 100, child: TextField(onChanged: (newValue) {
-            SimpleCalcProvider.of(context)?.putFirstNumber=newValue;
+          Container(width: 100, height: 46, child: TextField(decoration: InputDecoration( border: OutlineInputBorder()), onChanged: (newValue) {
+            SimpleCalcProvider.read(context)?.putFirstNumber=newValue;
           },)),
           Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('+')),
-          Container(width: 100, child: TextField(onChanged: (newValue) {
-            SimpleCalcProvider.of(context)?.putSecondNumber=newValue;
+          Container(width: 100, height: 46, child: TextField(decoration: InputDecoration(border: OutlineInputBorder()), onChanged: (newValue) {
+            SimpleCalcProvider.read(context)?.putSecondNumber=newValue;
           },)),
           Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('=')),
           Container(padding: EdgeInsets.symmetric(horizontal: 10), child: ResultWidget()),
         ],
       ),
-        ElevatedButton(onPressed: () {
+        ElevatedButton( onPressed: () {
           print('pressed');
-          SimpleCalcProvider.of(context)?.calcSum;
+          SimpleCalcProvider.read(context)?.calcSum;
           context.dependOnInheritedWidgetOfExactType<SimpleCalcProvider>()?.model.calcSum();
         } ,
             child: const Text('Calculate!')),
@@ -225,13 +233,12 @@ class CalcArea extends StatelessWidget {
   }
 }
 
-
 class ResultWidget extends StatelessWidget {
   const ResultWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final value = SimpleCalcProvider.of(context)?.sumResult ?? '-1';
+    final value = SimpleCalcProvider.watch(context)?.sumResult ?? '-1';
     //final ss = SimpleCalcWidgetProvider.of(context)?.takeSumResult.toString() ?? '-2';
     return Text(value.toString());
   }
