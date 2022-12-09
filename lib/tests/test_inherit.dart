@@ -180,6 +180,7 @@ class SimpleCalcProvider extends InheritedNotifier <SimpleCalcModel> {
 
 }
 
+//Стейтфул нужен чтобы хранить модель
 class SimpleCalcWidget extends StatefulWidget {
   const SimpleCalcWidget({Key? key}) : super(key: key);
 
