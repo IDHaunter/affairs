@@ -3,9 +3,9 @@ import 'package:flutter/widgets.dart';
 class DataGlobal with ChangeNotifier {
   String dataS='Top level string';
 
-  get getDataS => dataS;
+  get takeDataS => dataS;
 
-  void changeString(String newString) {
+  void putDataS(String newString) {
   dataS = newString;
 
   //Изменили данные и добавили оповещалку, которая сообщит подписчикам о том

@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+//ОФИЦИАЛЬНЫЙ ПРИМЕР ОТ GOOGLE
+
 class TestInheritNotifier extends StatelessWidget {
   const TestInheritNotifier({super.key});
 

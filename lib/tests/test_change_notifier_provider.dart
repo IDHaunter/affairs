@@ -27,22 +27,26 @@ class PSimpleCalcModel extends ChangeNotifier {
   }
 }
 
-//Стейтфул нужен чтобы хранить модель
-class PSimpleCalcWidget extends StatefulWidget {
+//Стейтфул нужен чтобы хранить модель не нужен! Этим занимается провайдер!
+class PSimpleCalcWidget extends StatelessWidget {
   const PSimpleCalcWidget({Key? key}) : super(key: key);
-
-  @override
-  State<PSimpleCalcWidget> createState() => _PSimpleCalcWidgetState();
-}
-
-class _PSimpleCalcWidgetState extends State<PSimpleCalcWidget> {
 
   @override
   Widget build(BuildContext context) {
     //в качестве чайлда нужен отдельный виджет чтобы в его билд передать контекст
-    //с SimpleCalcProvider и его моделью данных,
+    //а ChangeNotifierProvider инициализирует и сохранит модель данных,
+    //т.е. возьмёт на себя функции state как в stateful
+    //final model=PSimpleCalcModel(); модель можно инициализировать самому, и использовать именной конструктор (.value)
+    //ChangeNotifierProvider.value(value: model, child: ...,) - если нужно передать модель на другой экран
+    //но тогда создавать и уничтожать модель нужно самому...
+    //если же использовать просто Provider вместо ChangeNotifierProvider то появляется возможность использовать select
+    //select это аналог watch но отслеживается только изменение конкретного одного параметра
+    //но для обычного provider код модели данных будет гораздо больше и будет похож на inherit
+    //Provider вместо ChangeNotifierProvider нужно использовать для комплексных сложных моделей данных
+    //т.е. там не просто переменные вложенные классы с кучей виджетов, иначе перегрузим приложение
     return ChangeNotifierProvider(
       create: (context) => PSimpleCalcModel(),
+      lazy: true, //true-создаст модель в памяти при первом обращении, false - сразу
       child: const PCalcArea(),
     );
   }
@@ -101,5 +105,41 @@ class PResultWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final value = context.watch<PSimpleCalcModel>().sumResult;
     return Text(value.toString());
+  }
+}
+
+//------------------------------------------------------------------------------
+class SomeDataTest extends StatelessWidget {
+  const SomeDataTest({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children:  [
+        //две строчки аналогичны
+        Text(context.watch<DataGlobal>().takeDataS), //смотрит за моделью
+        Text(Provider.of<DataGlobal>(context, listen: true).takeDataS), //смотрит за моделью
+        const SizedBox(
+          height: 20,
+        ),
+        const SomeDataS(),
+        const SizedBox(
+          height: 20,
+        ),
+      ],
+    );
+  }
+}
+
+class SomeDataS extends StatelessWidget {
+  const SomeDataS({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+        onChanged: (newData) =>
+        //Эти две строки аналогичны
+        Provider.of<DataGlobal>(context, listen: false).putDataS(newData)); //пишет в модель
+         //   context.read<DataGlobal>().changeString(newData)); //пишет в модель
   }
 }
