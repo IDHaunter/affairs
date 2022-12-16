@@ -87,6 +87,26 @@ class PCalcArea extends StatelessWidget {
             Container(padding: EdgeInsets.symmetric(horizontal: 10), child: PResultWidget()),
           ],
         ),
+        Consumer<PSimpleCalcModel>(
+        //builder - это функция которая вызовется при изменинии модели данных DataGlobal
+        builder: (context, //собственно контекст
+                  calcModel, //переменная с нашей моделью
+                  child) {    //для оптимимзации, если нужен тяжёлый виджет по дереву ниже не нуждающийся в обновлении
+        return Text('Result using consumer widget is ${calcModel.takeSumResult}');
+        },
+        ),
+        // Пример структуры с тяжёлым виджетом:
+        // Consumer<DataGlobal>(
+        //   builder: (context, dataGlobal, child) => Stack(
+        //     children: [
+        //       // Use SomeExpensiveWidget here, without rebuilding every time.
+        //       if (child != null) child,
+        //       Text('Result using consumer widget is ${dataGlobal.takeDataS}'),
+        //     ],
+        //   ),
+        //   // Build the expensive widget here.
+        //   child: const SomeExpensiveWidget(),
+        // ),
         ElevatedButton(
             onPressed: () {
               print('pressed');
@@ -115,7 +135,7 @@ class SomeDataTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:  [
+      children: [
         //две строчки аналогичны
         Text(context.watch<DataGlobal>().takeDataS), //смотрит за моделью
         Text(Provider.of<DataGlobal>(context, listen: true).takeDataS), //смотрит за моделью
@@ -138,8 +158,8 @@ class SomeDataS extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
         onChanged: (newData) =>
-        //Эти две строки аналогичны
-        Provider.of<DataGlobal>(context, listen: false).putDataS(newData)); //пишет в модель
-         //   context.read<DataGlobal>().changeString(newData)); //пишет в модель
+            //Эти две строки аналогичны
+            Provider.of<DataGlobal>(context, listen: false).putDataS(newData)); //пишет в модель
+    //   context.read<DataGlobal>().changeString(newData)); //пишет в модель
   }
 }
