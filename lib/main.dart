@@ -2,6 +2,8 @@ import 'app/pages/home_page.dart';
 import 'core/common_export.dart';
 
 void main() {
+  //инициализация наших цветовых схем
+  themeProvider.init();
   runApp(MyApp());
 }
 
@@ -36,10 +38,11 @@ class _MyAppState extends State<MyApp> {
     //Удалям прослушку настроек цветовой схемы т.к. менять её по ходу работы приложения не планируем
     //WidgetsBinding.instance.removeObserver(widget);
     //В соответствии с цветовой схемой подключаем тему при этом добавляя немного цветовых акцентов
-    ThemeData theme = ThemeData(
-        primaryColor: Colors.pink,
-        colorScheme: brightness == Brightness.dark ? const ColorScheme.dark() :  const ColorScheme.light(),
-      //ColorScheme.fromSwatch()
+    ThemeData currentTheme = ThemeData(
+        primarySwatch: Colors.pink,
+        colorScheme: themeProvider.isDarkMode() ? const ColorScheme.dark() :  const ColorScheme.light(),
+      // colorScheme: brightness == Brightness.dark ? const ColorScheme.dark() :  const ColorScheme.light(),
+      //colorScheme: ColorScheme.fromSwatch(),
     );
 
 
@@ -67,8 +70,8 @@ class _MyAppState extends State<MyApp> {
       //
       child: MaterialApp(
         debugShowCheckedModeBanner: false, //отключает баннер Debug в верхнем правом углу
-        theme: theme.copyWith(
-          colorScheme: theme.colorScheme.copyWith(secondary: Colors.pinkAccent, ),
+        theme: currentTheme.copyWith(
+          colorScheme: currentTheme.colorScheme.copyWith(secondary: theme.accent() , primary: theme.primary() ), //Colors.pinkAccent Colors.pink
         ),
         title: 'Менеджер дел',
         localizationsDelegates: const [
