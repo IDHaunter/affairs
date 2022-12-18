@@ -112,7 +112,7 @@ class PCalcArea extends StatelessWidget {
               print('pressed');
               model.calcSum();
             },
-            child: Text('Calculate!', style: TextStyle(color: theme.buttonText()),)),
+            child: Text('Calculate!', style: TextStyle(color: curITheme.buttonText()),)),
       ],
     );
   }

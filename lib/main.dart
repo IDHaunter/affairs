@@ -1,10 +1,17 @@
 import 'app/pages/home_page.dart';
+import 'app/pages/theme_page.dart';
 import 'core/common_export.dart';
 
 void main() {
   //инициализация наших цветовых схем
-  themeProvider.init();
-  runApp(MyApp());
+  themeHandler.init();
+
+  runApp(
+    ChangeNotifierProvider<ThemeModel>(
+      create: (context) => ThemeModel(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget with WidgetsBindingObserver {
@@ -26,53 +33,25 @@ class _MyAppState extends State<MyApp> {
       });
     });
     _locale = languageProvider.getLocale();
+    Provider.of<ThemeModel>(context, listen: false).addColors();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    //Получаем настройки цветовой схемы
-    final Brightness? brightness;
-    //WidgetsBinding.instance.addObserver(widget);
-    brightness = WidgetsBinding.instance.window.platformBrightness;
-    //Удалям прослушку настроек цветовой схемы т.к. менять её по ходу работы приложения не планируем
-    //WidgetsBinding.instance.removeObserver(widget);
-    //В соответствии с цветовой схемой подключаем тему при этом добавляя немного цветовых акцентов
-    ThemeData currentTheme = ThemeData(
-        primarySwatch: Colors.pink,
-        colorScheme: themeProvider.isDarkMode() ? const ColorScheme.dark() :  const ColorScheme.light(),
-      // colorScheme: brightness == Brightness.dark ? const ColorScheme.dark() :  const ColorScheme.light(),
-      //colorScheme: ColorScheme.fromSwatch(),
-    );
-
-
-/*  import 'package:flutter/services.dart';
-*  SystemChrome.setSystemUIOverlayStyle(themeProvider.isDarkMode() ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        // brightness: Brightness.light,
-        appBarTheme: const AppBarTheme(
-          backwardsCompatibility: false,
-          systemOverlayStyle: SystemUiOverlayStyle.dark, // 2
-*
-* */
-
-
     //Provider это обёртка для InheritedWidget
     //flutter_bloc и MobX используют provider в своей реализации
 
     return ChangeNotifierProvider<DataGlobal>(
-      create: (context) =>  DataGlobal(),
+      create: (context) => DataGlobal(),
       //Если бы использовали Provider то работали через метод create: (context)=>data,
       //create: (context)=>'The end of the Fucking world',
       // где data - любая переменная с данными которая автоматом была бы доступна ТОЛЬКО по дереву вниз
       //
       child: MaterialApp(
-        debugShowCheckedModeBanner: false, //отключает баннер Debug в верхнем правом углу
-        theme: currentTheme.copyWith(
-          colorScheme: currentTheme.colorScheme.copyWith(secondary: theme.accent() , primary: theme.primary() ), //Colors.pinkAccent Colors.pink
-        ),
+        //отключаем баннер Debug в верхнем правом углу
+        debugShowCheckedModeBanner: false,
+        theme: Provider.of<ThemeModel>(context, listen: true ).currentTheme,
         title: 'Менеджер дел',
         localizationsDelegates: const [
           AppLocalizations.delegate, // Языковые настройки
@@ -85,7 +64,12 @@ class _MyAppState extends State<MyApp> {
           Locale('ru', ''), // Russian, no country code
         ],
         locale: _locale,
-        home: HomePage(),
+        //home: HomePage(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomePage(),
+          '/theme_page': (context) => ThemePage(),
+        },
       ),
     );
   }

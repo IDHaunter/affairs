@@ -31,16 +31,18 @@ class NavigationDrawer extends StatelessWidget {
               child: ListTile(
                 title: Text('Theme'),
                 subtitle: Text('Now it is Dark'),
-                leading: Icon(Icons.language),
+                leading: Icon(Icons.format_paint),
                 trailing: Icon(Icons.more_vert),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/theme_page');
+                },
               ),
             ),
             Card(
               child: ListTile(
                 title: Text('Language'),
                 subtitle: Text("Now it's English"),
-                leading: Icon(Icons.settings),
+                leading: Icon(Icons.language),
                 trailing: Icon(Icons.more_vert),
                 onTap: () {},
               ),
