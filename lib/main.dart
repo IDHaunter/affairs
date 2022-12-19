@@ -2,9 +2,13 @@ import 'app/pages/home_page.dart';
 import 'app/pages/theme_page.dart';
 import 'core/common_export.dart';
 
-void main() {
+void main() async {
+  //WidgetFlutterBinding используется для взаимодействия с движком Flutter, иначе асинхронные функции стартующие
+  //до запуска runApp подвиснут
+  WidgetsFlutterBinding.ensureInitialized();
+
   //инициализация наших цветовых схем
-  themeHandler.init();
+  await themeHandler.init();
 
   runApp(
     ChangeNotifierProvider<ThemeModel>(

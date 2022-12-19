@@ -5,6 +5,7 @@ import 'package:affairs/core/common_export.dart';
 //import 'package:affairs/tests/test_inherit.dart';
 //import 'package:affairs/tests/test_inherit_notifier.dart';
 import 'package:affairs/tests/test_change_notifier_provider.dart';
+import 'package:affairs/tests/test_shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,11 +18,12 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           TopBar(),
+          TestSharedPreferences(),
           //Text(context.watch<String>()) - для обычного провайдера
-          SomeDataTest(),
+          //SomeDataTest(),
           //TestInherit(),      //просто inherit - вниз по дереву
           //SimpleCalcWidget(), //через inherit notifier
-          PSimpleCalcWidget(), //через провайдер
+          //PSimpleCalcWidget(), //через провайдер
           //TestInheritNotifier(),
         ],
       ),

@@ -30,7 +30,7 @@ class NavigationDrawer extends StatelessWidget {
             Card(
               child: ListTile(
                 title: Text('Theme'),
-                subtitle: Text('Now it is Dark'),
+                subtitle: Text(Provider.of<ThemeModel>(context, listen: true ).sDrawer),
                 leading: Icon(Icons.format_paint),
                 trailing: Icon(Icons.more_vert),
                 onTap: () {

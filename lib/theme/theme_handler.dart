@@ -28,13 +28,13 @@ final ThemeHandler themeHandler = ThemeHandler();
 //Геттер упрощающий написание кода, чтобы не писать везде ThemeHandler().currentITheme
 ITheme get curITheme => ThemeHandler().currentITheme;
 //Носитель цветовых настроек
-class ThemeHandler extends ChangeNotifier {
+class ThemeHandler { //extends ChangeNotifier - поскольку за обновление отвечает ThemeModel то она и будет оповещать
   //Должен существовать в единственном экземпляре, поэтому конструируется через
   //спец конструктор _internal() и затем экземпляр просто возвращается через factory
   static final ThemeHandler t = ThemeHandler._internal();
   //ключ для хранения настройки
   static const _appearanceKey = "appearance";
-  //late SharedPreferences _preferences;
+  late SharedPreferences _preferences;
 
   //по умолчанию пусть тема будет типа системная
   Appearance _appearance = Appearance.system;
@@ -63,13 +63,13 @@ class ThemeHandler extends ChangeNotifier {
     //Обновляет признак иконки
     _updateAppIcon();
     //Собственно уведомляем подписаных
-    notifyListeners();
+    //notifyListeners();
   }
 
   //Набор действий при старте приложения
-   init() async{
+  Future<void> init() async{
     //загрузка предыдущих настроек
-    //_preferences = await SharedPreferences.getInstance();
+    _preferences = await SharedPreferences.getInstance();
     _appearance = _getSavedAppearance();
     //в зависимости от типа appearance устанавливает LightTheme() или DarkTheme()
     currentITheme = resolveTheme(_appearance);
@@ -85,13 +85,13 @@ class ThemeHandler extends ChangeNotifier {
 
   //Получаем сохранённую цветовую схему
   Appearance _getSavedAppearance() {
-    //return appearanceFromName(_preferences.getString(_appearanceKey) ?? "") ?? Appearance.system;
+    return appearanceFromName(_preferences.getString(_appearanceKey) ?? "") ?? Appearance.system;
     return Appearance.system;
   }
 
   //Сохраняем текущую цветовую схему
   void _saveAppearance() {
-    //_preferences.setString(_appearanceKey, _appearance.name);
+    _preferences.setString(_appearanceKey, _appearance.name);
   }
 
   //в зависимости от типа возвращает LightTheme() или DarkTheme()
@@ -124,6 +124,16 @@ class ThemeHandler extends ChangeNotifier {
   }
 }
 
+String nameFromAppearance(Appearance appearance) {
+  switch (appearance) {
+    case Appearance.light:
+      return "Now it's Light";
+    case Appearance.dark:
+      return "Now it's Dark";
+    default:
+      return "Now it's System";
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////
 //Конструируем модель типа ThemeData для провайдера  исходя из данных носителя
 //чтобы её использовать в ChangeNotifierProvider который
@@ -138,6 +148,8 @@ class ThemeModel extends ChangeNotifier {
         : const ColorScheme.light(),
     // colorScheme: brightness == Brightness.dark ? const ColorScheme.dark() :  const ColorScheme.light(),
   );
+
+  String sDrawer = nameFromAppearance(themeHandler.appearance);
 
   //Добавляет в стандартную тёмную или светлую системную схему наши цвета из носителя
   addColors() {
@@ -158,6 +170,7 @@ class ThemeModel extends ChangeNotifier {
           : const ColorScheme.light(),
     );
     addColors();
+    sDrawer = nameFromAppearance(themeHandler.appearance);
     //Собственно уведомляем подписаных
     notifyListeners();
     }
