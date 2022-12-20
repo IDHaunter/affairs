@@ -1,11 +1,11 @@
 import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
-
+import 'package:affairs/app/widgets/groups/groups_list.dart';
 //import 'package:affairs/tests/test_inherit.dart';
 //import 'package:affairs/tests/test_inherit_notifier.dart';
-import 'package:affairs/tests/test_change_notifier_provider.dart';
-import 'package:affairs/tests/test_shared_preferences.dart';
+//import 'package:affairs/tests/test_change_notifier_provider.dart';
+//import 'package:affairs/tests/test_shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +18,9 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           TopBar(),
-          TestSharedPreferences(),
+          Expanded(
+              child: GroupListWidget()),
+          //TestSharedPreferences(),
           //Text(context.watch<String>()) - для обычного провайдера
           //SomeDataTest(),
           //TestInherit(),      //просто inherit - вниз по дереву
