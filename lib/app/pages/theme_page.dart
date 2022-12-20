@@ -21,7 +21,7 @@ class _ThemePage extends State<ThemePage> {
           TopBar(),
           ListTile(
             leading: Icon(Icons.light_mode_outlined),
-            title: const Text('Light'),
+            title: Text(AppLocalizations.of(context)!.light),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Appearance>(
@@ -29,18 +29,20 @@ class _ThemePage extends State<ThemePage> {
                 value: Appearance.light,
                 groupValue: _appearance,
                 onChanged: (Appearance? value) {
-                  setState(() {
-                    _appearance = value;
-                    themeHandler.updateTheme(Appearance.light);
-                    Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.light);
-                  });
+                  // setState закоментирован т.к. Provider сам вызовет setState после изменений
+                  // setState(() {
+                  _appearance = value;
+                  themeHandler.updateTheme(Appearance.light);
+                  Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.light);
+                 //  });
+
                 },
               ),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.dark_mode_outlined),
-            title: const Text('Dark'),
+            leading: const Icon(Icons.dark_mode_outlined),
+            title: Text(AppLocalizations.of(context)!.dark),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Appearance>(
@@ -48,18 +50,19 @@ class _ThemePage extends State<ThemePage> {
                 value: Appearance.dark,
                 groupValue: _appearance,
                 onChanged: (Appearance? value) {
-                  setState(() {
-                    _appearance = value;
-                    themeHandler.updateTheme(Appearance.dark);
-                    Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.dark);
-                  });
+                  // setState(() {
+                  _appearance = value;
+                  themeHandler.updateTheme(Appearance.dark);
+                  Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.dark);
+                  // });
+
                 },
               ),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.format_paint_outlined),
-            title: const Text('System'),
+            leading: const Icon(Icons.format_paint_outlined),
+            title: Text(AppLocalizations.of(context)!.system),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Appearance>(
@@ -67,11 +70,11 @@ class _ThemePage extends State<ThemePage> {
                 value: Appearance.system,
                 groupValue: _appearance,
                 onChanged: (Appearance? value) {
-                  setState(() {
-                    _appearance = value;
-                    themeHandler.updateTheme(Appearance.system);
-                    Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.system);
-                  });
+                  // setState(() {
+                  _appearance = value;
+                  themeHandler.updateTheme(Appearance.system);
+                  Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.system);
+                  // });
                 },
               ),
             ),

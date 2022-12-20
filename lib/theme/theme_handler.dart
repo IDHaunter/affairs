@@ -124,17 +124,7 @@ class ThemeHandler { //extends ChangeNotifier - поскольку за обно
   }
 }
 
-String nameFromAppearance(Appearance appearance) {
-  switch (appearance) {
-    case Appearance.light:
-      return "Now it's Light";
-    case Appearance.dark:
-      return "Now it's Dark";
-    default:
-      return "Now it's System";
-  }
-}
-////////////////////////////////////////////////////////////////////////////////
+//-------------------------------------------------------------------------------------------------------
 //Конструируем модель типа ThemeData для провайдера  исходя из данных носителя
 //чтобы её использовать в ChangeNotifierProvider который
 //и будет обновлять состояние приложения
@@ -148,8 +138,6 @@ class ThemeModel extends ChangeNotifier {
         : const ColorScheme.light(),
     // colorScheme: brightness == Brightness.dark ? const ColorScheme.dark() :  const ColorScheme.light(),
   );
-
-  String sDrawer = nameFromAppearance(themeHandler.appearance);
 
   //Добавляет в стандартную тёмную или светлую системную схему наши цвета из носителя
   addColors() {
@@ -170,7 +158,6 @@ class ThemeModel extends ChangeNotifier {
           : const ColorScheme.light(),
     );
     addColors();
-    sDrawer = nameFromAppearance(themeHandler.appearance);
     //Собственно уведомляем подписаных
     notifyListeners();
     }

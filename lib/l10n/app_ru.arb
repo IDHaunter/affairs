@@ -1,3 +1,12 @@
 {
-    "helloWorld": "Привет Мир!"
+    "helloWorld": "Привет Мир!",
+    "welcomeBack": "С возвращением",
+    "theme": "Тема",
+    "nowItIs": "Активна",
+    "dark": "Тёмная",
+    "light": "Светлая",
+    "system": "Системная",
+    "language": "Язык",
+    "nowLanguage": "Выбран русский",
+    "aboutApp": "О приложении"
 }

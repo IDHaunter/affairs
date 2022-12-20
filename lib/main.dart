@@ -1,5 +1,6 @@
 import 'app/pages/home_page.dart';
 import 'app/pages/theme_page.dart';
+import 'app/pages/language_page.dart';
 import 'core/common_export.dart';
 
 void main() async {
@@ -10,10 +11,16 @@ void main() async {
   //инициализация наших цветовых схем
   await themeHandler.init();
 
+  //инициализация языковых настроек
+  await languageHandler.init();
+
   runApp(
     ChangeNotifierProvider<ThemeModel>(
       create: (context) => ThemeModel(),
-      child: MyApp(),
+      child: ChangeNotifierProvider<LanguageModel>(
+        create: (context) => LanguageModel(),
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -26,23 +33,17 @@ class MyApp extends StatefulWidget with WidgetsBindingObserver {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale = languageProvider.getLocale();
+  //Locale _locale = languageHandler.getLocale();
 
   @override
   void initState() {
     super.initState();
-    languageProvider.addListener(() {
-      setState(() {
-        _locale = languageProvider.getLocale();
-      });
-    });
-    _locale = languageProvider.getLocale();
+   // _locale = languageHandler.getLocale();
     Provider.of<ThemeModel>(context, listen: false).addColors();
   }
 
   @override
   Widget build(BuildContext context) {
-
     //Provider это обёртка для InheritedWidget
     //flutter_bloc и MobX используют provider в своей реализации
 
@@ -51,11 +52,11 @@ class _MyAppState extends State<MyApp> {
       //Если бы использовали Provider то работали через метод create: (context)=>data,
       //create: (context)=>'The end of the Fucking world',
       // где data - любая переменная с данными которая автоматом была бы доступна ТОЛЬКО по дереву вниз
-      //
       child: MaterialApp(
         //отключаем баннер Debug в верхнем правом углу
         debugShowCheckedModeBanner: false,
-        theme: Provider.of<ThemeModel>(context, listen: true ).currentTheme,
+        //тему приложения будем обновлять через провайдер
+        theme: Provider.of<ThemeModel>(context, listen: true).currentTheme,
         title: 'Менеджер дел',
         localizationsDelegates: const [
           AppLocalizations.delegate, // Языковые настройки
@@ -67,12 +68,13 @@ class _MyAppState extends State<MyApp> {
           Locale('en', ''), // English, no country code
           Locale('ru', ''), // Russian, no country code
         ],
-        locale: _locale,
+        locale: Provider.of<LanguageModel>(context, listen: true).currentLocale,
         //home: HomePage(),
         initialRoute: '/',
         routes: {
           '/': (context) => HomePage(),
           '/theme_page': (context) => ThemePage(),
+          '/language_page': (context) => LanguagePage(),
         },
       ),
     );

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:affairs/core/common_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+//Список языков
 enum Language { russian, english }
 
 Language? languageFromName(String name) {
@@ -16,12 +17,18 @@ Language? languageFromName(String name) {
   }
 }
 
-final LanguageProvider languageProvider = LanguageProvider();
+//Создание экземпляра Носителя
+final LanguageHandler languageHandler = LanguageHandler();
 
-class LanguageProvider extends ChangeNotifier {
-  static final t = LanguageProvider._internal();
+//Носитель
+class LanguageHandler  { //extends ChangeNotifier
+  //Должен существовать в единственном экземпляре, поэтому конструируется через
+  //спец конструктор _internal() и затем экземпляр просто возвращается через factory
+  static final t = LanguageHandler._internal();
+  //ключ для хранения настройки
   static const _languageKey = "language";
-  static const _manuallyChangedKey = "manuallyChanged";
+  //ключ для хранения признака ручной установки
+  //static const _manuallyChangedKey = "manuallyChanged";
   late SharedPreferences _preferences;
 
   bool _manuallyChanged = false;
@@ -29,19 +36,20 @@ class LanguageProvider extends ChangeNotifier {
 
   Language get language => _language;
 
-  factory LanguageProvider() {
+  //Фабрика обеспечивающая единый экземпляр носителя
+  factory LanguageHandler() {
     return t;
   }
 
-  LanguageProvider._internal();
+  LanguageHandler._internal();
 
   bool get manuallyChanged => _manuallyChanged;
 
   void updateLanguage(Language language, {required bool manually}) {
     _language = language;
     _saveLanguage();
-    _preferences.setBool(_manuallyChangedKey, manually);
-    notifyListeners();
+    //_preferences.setBool(_manuallyChangedKey, manually);
+    //notifyListeners();
   }
 
   Future<void> init() async {
@@ -58,8 +66,10 @@ class LanguageProvider extends ChangeNotifier {
     _preferences.setString(_languageKey, _language.name);
   }
 
+  //Проверка на ручную установку языка
   bool _isManuallyChanged() {
-    return _preferences.getBool(_manuallyChangedKey) ?? false;
+    //return _preferences.getBool(_manuallyChangedKey) ?? false;
+    return _preferences.containsKey(_languageKey);
   }
 
   Language _resolveLanguage() {
@@ -87,4 +97,19 @@ class LanguageProvider extends ChangeNotifier {
         return const Locale.fromSubtags(languageCode: "en");
     }
   }
+}
+
+//----------------------------------------------------------------------------------------------------
+//Конструируем модель типа Locale для провайдера исходя из данных носителя
+class LanguageModel extends ChangeNotifier {
+  Locale currentLocale = languageHandler.getLocale();
+
+
+  //Обновление текущего языка
+  changeCurrentLocale(Language language) {
+    currentLocale = languageHandler.getLocale();
+    //Собственно уведомляем подписаных
+    notifyListeners();
+  }
+
 }

@@ -2,5 +2,14 @@
     "helloWorld": "Hello World!",
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
-    }
+    },
+    "welcomeBack": "Welcome back",
+    "theme": "Theme",
+    "nowItIs": "Now it's",
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System",
+    "language": "Language",
+    "nowLanguage": "Now it's english",
+    "aboutApp": "About application"
 }
