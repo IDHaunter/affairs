@@ -9,11 +9,11 @@ class NavigationDrawer extends StatelessWidget {
     String nameFromAppearance(Appearance appearance) {
       switch (appearance) {
         case Appearance.light:
-          return '${AppLocalizations.of(context)!.nowItIs} ${AppLocalizations.of(context)!.light.toLowerCase()}' ;
+          return '${context.l()!.nowItIs} ${context.l()!.light.toLowerCase()}' ;
         case Appearance.dark:
-          return '${AppLocalizations.of(context)!.nowItIs} ${AppLocalizations.of(context)!.dark.toLowerCase()}';
+          return '${context.l()!.nowItIs} ${context.l()!.dark.toLowerCase()}';
         default:
-          return '${AppLocalizations.of(context)!.nowItIs} ${AppLocalizations.of(context)!.system.toLowerCase()}';
+          return '${context.l()!.nowItIs} ${context.l()!.system.toLowerCase()}';
       }
     }
 
@@ -21,7 +21,7 @@ class NavigationDrawer extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(
-              height: 180,
+              height: 181,
               child: DrawerHeader(
                 decoration: BoxDecoration(
                   color: curITheme.accent(),
@@ -36,8 +36,8 @@ class NavigationDrawer extends StatelessWidget {
                     ),
                     onTap: () {Navigator.pushNamed(context, '/');},
                   ),
-                    Text(AppLocalizations.of(context)!.welcomeBack ),
-                    const Text('Anatoliy', style: TextStyle(fontSize: 20)),
+                    Text(context.l()!.welcomeBack, style: medium ),
+                    Text('Anatoliy', style: bold.copyWith(fontSize: titleSize)),
                   ],
                 ),
               ),
@@ -49,9 +49,8 @@ class NavigationDrawer extends StatelessWidget {
 
                   Card(
                     child: ListTile(
-                      title: Text(AppLocalizations.of(context)!.theme),
-                      //subtitle: Text(Provider.of<ThemeModel>(context, listen: true ).sDrawer),
-                      subtitle: Text(nameFromAppearance(themeHandler.appearance)),
+                      title: Text(context.l()!.theme, style: bold ),
+                      subtitle: Text(nameFromAppearance(themeHandler.appearance), style: regular ),
                       leading: const Icon(Icons.format_paint),
                       trailing: const Icon(Icons.more_vert),
                       onTap: () {
@@ -61,8 +60,8 @@ class NavigationDrawer extends StatelessWidget {
                   ),
                   Card(
                     child: ListTile(
-                      title: Text(AppLocalizations.of(context)!.language),
-                      subtitle: Text(AppLocalizations.of(context)!.nowLanguage),
+                      title: Text(context.l()!.language, style: bold),
+                      subtitle: Text(context.l()!.nowLanguage, style: regular ),
                       leading: const Icon(Icons.language),
                       trailing: const Icon(Icons.more_vert),
                       onTap: () {
@@ -73,7 +72,7 @@ class NavigationDrawer extends StatelessWidget {
                   const Divider(),
                   Card(
                     child: ListTile(
-                      title: Text(AppLocalizations.of(context)!.aboutApp),
+                      title: Text(context.l()!.aboutApp, style: bold),
                       leading: const Icon(Icons.info_outline),
                       onTap: () {},
                     ),

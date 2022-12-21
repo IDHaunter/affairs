@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:affairs/core/common_export.dart';
+import 'package:intl/intl.dart';
 
+//миксин тут для эксперимента
 mixin DefaultColor {
   final int r=230;
   final int g=0;
@@ -11,12 +13,13 @@ class TopBar extends StatelessWidget with DefaultColor {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: double.infinity,
-      height: 300,
-      padding: EdgeInsets.all(15),
+      height: context.screenHeight() > context.screenWidth() ? 300 : 150,
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        image: DecorationImage(image: Image.asset('assets/images/bg3.png').image, fit: BoxFit.contain),
+        image: DecorationImage(image: Image.asset('assets/images/bg3.png').image, fit: BoxFit.contain, alignment: Alignment.centerRight),
         gradient: const LinearGradient(
           colors: [Colors.pink, Colors.transparent],
           begin: Alignment.topCenter,
@@ -50,7 +53,7 @@ class TopBar extends StatelessWidget with DefaultColor {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
@@ -64,13 +67,14 @@ class TopBar extends StatelessWidget with DefaultColor {
                  ),
                 ),
                 //Блок с округлёнными краями
-                Chip(label: Text('02.06.2020', style: TextStyle(color: Colors.white),),
+                Chip(label: Text( DateFormat("dd.MM.yyyy").format(DateTime.now()) , style: medium, ),
                 backgroundColor: Color.fromRGBO(r, g, b, 0.2),),
+                const SizedBox(width: 14,),
                 CircleAvatar(
                   backgroundColor: Color.fromRGBO(r, g, b, 0.2),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.insert_chart),
+                    icon: const Icon(Icons.insert_chart),
                     color: Colors.white,
                     tooltip: 'Показать график',
                   ),

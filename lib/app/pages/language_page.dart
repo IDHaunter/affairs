@@ -15,13 +15,13 @@ class _LanguagePage extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawer(),
+      drawer: const NavigationDrawer(),
       body: Column(
         children: <Widget>[
           TopBar(),
           ListTile(
             leading: const Icon(Icons.language),
-            title: const Text('Русский'),
+            title: Text('Русский', style: regular.copyWith(fontSize: titleSize)),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Language>(
@@ -40,7 +40,7 @@ class _LanguagePage extends State<LanguagePage> {
           ),
           ListTile(
             leading: const Icon(Icons.language),
-            title: const Text('English'),
+            title: Text('English', style: regular.copyWith(fontSize: titleSize)),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Language>(

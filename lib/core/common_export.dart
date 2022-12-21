@@ -7,6 +7,7 @@ export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 export 'package:affairs/l10n/language_handler.dart';
 export 'package:provider/provider.dart';
 export 'package:affairs/core/models/data_global.dart';
+export 'package:affairs/core/utils/context_utils.dart';
 
 
 

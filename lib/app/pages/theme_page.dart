@@ -21,7 +21,7 @@ class _ThemePage extends State<ThemePage> {
           TopBar(),
           ListTile(
             leading: Icon(Icons.light_mode_outlined),
-            title: Text(AppLocalizations.of(context)!.light),
+            title: Text(AppLocalizations.of(context)!.light, style: regular.copyWith(fontSize: titleSize)),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Appearance>(
@@ -42,7 +42,7 @@ class _ThemePage extends State<ThemePage> {
           ),
           ListTile(
             leading: const Icon(Icons.dark_mode_outlined),
-            title: Text(AppLocalizations.of(context)!.dark),
+            title: Text(AppLocalizations.of(context)!.dark, style: regular.copyWith(fontSize: titleSize)),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Appearance>(
@@ -62,7 +62,7 @@ class _ThemePage extends State<ThemePage> {
           ),
           ListTile(
             leading: const Icon(Icons.format_paint_outlined),
-            title: Text(AppLocalizations.of(context)!.system),
+            title: Text(AppLocalizations.of(context)!.system, style: regular.copyWith(fontSize: titleSize)),
             trailing: Transform.scale(
               scale: 1.6,
               child: Radio<Appearance>(

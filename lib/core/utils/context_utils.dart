@@ -1,14 +1,17 @@
 import 'package:affairs/core/common_export.dart';
 
-extension Localization on BuildContext {
+//Синтаксический сахар чтобы вместо AppLocalizations.of(context)!.xxx писать context.l()!.xxx
+extension LocalizationSugar on BuildContext {
   AppLocalizations? l() {
     return AppLocalizations.of(this);
   }
 }
 
+//4 виртуальные градации размеров телефонов
 enum PhoneSize { extraSmall, small, medium, large }
 
-extension DeviceDimension on BuildContext {
+//Синтаксический сахар для MediaQuery.of(this).size.xxx и связанной с ней подбором градаций размеров элементов UI
+extension DeviceDimensionSugar on BuildContext {
   double screenHeight() {
     return MediaQuery.of(this).size.height;
   }
@@ -30,6 +33,7 @@ extension DeviceDimension on BuildContext {
     }
   }
 
+  //В зависимости от размера экрана телефона позволяет использовать 4 градации некого размера некого элемента
   double valueByPhoneSize(double extraSmall, double small, double medium, double large) {
     switch (phoneSize()) {
       case PhoneSize.extraSmall:

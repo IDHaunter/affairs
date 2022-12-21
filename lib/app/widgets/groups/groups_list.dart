@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:affairs/core/common_export.dart';
 
 class GroupListWidget extends StatefulWidget {
   const GroupListWidget({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class _GroupListWidgetState extends State<GroupListWidget> {
   Widget build(BuildContext context) {
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          return GroupListRowWidget();
+          return const GroupListRowWidget();
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider(
@@ -29,9 +29,9 @@ class GroupListRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
-      title: Text('The End of the Fucking World'),
-      trailing: Icon(Icons.more_vert),
+    return ListTile(
+      title: Text('The End of the Fucking World', style: medium ),
+      trailing: const Icon(Icons.more_vert),
     );
   }
 }
