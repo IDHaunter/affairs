@@ -13,12 +13,12 @@ class LightTheme extends ITheme {
   final Color _primary = const Color(0xFFEA2F8D);
   final Color _secondary = const Color(0xFFFFFFFF);
   final Color _accent = const Color(0xFFFF4081);
-  final Color _majorShadow = const Color(0x29B1196F);
+  final Color _majorShadow = const Color(0x4FD2348D);
   final Color _textPrimary = const Color(0xFF131E17);
   final Color _textSecondary = const Color(0x80131E17);
   final Color _icon = const Color(0x99131E17);
   final Color _dark = const Color(0xFF131E17);
-  final Color _failure = const Color(0xFFFF0000);
+  final Color _failure = const Color(0xFFFF0059);
   final Color _success = const Color(0xFFA3FF40);
   final Color _grey = const Color(0xFFE4DCFB);
   final Color _buttonText = const Color(0xFFFFFFFF);

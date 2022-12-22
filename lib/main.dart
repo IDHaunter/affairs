@@ -1,6 +1,7 @@
 import 'app/pages/home_page.dart';
 import 'app/pages/theme_page.dart';
 import 'app/pages/language_page.dart';
+import 'app/pages/group/group_page.dart';
 import 'core/common_export.dart';
 
 void main() async {
@@ -72,9 +73,11 @@ class _MyAppState extends State<MyApp> {
         //home: HomePage(),
         initialRoute: '/',
         routes: {
+          //тут нельзя задавать const т.к. при смене тем оформления будет глюк
           '/': (context) => HomePage(),
           '/theme_page': (context) => ThemePage(),
           '/language_page': (context) => LanguagePage(),
+          '/group_page': (context) => GroupPage(),
         },
       ),
     );

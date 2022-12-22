@@ -18,7 +18,7 @@ class DarkTheme extends ITheme {
   final Color _textSecondary = const Color(0x80FFFFFF);
   final Color _icon = const Color(0xFFE91E63);
   final Color _dark = const Color(0xFF131E17);
-  final Color _failure = const Color(0xFFFF0000);
+  final Color _failure = const Color(0xFFFF0059);
   final Color _success = const Color(0xFFA3FF40);
   final Color _grey = const Color(0xFFE4DCFB);
   final Color _buttonText = const Color(0xFFFFFFFF);

@@ -10,6 +10,11 @@ import 'package:affairs/app/widgets/groups/groups_list.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  void showGroupPage(BuildContext context)
+  {
+   Navigator.of(context).pushNamed('/group_page');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +36,8 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read<DataGlobal>().putDataS(
-              AppLocalizations.of(context)!.helloWorld); //пишет в модель
+          showGroupPage(context);
+          //context.read<DataGlobal>().putDataS(AppLocalizations.of(context)!.helloWorld); //пишет в модель
         },
         elevation: 5,
         tooltip: 'Добавить новую задачу',
