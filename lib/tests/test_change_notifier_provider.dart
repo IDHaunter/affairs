@@ -137,8 +137,8 @@ class SomeDataTest extends StatelessWidget {
     return Column(
       children: [
         //две строчки аналогичны
-        Text(context.watch<DataGlobal>().takeDataS), //смотрит за моделью
-        Text(Provider.of<DataGlobal>(context, listen: true).takeDataS), //смотрит за моделью
+        Text(context.watch<GlobalModel>().takeDataS), //смотрит за моделью
+        Text(Provider.of<GlobalModel>(context, listen: true).takeDataS), //смотрит за моделью
         const SizedBox(
           height: 20,
         ),
@@ -159,7 +159,7 @@ class SomeDataS extends StatelessWidget {
     return TextField(
         onChanged: (newData) =>
             //Эти две строки аналогичны
-            Provider.of<DataGlobal>(context, listen: false).putDataS(newData)); //пишет в модель
+            Provider.of<GlobalModel>(context, listen: false).putDataS(newData)); //пишет в модель
     //   context.read<DataGlobal>().changeString(newData)); //пишет в модель
   }
 }

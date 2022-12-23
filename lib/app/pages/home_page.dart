@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
         },
         elevation: 5,
         tooltip: 'Добавить новую задачу',
-        child: Icon(color: Colors.white, Icons.add),
+        child: const Icon(color: Colors.white, Icons.add),
       ),
     );
   }

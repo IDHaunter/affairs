@@ -1,3 +1,4 @@
+import 'app/pages/group/group_page_model.dart';
 import 'app/pages/home_page.dart';
 import 'app/pages/theme_page.dart';
 import 'app/pages/language_page.dart';
@@ -48,8 +49,8 @@ class _MyAppState extends State<MyApp> {
     //Provider это обёртка для InheritedWidget
     //flutter_bloc и MobX используют provider в своей реализации
 
-    return ChangeNotifierProvider<DataGlobal>(
-      create: (context) => DataGlobal(),
+    return ChangeNotifierProvider<GlobalModel>(
+      create: (context) => GlobalModel(),
       //Если бы использовали Provider то работали через метод create: (context)=>data,
       //или даже просто create: (context)=>'The end of the Fucking world',
       //где data - любая переменная (класс) с любыми данными которые автоматом были бы доступны ТОЛЬКО по дереву вниз
@@ -77,7 +78,9 @@ class _MyAppState extends State<MyApp> {
           '/': (context) => HomePage(),
           '/theme_page': (context) => ThemePage(),
           '/language_page': (context) => LanguagePage(),
-          '/group_page': (context) => GroupPage(),
+          '/group_page': (context) => Provider<GroupPageModel>(
+              create: (context) => GroupPageModel(),
+              child: GroupPage()),
         },
       ),
     );
