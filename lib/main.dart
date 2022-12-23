@@ -51,8 +51,8 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider<DataGlobal>(
       create: (context) => DataGlobal(),
       //Если бы использовали Provider то работали через метод create: (context)=>data,
-      //create: (context)=>'The end of the Fucking world',
-      // где data - любая переменная с данными которая автоматом была бы доступна ТОЛЬКО по дереву вниз
+      //или даже просто create: (context)=>'The end of the Fucking world',
+      //где data - любая переменная (класс) с любыми данными которые автоматом были бы доступны ТОЛЬКО по дереву вниз
       child: MaterialApp(
         //отключаем баннер Debug в верхнем правом углу
         debugShowCheckedModeBanner: false,

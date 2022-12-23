@@ -16,8 +16,8 @@ class TopBar extends StatelessWidget with DefaultColor {
 
     return Container(
       width: double.infinity,
-      height: context.screenHeight() > context.screenWidth() ? 300 : 150,
-      padding: const EdgeInsets.all(15),
+      height: context.screenHeight() > context.screenWidth() ? 300 : 140,
+      padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: context.screenHeight() > context.screenWidth() ? 15 : 7),
       decoration: BoxDecoration(
         image: DecorationImage(image: Image.asset('assets/images/bg3.png').image, fit: BoxFit.contain, alignment: Alignment.centerRight),
         gradient: const LinearGradient(

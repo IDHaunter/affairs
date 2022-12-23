@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 const double textSize=14;
 const double titleSize=16;
 
+TextStyle basic = GoogleFonts.nunitoSans();
+
 TextStyle light = GoogleFonts.nunitoSans(
     fontSize: textSize, fontStyle: FontStyle.normal, fontWeight: FontWeight.w300, color: curITheme.textPrimary());
 
