@@ -1,3 +1,6 @@
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+
 import 'app/pages/group/group_page_model.dart';
 import 'app/pages/home_page.dart';
 import 'app/pages/theme_page.dart';
@@ -15,6 +18,9 @@ void main() async {
 
   //инициализация языковых настроек
   await languageHandler.init();
+
+  //Hive - NoSQL Database
+  await Hive.initFlutter();
 
   runApp(
     ChangeNotifierProvider<ThemeModel>(
