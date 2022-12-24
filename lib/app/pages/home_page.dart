@@ -1,7 +1,9 @@
 import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/app/widgets/groups/groups_list.dart';
+import 'package:affairs/app/widgets/groups/groups_list_widget.dart';
+
+import '../widgets/groups/groups_list_widget_model.dart';
 //import 'package:affairs/tests/test_inherit.dart';
 //import 'package:affairs/tests/test_inherit_notifier.dart';
 //import 'package:affairs/tests/test_change_notifier_provider.dart';
@@ -24,7 +26,10 @@ class HomePage extends StatelessWidget {
         children: [
           TopBar(),
           Expanded(
-              child: GroupListWidget()),
+              child: ChangeNotifierProvider<GroupsListWidgetModel>(
+                  create: (context) => GroupsListWidgetModel(),
+                  child: GroupListWidget())
+              ),
           //TestSharedPreferences(),
           //Text(context.watch<String>()) - для обычного провайдера
           //SomeDataTest(),
@@ -36,7 +41,8 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showGroupPage(context);
+          //showGroupPage(context);
+          Navigator.of(context).pushNamed('/group_page');
           //context.read<DataGlobal>().putDataS(AppLocalizations.of(context)!.helloWorld); //пишет в модель
         },
         elevation: 5,

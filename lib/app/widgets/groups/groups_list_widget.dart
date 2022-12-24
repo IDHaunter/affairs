@@ -1,3 +1,4 @@
+import 'package:affairs/app/widgets/groups/groups_list_widget_model.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -11,6 +12,8 @@ class GroupListWidget extends StatefulWidget {
 class _GroupListWidgetState extends State<GroupListWidget> {
   @override
   Widget build(BuildContext context) {
+    final int groupsCount = Provider.of<GroupsListWidgetModel>(context, listen: true)
+        .takeGroups.length ?? 0;
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return GroupListRowWidget(indexInList: index);
@@ -20,7 +23,7 @@ class _GroupListWidgetState extends State<GroupListWidget> {
             height: 1,
           );
         },
-        itemCount: 10);
+        itemCount: groupsCount);
 
   }
 }
@@ -31,6 +34,7 @@ class GroupListRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final group = Provider.of<GroupsListWidgetModel>(context, listen: true).takeGroups[indexInList];
     return Slidable(
       // Specify a key if the Slidable is dismissible.
       //key: const ValueKey(0),
@@ -87,7 +91,7 @@ class GroupListRowWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        title: Text('The End of the Fucking World', style: medium ),
+        title: Text(group.name, style: medium ),
         trailing: const Icon(Icons.chevron_right),
         onTap: (){},
       ),
