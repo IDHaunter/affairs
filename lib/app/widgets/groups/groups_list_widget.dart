@@ -34,7 +34,8 @@ class GroupListRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final group = Provider.of<GroupsListWidgetModel>(context, listen: true).takeGroups[indexInList];
+    final group = Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroups[indexInList];
+
     return Slidable(
       // Specify a key if the Slidable is dismissible.
       //key: const ValueKey(0),
@@ -82,7 +83,11 @@ class GroupListRowWidget extends StatelessWidget {
           ),
           // A SlidableAction can have an icon and/or a label.
           SlidableAction(
-            onPressed: (context){},
+
+            onPressed: (context){
+              Provider.of<GroupsListWidgetModel>(context, listen: false).deleteGroupFromHive(indexInList);
+              print('----delete: $indexInList');
+            },
             backgroundColor: curITheme.accent(),
             foregroundColor: curITheme.buttonText(),
             icon: Icons.delete,
