@@ -2,20 +2,15 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/widgets/groups/groups_list_widget.dart';
-
 import '../widgets/groups/groups_list_widget_model.dart';
+
 //import 'package:affairs/tests/test_inherit.dart';
 //import 'package:affairs/tests/test_inherit_notifier.dart';
 //import 'package:affairs/tests/test_change_notifier_provider.dart';
 //import 'package:affairs/tests/test_shared_preferences.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  void showGroupPage(BuildContext context)
-  {
-   Navigator.of(context).pushNamed('/group_page');
-  }
+class GroupsPage extends StatelessWidget {
+  const GroupsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

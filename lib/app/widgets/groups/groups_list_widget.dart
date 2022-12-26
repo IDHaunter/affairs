@@ -98,7 +98,9 @@ class GroupListRowWidget extends StatelessWidget {
       child: ListTile(
         title: Text(group.name, style: medium ),
         trailing: const Icon(Icons.chevron_right),
-        onTap: (){},
+        onTap: () {
+          Provider.of<GroupsListWidgetModel>(context, listen: false).prepareGroupKey(indexInList);
+          Navigator.of(context).pushNamed('/tasks_page', arguments: Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroupKey);},
       ),
     );
   }

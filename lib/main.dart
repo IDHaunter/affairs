@@ -2,7 +2,9 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'app/pages/group/group_page_model.dart';
-import 'app/pages/home_page.dart';
+import 'app/pages/groups_page.dart';
+import 'app/pages/task/task_page.dart';
+import 'app/pages/tasks_page.dart';
 import 'app/pages/theme_page.dart';
 import 'app/pages/language_page.dart';
 import 'app/pages/group/group_page.dart';
@@ -81,12 +83,14 @@ class _MyAppState extends State<MyApp> {
         initialRoute: '/',
         routes: {
           //тут нельзя задавать const т.к. при смене тем оформления будет глюк
-          '/': (context) => HomePage(),
+          '/': (context) => GroupsPage(),
           '/theme_page': (context) => ThemePage(),
           '/language_page': (context) => LanguagePage(),
           '/group_page': (context) => Provider<GroupPageModel>(
               create: (context) => GroupPageModel(),
               child: GroupPage()),
+          '/tasks_page': (context) => TasksPage(),
+          '/tasks_page/task_page': (context) => TaskPage(),
         },
       ),
     );

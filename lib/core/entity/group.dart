@@ -8,6 +8,10 @@ part 'group.g.dart';
 class Group {
   @HiveField(0)
   String name;
+  @HiveField(1)
+  //HiveList - используется для хранения связей
+  HiveList? tasks;
+
   Group({required this.name});
   
 }
