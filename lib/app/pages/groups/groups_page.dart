@@ -1,8 +1,8 @@
 import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/app/widgets/groups/groups_list_widget.dart';
-import '../widgets/groups/groups_list_widget_model.dart';
+import 'package:affairs/app/pages/groups/groups_list_widget.dart';
+import '../../pages/groups/groups_list_widget_model.dart';
 
 //import 'package:affairs/tests/test_inherit.dart';
 //import 'package:affairs/tests/test_inherit_notifier.dart';
@@ -23,7 +23,7 @@ class GroupsPage extends StatelessWidget {
           Expanded(
               child: ChangeNotifierProvider<GroupsListWidgetModel>(
                   create: (context) => GroupsListWidgetModel(),
-                  child: GroupListWidget())
+                  child: GroupsListWidget())
               ),
           //TestSharedPreferences(),
           //Text(context.watch<String>()) - для обычного провайдера

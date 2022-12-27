@@ -11,3 +11,4 @@ class Task {
 
   Task({required this.text, required this.isDone});
 }
+

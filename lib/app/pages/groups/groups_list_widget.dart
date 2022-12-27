@@ -1,22 +1,22 @@
-import 'package:affairs/app/widgets/groups/groups_list_widget_model.dart';
+import 'package:affairs/app/pages/groups/groups_list_widget_model.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class GroupListWidget extends StatefulWidget {
-  const GroupListWidget({Key? key}) : super(key: key);
+class GroupsListWidget extends StatefulWidget {
+  const GroupsListWidget({Key? key}) : super(key: key);
 
   @override
-  State<GroupListWidget> createState() => _GroupListWidgetState();
+  State<GroupsListWidget> createState() => _GroupsListWidgetState();
 }
 
-class _GroupListWidgetState extends State<GroupListWidget> {
+class _GroupsListWidgetState extends State<GroupsListWidget> {
   @override
   Widget build(BuildContext context) {
     final int groupsCount = Provider.of<GroupsListWidgetModel>(context, listen: true)
         .takeGroups.length ?? 0;
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          return GroupListRowWidget(indexInList: index);
+          return GroupsListRowWidget(indexInList: index);
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider(
@@ -28,9 +28,9 @@ class _GroupListWidgetState extends State<GroupListWidget> {
   }
 }
 
-class GroupListRowWidget extends StatelessWidget {
+class GroupsListRowWidget extends StatelessWidget {
   final int indexInList;
-  const GroupListRowWidget({Key? key, required this.indexInList}) : super(key: key);
+  const GroupsListRowWidget({Key? key, required this.indexInList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,11 +2,11 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'app/pages/group/group_page_model.dart';
-import 'app/pages/groups_page.dart';
+import 'app/pages/groups/groups_page.dart';
 import 'app/pages/task/task_page.dart';
-import 'app/pages/tasks_page.dart';
-import 'app/pages/theme_page.dart';
-import 'app/pages/language_page.dart';
+import 'app/pages/tasks/tasks_page.dart';
+import 'app/pages/theme/theme_page.dart';
+import 'app/pages/language/language_page.dart';
 import 'app/pages/group/group_page.dart';
 import 'core/common_export.dart';
 

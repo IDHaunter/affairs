@@ -1,28 +1,35 @@
+import 'package:affairs/app/pages/tasks/tasks_list_widget_model.dart';
 import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
+import 'package:affairs/app/pages/tasks/tasks_list_widget.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final groupKey = ModalRoute.of(context)!.settings.arguments as int;
+
+    //модель TasksListWidgetModel по группе нужно инициализировать до первого обращения
+
     return Scaffold(
       //backgroundColor: Colors.white,
       drawer: NavigationDrawer(),
       body: Column(
         children: [
           TopBar(),
-          const Expanded(
-             child: Text('тут будет список задач'),
+          Expanded(
+              child: ChangeNotifierProvider<TasksListWidgetModel>(
+                  create: (context) => TasksListWidgetModel(groupKey: groupKey),
+                  child: TasksListWidget())
           ),
+
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //showGroupPage(context);
-          Navigator.of(context).pushNamed('/group_page');
-          //context.read<DataGlobal>().putDataS(AppLocalizations.of(context)!.helloWorld); //пишет в модель
+          Navigator.of(context).pushNamed('/tasks_page/task_page');
         },
         elevation: 5,
         tooltip: 'Добавить новую задачу',
