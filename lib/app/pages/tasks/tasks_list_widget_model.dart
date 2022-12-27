@@ -10,6 +10,7 @@ Group? _group;
 Group? get takeGroup => _group;
 
 TasksListWidgetModel({required this.groupKey}){
+  print('--- TasksListWidgetModel = $groupKey ');
   _setup();
 }
 
@@ -19,13 +20,16 @@ void _setup() {
     Hive.registerAdapter(GroupAdapter());
   }
   _groupBox = Hive.openBox<Group>('group_box');
+  print('--- _setup = $_groupBox ');
   _loadGroup();
 }
 
 //Получение группы по ключу
 void _loadGroup() async {
   final box = await _groupBox;
+  print('--- _loadGroup = $groupKey ');
   _group = box.get(groupKey);
+  print('--- _group = ${_group?.name} ');
   notifyListeners();
 }
 

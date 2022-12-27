@@ -12,6 +12,7 @@ class TasksPage extends StatelessWidget {
     final groupKey = ModalRoute.of(context)!.settings.arguments as int;
 
     //модель TasksListWidgetModel по группе нужно инициализировать до первого обращения
+    //final model=TasksListWidgetModel(groupKey: groupKey);
 
     return Scaffold(
       //backgroundColor: Colors.white,
@@ -22,6 +23,7 @@ class TasksPage extends StatelessWidget {
           Expanded(
               child: ChangeNotifierProvider<TasksListWidgetModel>(
                   create: (context) => TasksListWidgetModel(groupKey: groupKey),
+                  lazy: true,
                   child: TasksListWidget())
           ),
 
