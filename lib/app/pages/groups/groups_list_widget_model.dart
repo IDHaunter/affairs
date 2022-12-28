@@ -6,21 +6,31 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class GroupsListWidgetModel extends ChangeNotifier {
   var _groups = <Group>[];
-  int _groupKey =0;
 
   //toList() - вернёт другой список, чтобы снаружи не сделали add (это защита)
   List<Group> get takeGroups => _groups.toList();
 
-  int get takeGroupKey => _groupKey;
-
-  void prepareGroupKey (int groupIndex) async
-  { //Проверяем существование адаптера и если нету то создаём
+  void showTasks(BuildContext context, int groupIndex, [bool mounted = true]) async {
+    //Проверяем существование адаптера и если нету то создаём
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(GroupAdapter());
     }
     final box = await Hive.openBox<Group>('group_box');
-    _groupKey = box.keyAt(groupIndex); // as int - т.к. мы добавляли через add то тип будет integer
+    final groupKey = box.keyAt(groupIndex); // as int - т.к. мы добавляли через add то тип будет integer
+    if (!mounted) return;
+    unawaited(Navigator.of(context).pushNamed('/tasks_page', arguments: groupKey)) ;
   }
+
+  // void showTasks(BuildContext context, int groupIndex) async {
+  //   //Проверяем существование адаптера и если нету то создаём
+  //   if (!Hive.isAdapterRegistered(1)) {
+  //     Hive.registerAdapter(GroupAdapter());
+  //   }
+  //   final box = await Hive.openBox<Group>('group_box');
+  //   final groupKey = box.keyAt(groupIndex); // as int - т.к. мы добавляли через add то тип будет integer
+  //
+  //   unawaited(Navigator.of(context).pushNamed('/tasks_page', arguments: groupKey)) ;
+  // }
 
   void _readGroupsFromHive(Box<Group> box) {
     _groups = box.values.toList();

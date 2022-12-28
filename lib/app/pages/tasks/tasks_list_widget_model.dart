@@ -11,7 +11,9 @@ Group? get takeGroup => _group;
 
 TasksListWidgetModel({required this.groupKey}){
   print('--- TasksListWidgetModel = $groupKey ');
+  print('--- TasksListWidgetModel begin setup');
   _setup();
+  print('--- TasksListWidgetModel end setup');
 }
 
 void _setup() {
@@ -27,9 +29,9 @@ void _setup() {
 //Получение группы по ключу
 void _loadGroup() async {
   final box = await _groupBox;
-  print('--- _loadGroup = $groupKey ');
+  print('--- _loadGroup groupKey= $groupKey ');
   _group = box.get(groupKey);
-  print('--- _group = ${_group?.name} ');
+  print('--- _group.name = ${_group?.name} ');
   notifyListeners();
 }
 

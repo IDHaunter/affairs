@@ -35,6 +35,7 @@ class GroupsListRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final group = Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroups[indexInList];
+    final group_name = Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroups[indexInList].name;
 
     return Slidable(
       // Specify a key if the Slidable is dismissible.
@@ -99,8 +100,9 @@ class GroupsListRowWidget extends StatelessWidget {
         title: Text(group.name, style: medium ),
         trailing: const Icon(Icons.chevron_right),
         onTap: () {
-          Provider.of<GroupsListWidgetModel>(context, listen: false).prepareGroupKey(indexInList);
-          Navigator.of(context).pushNamed('/tasks_page', arguments: Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroupKey);},
+          print('--- groups_list_widget indexInList=$indexInList');
+          Provider.of<GroupsListWidgetModel>(context, listen: false).showTasks(context, indexInList);
+          },
       ),
     );
   }

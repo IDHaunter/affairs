@@ -4,15 +4,21 @@ import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/tasks/tasks_list_widget.dart';
 
+import '../groups/groups_list_widget_model.dart';
+
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
+  //late final int currentGroupKey;
+  //late final TasksListWidgetModel model;
 
   @override
   Widget build(BuildContext context) {
-    final groupKey = ModalRoute.of(context)!.settings.arguments as int;
+    //final groupKey = ModalRoute.of(context)!.settings.arguments as int;
 
     //модель TasksListWidgetModel по группе нужно инициализировать до первого обращения
-    //final model=TasksListWidgetModel(groupKey: groupKey);
+    final currentGroupKey =ModalRoute.of(context)!.settings.arguments as int;
+    //print('--- TasksPageState.build currentGroupKey=$currentGroupKey');
+    //model=TasksListWidgetModel(groupKey: currentGroupKey);
 
     return Scaffold(
       //backgroundColor: Colors.white,
@@ -21,9 +27,10 @@ class TasksPage extends StatelessWidget {
         children: [
           TopBar(),
           Expanded(
-              child: ChangeNotifierProvider<TasksListWidgetModel>(
-                  create: (context) => TasksListWidgetModel(groupKey: groupKey),
-                  lazy: true,
+              child: ChangeNotifierProvider<TasksListWidgetModel>( //.value
+                //value: model,
+                  create: (context) => TasksListWidgetModel(groupKey: currentGroupKey),
+                  lazy: false,
                   child: TasksListWidget())
           ),
 
