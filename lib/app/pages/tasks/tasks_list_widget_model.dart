@@ -10,28 +10,25 @@ Group? _group;
 Group? get takeGroup => _group;
 
 TasksListWidgetModel({required this.groupKey}){
-  print('--- TasksListWidgetModel = $groupKey ');
-  print('--- TasksListWidgetModel begin setup');
   _setup();
-  print('--- TasksListWidgetModel end setup');
 }
 
-void _setup() {
+void _setup( ) {
   //Проверяем существование адаптера и если нету то создаём
   if (!Hive.isAdapterRegistered(1)) {
     Hive.registerAdapter(GroupAdapter());
   }
   _groupBox = Hive.openBox<Group>('group_box');
-  print('--- _setup = $_groupBox ');
   _loadGroup();
 }
 
 //Получение группы по ключу
 void _loadGroup() async {
   final box = await _groupBox;
-  print('--- _loadGroup groupKey= $groupKey ');
   _group = box.get(groupKey);
-  print('--- _group.name = ${_group?.name} ');
+  //ВАЖНЫЙ МОМЕНТ: поскольку выполнение асинхронное то загрузка группы будет происходить с задержкой, и кто-то вызывающий
+  //эту асинхронную функцию для получения группы может не дождаться милисекунды для получения группы.
+  //Проблема решается через провайдер, подписку на номер группы и уведомление о её изменении и как следствие повторный build.
   notifyListeners();
 }
 
