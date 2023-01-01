@@ -2,14 +2,9 @@ import 'package:affairs/app/pages/groups/groups_list_widget_model.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class GroupsListWidget extends StatefulWidget {
+class GroupsListWidget extends StatelessWidget {
   const GroupsListWidget({Key? key}) : super(key: key);
 
-  @override
-  State<GroupsListWidget> createState() => _GroupsListWidgetState();
-}
-
-class _GroupsListWidgetState extends State<GroupsListWidget> {
   @override
   Widget build(BuildContext context) {
     final int groupsCount = Provider.of<GroupsListWidgetModel>(context, listen: true)

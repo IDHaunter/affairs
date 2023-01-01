@@ -1,3 +1,4 @@
+import 'package:affairs/core/entity/task.dart';
 import 'package:hive/hive.dart';
 
 part 'group.g.dart';
@@ -10,8 +11,13 @@ class Group {
   String name;
   @HiveField(1)
   //HiveList - используется для хранения связей
-  HiveList? tasks;
+  HiveList<Task>? tasks;
 
   Group({required this.name});
+
+  void addTask (Box<Task> box, Task task) {
+    tasks ??= HiveList(box); //если Null то присваиваем ему Box
+    tasks?.add(task);
+  }
   
 }

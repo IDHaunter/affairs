@@ -3,14 +3,9 @@ import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/entity/task.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class TasksListWidget extends StatefulWidget {
+class TasksListWidget extends StatelessWidget {
   const TasksListWidget({Key? key}) : super(key: key);
 
-  @override
-  State<TasksListWidget> createState() => _TasksListWidgetState();
-}
-
-class _TasksListWidgetState extends State<TasksListWidget> {
   @override
   Widget build(BuildContext context) {
     //final int groupsCount = Provider.of<TasksListWidgetModel>(context, listen: true).takeGroups.length ?? 0;
