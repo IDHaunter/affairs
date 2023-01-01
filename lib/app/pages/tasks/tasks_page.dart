@@ -8,17 +8,10 @@ import '../groups/groups_list_widget_model.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
-  //late final int currentGroupKey;
-  //late final TasksListWidgetModel model;
 
   @override
   Widget build(BuildContext context) {
-    //final groupKey = ModalRoute.of(context)!.settings.arguments as int;
-
-    //модель TasksListWidgetModel по группе нужно инициализировать до первого обращения
     final currentGroupKey =ModalRoute.of(context)!.settings.arguments as int;
-    //print('--- TasksPageState.build currentGroupKey=$currentGroupKey');
-    //model=TasksListWidgetModel(groupKey: currentGroupKey);
 
     return Scaffold(
       //backgroundColor: Colors.white,

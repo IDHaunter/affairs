@@ -21,17 +21,6 @@ class GroupsListWidgetModel extends ChangeNotifier {
     unawaited(Navigator.of(context).pushNamed('/tasks_page', arguments: groupKey)) ;
   }
 
-  // void showTasks(BuildContext context, int groupIndex) async {
-  //   //Проверяем существование адаптера и если нету то создаём
-  //   if (!Hive.isAdapterRegistered(1)) {
-  //     Hive.registerAdapter(GroupAdapter());
-  //   }
-  //   final box = await Hive.openBox<Group>('group_box');
-  //   final groupKey = box.keyAt(groupIndex); // as int - т.к. мы добавляли через add то тип будет integer
-  //
-  //   unawaited(Navigator.of(context).pushNamed('/tasks_page', arguments: groupKey)) ;
-  // }
-
   void _readGroupsFromHive(Box<Group> box) {
     _groups = box.values.toList();
     notifyListeners();

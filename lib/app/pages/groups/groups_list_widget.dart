@@ -34,8 +34,7 @@ class GroupsListRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final group = Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroups[indexInList];
-    final group_name = Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroups[indexInList].name;
+    final group = Provider.of<GroupsListWidgetModel>(context, listen: true).takeGroups[indexInList];
 
     return Slidable(
       // Specify a key if the Slidable is dismissible.
@@ -87,7 +86,7 @@ class GroupsListRowWidget extends StatelessWidget {
 
             onPressed: (context){
               Provider.of<GroupsListWidgetModel>(context, listen: false).deleteGroupFromHive(indexInList);
-              print('----delete: $indexInList');
+              //print('----delete: $indexInList');
             },
             backgroundColor: curITheme.accent(),
             foregroundColor: curITheme.buttonText(),
@@ -100,7 +99,7 @@ class GroupsListRowWidget extends StatelessWidget {
         title: Text(group.name, style: medium ),
         trailing: const Icon(Icons.chevron_right),
         onTap: () {
-          print('--- groups_list_widget indexInList=$indexInList');
+          //print('--- groups_list_widget indexInList=$indexInList');
           Provider.of<GroupsListWidgetModel>(context, listen: false).showTasks(context, indexInList);
           },
       ),

@@ -14,10 +14,10 @@ class _TasksListWidgetState extends State<TasksListWidget> {
   @override
   Widget build(BuildContext context) {
     //final int groupsCount = Provider.of<TasksListWidgetModel>(context, listen: true).takeGroups.length ?? 0;
-    print('---_TasksListWidgetState.build takeGroup= ${Provider.of<TasksListWidgetModel>(context, listen: false).takeGroup}');
+    //print('---_TasksListWidgetState.build takeGroup= ${Provider.of<TasksListWidgetModel>(context, listen: false).takeGroup}');
     return Column(
       children: [
-        Text(Provider.of<TasksListWidgetModel>(context, listen: false).takeGroup?.name ?? 'Список задач'),
+        Text(Provider.of<TasksListWidgetModel>(context, listen: true).takeGroup?.name ?? 'Список задач'),
         Expanded(
           child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
