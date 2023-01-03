@@ -212,11 +212,11 @@ class CalcArea extends StatelessWidget {
       children: [Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(width: 100, height: 46, child: TextField(decoration: InputDecoration( border: OutlineInputBorder()), onChanged: (newValue) {
+          SizedBox(width: 100, height: 46, child: TextField(decoration: InputDecoration( border: OutlineInputBorder()), onChanged: (newValue) {
             SimpleCalcProvider.read(context)?.putFirstNumber=newValue;
           },)),
           Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('+')),
-          Container(width: 100, height: 46, child: TextField(decoration: InputDecoration(border: OutlineInputBorder()), onChanged: (newValue) {
+          SizedBox(width: 100, height: 46, child: TextField(decoration: InputDecoration(border: OutlineInputBorder()), onChanged: (newValue) {
             SimpleCalcProvider.read(context)?.putSecondNumber=newValue;
           },)),
           Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('=')),

@@ -4,6 +4,8 @@ import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/entity/group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../core/entity/task.dart';
+
 class GroupsListWidgetModel extends ChangeNotifier {
   var _groups = <Group>[];
 
@@ -32,6 +34,8 @@ class GroupsListWidgetModel extends ChangeNotifier {
       Hive.registerAdapter(GroupAdapter());
     }
     final box = await Hive.openBox<Group>('group_box');
+    //перед удалением группы удаляем её таски
+    await box.getAt(groupIndex)?.tasks?.deleteAllFromHive();
     await box.deleteAt(groupIndex);
   }
 
@@ -41,6 +45,13 @@ class GroupsListWidgetModel extends ChangeNotifier {
       Hive.registerAdapter(GroupAdapter());
     }
     final box = await Hive.openBox<Group>('group_box');
+
+    //Проверяем существование адаптера по такскам и если нету то создаём
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter(TaskAdapter());
+    }
+    await Hive.openBox<Task>('task_box');
+
     _readGroupsFromHive(box);
 
     //дополнительно подпишемся на этот box

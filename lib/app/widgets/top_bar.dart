@@ -1,18 +1,12 @@
 import 'package:affairs/core/common_export.dart';
 import 'package:intl/intl.dart';
 
-//миксин тут для эксперимента
-mixin DefaultColor {
-  final int r=230;
-  final int g=0;
-  final int b=150;
-}
-
-class TopBar extends StatelessWidget with DefaultColor {
+class TopBar extends StatelessWidget with DefaultBackColor {
   TopBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
 
     return Container(
       width: double.infinity,

@@ -1,6 +1,13 @@
 import 'package:affairs/core/utils/context_utils.dart';
 import 'package:flutter/material.dart';
 
+//миксин тут для эксперимента
+mixin DefaultBackColor {
+  final int r=230;
+  final int g=0;
+  final int b=150;
+}
+
 class Style {
   // COMMON
   static const cardCornerRadius = 15.0;

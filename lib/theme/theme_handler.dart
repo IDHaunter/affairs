@@ -86,7 +86,6 @@ class ThemeHandler { //extends ChangeNotifier - поскольку за обно
   //Получаем сохранённую цветовую схему
   Appearance _getSavedAppearance() {
     return appearanceFromName(_preferences.getString(_appearanceKey) ?? "") ?? Appearance.system;
-    return Appearance.system;
   }
 
   //Сохраняем текущую цветовую схему

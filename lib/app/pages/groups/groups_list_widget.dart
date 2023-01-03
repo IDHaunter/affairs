@@ -8,7 +8,7 @@ class GroupsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int groupsCount = Provider.of<GroupsListWidgetModel>(context, listen: true)
-        .takeGroups.length ?? 0;
+        .takeGroups.length;
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return GroupsListRowWidget(indexInList: index);

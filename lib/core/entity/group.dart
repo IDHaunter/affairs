@@ -6,7 +6,7 @@ part 'group.g.dart';
 //Запустив эту команду мы сгенерируем group.g.dart (адаптер) плюс он будет
 //автоматически перегенироваться
 @HiveType(typeId: 1)
-class Group {
+class Group extends HiveObject{
   @HiveField(0)
   String name;
   @HiveField(1)
@@ -18,6 +18,9 @@ class Group {
   void addTask (Box<Task> box, Task task) {
     tasks ??= HiveList(box); //если Null то присваиваем ему Box
     tasks?.add(task);
+    //Если в рантайме сохраняется а при перезапуске отсутствует то нужно сохранить
+    //т.к. при работе со списком связей (HiveList) обязательно после изменений нужно сохранять
+    save();
   }
   
 }

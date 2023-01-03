@@ -8,7 +8,7 @@ class TasksListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final int groupsCount = Provider.of<TasksListWidgetModel>(context, listen: true).takeGroups.length ?? 0;
+    final int tasksCount = Provider.of<TasksListWidgetModel>(context, listen: true).takeTasks.length;
     //print('---_TasksListWidgetState.build takeGroup= ${Provider.of<TasksListWidgetModel>(context, listen: false).takeGroup}');
 
     return Column(
@@ -24,7 +24,7 @@ class TasksListWidget extends StatelessWidget {
                 height: 1,
               );
             },
-            itemCount: 3/*groupsCount*/),
+            itemCount: tasksCount),
         ),
     ]
     );
@@ -32,13 +32,17 @@ class TasksListWidget extends StatelessWidget {
   }
 }
 
-class TasksListRowWidget extends StatelessWidget {
+class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
   final int indexInList;
-  const TasksListRowWidget({Key? key, required this.indexInList}) : super(key: key);
+  TasksListRowWidget({Key? key, required this.indexInList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //final group = Provider.of<TasksListWidgetModel>(context, listen: false).takeGroups[indexInList];
+    final task = Provider.of<TasksListWidgetModel>(context, listen: false).takeTasks[indexInList];
+
+    //иконка и текст будут зависить от статуса таски
+    final icon = task.isDone ? Icons.done : null;
+    final taskTextStyle = task.isDone ? medium.copyWith(decoration: TextDecoration.lineThrough) : medium;
 
     return Slidable(
       // Specify a key if the Slidable is dismissible.
@@ -89,7 +93,7 @@ class TasksListRowWidget extends StatelessWidget {
           SlidableAction(
 
             onPressed: (context){
-              //Provider.of<TasksListWidgetModel>(context, listen: false).deleteGroupFromHive(indexInList);
+              Provider.of<TasksListWidgetModel>(context, listen: false).deleteTask(indexInList);
               //print('----delete: $indexInList');
             },
             backgroundColor: curITheme.accent(),
@@ -100,10 +104,21 @@ class TasksListRowWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        title: Text(/*group.name*/ 'Очень важное дело' , style: medium ),
-        trailing: const Icon(Icons.chevron_right),
+        title: Text(task.text , style: taskTextStyle ),
+        trailing: Padding(
+          padding: const EdgeInsets.only(right: 6),
+          child: Icon(icon),
+        ),
+        // trailing:  CircleAvatar(
+        //   backgroundColor: Color.fromRGBO(r, g, b, 0.2),
+        //   child: IconButton(
+        //     onPressed: () {},
+        //     icon: Icon(icon),
+        //     color: Colors.white,
+        //   ),
+        // ),
         onTap: () {
-          //Provider.of<TasksListWidgetModel>(context, listen: false).prepareGroupKey(indexInList);
+          Provider.of<TasksListWidgetModel>(context, listen: false).doneToggle(indexInList);
           //Navigator.of(context).pushNamed('/tasks_page', arguments: Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroupKey);
           },
       ),

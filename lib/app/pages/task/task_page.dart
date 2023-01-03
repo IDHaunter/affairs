@@ -23,14 +23,18 @@ class TaskTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      textAlign: TextAlign.center,
+      //textAlign: TextAlign.center,
       style: regular.copyWith(fontSize: titleSize),
       autofocus: true,
-      decoration: InputDecoration(
+      minLines: null,
+      maxLines: null,
+      expands: true,
+      decoration: const InputDecoration(
         //contentPadding: EdgeInsets.symmetric(horizontal: 25),
         //border: OutlineInputBorder(),
-        hintText: 'Введите новую задачу',
-        hintStyle: basic,
+        border: InputBorder.none,
+        hintText: 'Текст задачи',
+        //hintStyle: basic,
         //helperText: 'Имя группы',
       ),
       //по изменению
@@ -57,18 +61,14 @@ class TaskPageWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           TopBar(),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical:
-                    context.screenHeight() > context.screenWidth() ? 10 : 0,
-                horizontal: 10),
-            child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  TaskTextWidget(),
-                ]),
-          )
+          Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                         vertical:
+                             context.screenHeight() > context.screenWidth() ? 10 : 0,
+                        horizontal: 10),
+                child: TaskTextWidget(),
+              )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
