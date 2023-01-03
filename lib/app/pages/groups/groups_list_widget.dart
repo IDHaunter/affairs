@@ -29,8 +29,7 @@ class GroupsListRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final group = Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroups[indexInList];
-    final group_name = Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroups[indexInList].name;
+    final group = Provider.of<GroupsListWidgetModel>(context, listen: true).takeGroups[indexInList];
 
     return Slidable(
       // Specify a key if the Slidable is dismissible.

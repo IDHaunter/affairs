@@ -83,6 +83,8 @@ class _MyAppState extends State<MyApp> {
         initialRoute: '/',
         routes: {
           //тут нельзя задавать const т.к. при смене тем оформления будет глюк
+          //если страница №2 вызывается со страницы №1 то контекст первой
+          // не наследуется во второй (видно в DevTools и важно для моделей данных)
           '/': (context) => GroupsPage(),
           '/theme_page': (context) => ThemePage(),
           '/language_page': (context) => LanguagePage(),

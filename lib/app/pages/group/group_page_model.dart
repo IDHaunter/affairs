@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/entity/group.dart';
 import 'package:hive/hive.dart';

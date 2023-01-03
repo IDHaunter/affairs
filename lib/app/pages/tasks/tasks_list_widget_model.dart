@@ -10,6 +10,7 @@ Group? _group;
 Group? get takeGroup => _group;
 
 TasksListWidgetModel({required this.groupKey}){
+  //print('--- TasksListWidgetModel = $groupKey ');
   _setup();
 }
 
@@ -26,6 +27,7 @@ void _setup( ) {
 void _loadGroup() async {
   final box = await _groupBox;
   _group = box.get(groupKey);
+
   //ВАЖНЫЙ МОМЕНТ: поскольку выполнение асинхронное то загрузка группы будет происходить с задержкой, и кто-то вызывающий
   //эту асинхронную функцию для получения группы может не дождаться милисекунды для получения группы.
   //Проблема решается через провайдер, подписку на номер группы и уведомление о её изменении и как следствие повторный build.
