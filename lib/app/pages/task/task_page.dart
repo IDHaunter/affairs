@@ -4,12 +4,15 @@ import 'package:affairs/app/widgets/navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
 class TaskPage extends StatelessWidget {
-  const TaskPage({Key? key}) : super(key: key);
+  final int groupKeyFromNavigator;
+   const TaskPage({Key? key, required this.groupKeyFromNavigator}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final currentGroupKey = ModalRoute.of(context)!.settings.arguments as int;
-    print('---- TaskPage.build currentGroupKey=$currentGroupKey');
+    //print('---- TaskPage.build groupKeyFromNavigator=$groupKeyFromNavigator');
+    //final currentGroupKey = ModalRoute.of(context)!.settings.arguments as int; - при работе через свой навигатор (MainNavigator) будет = null !!!
+    final currentGroupKey=groupKeyFromNavigator;
+
     return Provider<TaskPageModel>(
         create: (context) => TaskPageModel(groupKey: currentGroupKey),
         lazy: false,

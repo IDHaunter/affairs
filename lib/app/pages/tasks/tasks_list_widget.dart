@@ -8,12 +8,13 @@ class TasksListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int tasksCount = Provider.of<TasksListWidgetModel>(context, listen: true).takeTasks.length;
-    //print('---_TasksListWidgetState.build takeGroup= ${Provider.of<TasksListWidgetModel>(context, listen: false).takeGroup}');
+    print('---_TasksListWidgetState.build before tasksCount');
+    final int tasksCount = Provider.of<TasksListWidgetModel>(context, listen: true).tasks.length;
+    print('---_TasksListWidgetState.build tasksCount= $tasksCount');
 
     return Column(
       children: [
-        Text(Provider.of<TasksListWidgetModel>(context, listen: true).takeGroup?.name ?? 'Список задач'),
+        Text(Provider.of<TasksListWidgetModel>(context, listen: true).group?.name ?? 'Список задач'),
         Expanded(
           child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
@@ -38,7 +39,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
 
   @override
   Widget build(BuildContext context) {
-    final task = Provider.of<TasksListWidgetModel>(context, listen: false).takeTasks[indexInList];
+    final task = Provider.of<TasksListWidgetModel>(context, listen: false).tasks[indexInList];
 
     //иконка и текст будут зависить от статуса таски
     final icon = task.isDone ? Icons.done : null;

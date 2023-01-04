@@ -1,4 +1,5 @@
 export 'package:flutter/material.dart';
+export 'package:affairs/app/navigation/main/main_navigator.dart';
 export 'package:affairs/theme/common/typography.dart';
 export 'package:affairs/theme/theme_handler.dart';
 export 'package:affairs/theme/common/style.dart';

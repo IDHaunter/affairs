@@ -7,13 +7,16 @@ import '../../../core/entity/task.dart';
 
 class TasksListWidgetModel extends ChangeNotifier {
 int groupKey;
+//Несмотря на то, что с _groupBox и _taskBox мы явно и не работаем, мы их всё равно обязательно инициализируем в конструкторе (_setup)
+//и ждём инициализации (await), иначе Hive будет подглючивать
 late final Future<Box<Group>> _groupBox;
+late final Future<Box<Task>> _taskBox;
 
 var _tasks = <Task>[];
-List<Task> get takeTasks => _tasks.toList();
+List<Task> get tasks =>_tasks.toList();
 
 Group? _group;
-Group? get takeGroup => _group;
+Group? get group => _group;
 
 TasksListWidgetModel({required this.groupKey}){
   //print('--- TasksListWidgetModel = $groupKey ');
@@ -31,8 +34,12 @@ void _loadGroup() async {
   notifyListeners();
 }
 
-  void _readTasks() {
-  _tasks = _group?.tasks ?? <Task>[];
+  void _readTasks() async {
+  final box = await _taskBox;
+  //если либо бокс пустой либо в группе нет связей то возвращаем пустой лист
+  if (box.length == 0) {_tasks = <Task>[];}
+  else { _tasks = _group?.tasks ?? <Task>[]; }
+  print('---- box.length = ${box.length} ::: _tasks.length = ${_tasks.length} ');
   notifyListeners();
   }
 
@@ -70,7 +77,7 @@ void _loadGroup() async {
       Hive.registerAdapter(TaskAdapter());
     }
     //даже если явно не юзаем бокс то всё равно его открываем
-    Hive.openBox<Task>('tasks_box');
+    _taskBox = Hive.openBox<Task>('tasks_box');
 
     _loadGroup();
     _setupListenTasks();

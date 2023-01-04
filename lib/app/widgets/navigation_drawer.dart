@@ -34,7 +34,7 @@ class NavigationDrawer extends StatelessWidget {
                       backgroundImage: Image.asset('assets/images/goose_640.jpg').image,
                       //backgroundColor: Colors.pink,
                     ),
-                    onTap: () {Navigator.pushNamed(context, '/');},
+                    onTap: () {Navigator.pushNamed(context, MainNavigatorRouteNames.groups);},
                   ),
                     Text(context.l()!.welcomeBack, style: medium ),
                     Text('Anatoliy', style: bold.copyWith(fontSize: titleSize)),
@@ -54,7 +54,7 @@ class NavigationDrawer extends StatelessWidget {
                       leading: const Icon(Icons.format_paint),
                       trailing: const Icon(Icons.more_vert),
                       onTap: () {
-                        Navigator.pushNamed(context, '/theme_page');
+                        Navigator.pushNamed(context, MainNavigatorRouteNames.theme);
                       },
                     ),
                   ),
@@ -65,7 +65,7 @@ class NavigationDrawer extends StatelessWidget {
                       leading: const Icon(Icons.language),
                       trailing: const Icon(Icons.more_vert),
                       onTap: () {
-                        Navigator.pushNamed(context, '/language_page');
+                        Navigator.pushNamed(context, MainNavigatorRouteNames.language);
                       },
                     ),
                   ),
