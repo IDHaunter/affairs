@@ -1,12 +1,15 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'app/my_app.dart';
 import 'core/common_export.dart';
 
 void main() async {
-  //WidgetFlutterBinding используется для взаимодействия с движком Flutter, иначе асинхронные функции стартующие
-  //до запуска runApp подвиснут
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized() используется для взаимодействия с движком Flutter, иначе асинхронные
+  //функции стартующие до запуска runApp подвиснут
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  //удерживаем сплеш экран до момента полной инициализации
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   //инициализация наших цветовых схем
   await themeHandler.init();

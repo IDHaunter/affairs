@@ -1,3 +1,5 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import '../core/common_export.dart';
 
 class MyApp extends StatefulWidget with WidgetsBindingObserver {
@@ -14,6 +16,8 @@ static final mainNavigator = MainNavigator();
   void initState() {
     super.initState();
     Provider.of<ThemeModel>(context, listen: false).addColors();
+    //после инициализации всех ресурсов убираем сплеш-экран
+    FlutterNativeSplash.remove();
   }
 
   @override
