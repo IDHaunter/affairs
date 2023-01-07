@@ -1,8 +1,8 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'app/my_app.dart';
 import 'core/common_export.dart';
+import 'core/entity/box_handler.dart';
 
 void main() async {
   //WidgetsFlutterBinding.ensureInitialized() используется для взаимодействия с движком Flutter, иначе асинхронные
@@ -19,6 +19,8 @@ void main() async {
 
   //Hive - NoSQL Database
   await Hive.initFlutter();
+  //инициализация hive боксов
+  await boxHandler.init();
 
   runApp(
     ChangeNotifierProvider<ThemeModel>(

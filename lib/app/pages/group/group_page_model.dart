@@ -2,16 +2,14 @@ import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/entity/group.dart';
 import 'package:hive/hive.dart';
 
+import '../../../core/entity/box_handler.dart';
+
 class GroupPageModel {
   var groupName = '';
   void saveGroup(BuildContext context) async {
     //Если группа не задана то выходим
     if (groupName.isEmpty) return;
-    //Проверяем существование адаптера и если нету то создаём
-    if (!Hive.isAdapterRegistered(1)) {
-      Hive.registerAdapter(GroupAdapter());
-    }
-    final box = await Hive.openBox<Group>('group_box');
+    final box = boxHandler.groupBox;
     final group = Group(name: groupName);
     //add - не требует задания ключа, он автоинкрементиться в отличие от put
     //add вернёт нам ключ типа integer, но он нам тут не нужен

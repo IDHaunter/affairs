@@ -1,16 +1,12 @@
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/common_export.dart';
+import '../../../core/entity/box_handler.dart';
 import '../../../core/entity/group.dart';
 import '../../../core/entity/task.dart';
 
 class TasksListWidgetModel extends ChangeNotifier {
 int groupKey;
-//Несмотря на то, что с _groupBox и _taskBox мы явно и не работаем, мы их всё равно обязательно инициализируем в конструкторе (_setup)
-//и ждём инициализации (await), иначе Hive будет подглючивать
-late final Future<Box<Group>> _groupBox;
-late final Future<Box<Task>> _taskBox;
 
 var _tasks = <Task>[];
 List<Task> get tasks =>_tasks.toList();
@@ -25,7 +21,7 @@ TasksListWidgetModel({required this.groupKey}){
 
 //Получение группы по ключу
 void _loadGroup() async {
-  final box = await _groupBox;
+  final box = boxHandler.groupBox;
   _group = box.get(groupKey);
 
   //ВАЖНЫЙ МОМЕНТ: поскольку выполнение асинхронное то загрузка группы будет происходить с задержкой, и кто-то вызывающий
@@ -35,7 +31,7 @@ void _loadGroup() async {
 }
 
   void _readTasks() async {
-  final box = await _taskBox;
+  final box = boxHandler.taskBox;
   //если либо бокс пустой либо в группе нет связей то возвращаем пустой лист
   if (box.length == 0) {_tasks = <Task>[];}
   else { _tasks = _group?.tasks ?? <Task>[]; }
@@ -44,7 +40,7 @@ void _loadGroup() async {
   }
 
   void _setupListenTasks() async {
-  final box = await _groupBox;
+  final box = boxHandler.groupBox;
   _readTasks();
   //идея в том, чтобы слушать изменения внутри бокса с группами только по определённой группе используя ключ groupKey
    box.listenable(keys: <dynamic>[groupKey]).addListener(_readTasks);
@@ -67,18 +63,6 @@ void _loadGroup() async {
   }
 
   void _setup( ) {
-    //Проверяем существование адаптеров и если нету то создаём
-    if (!Hive.isAdapterRegistered(1)) {
-      Hive.registerAdapter(GroupAdapter());
-    }
-    _groupBox = Hive.openBox<Group>('group_box');
-
-    if (!Hive.isAdapterRegistered(2)) {
-      Hive.registerAdapter(TaskAdapter());
-    }
-    //даже если явно не юзаем бокс то всё равно его открываем
-    _taskBox = Hive.openBox<Task>('tasks_box');
-
     _loadGroup();
     _setupListenTasks();
   }

@@ -4,6 +4,8 @@ import 'package:hive/hive.dart';
 
 import 'package:affairs/core/entity/task.dart';
 
+import '../../../core/entity/box_handler.dart';
+
 class TaskPageModel {
   int groupKey;
   var taskText = '';
@@ -17,20 +19,12 @@ class TaskPageModel {
     //Если текст не задан то выходим
     if (taskText.isEmpty) return;
 
-    //Тут нам потребуется два адаптера
-    if (!Hive.isAdapterRegistered(1)) {
-      Hive.registerAdapter(GroupAdapter());
-    }
-    if (!Hive.isAdapterRegistered(2)) {
-      Hive.registerAdapter(TaskAdapter());
-    }
-
-    final taskBox = await Hive.openBox<Task>('tasks_box');
+    final taskBox = boxHandler.taskBox;
     //Создаём Task
     final task= Task(text: taskText, isDone: false);
     taskBox.add(task);
 
-    final groupBox = await Hive.openBox<Group>('group_box');
+    final groupBox = boxHandler.groupBox;
     //Получаем группу по ключу
     final group = groupBox.get(groupKey);
     //Добавляем в группу Task
