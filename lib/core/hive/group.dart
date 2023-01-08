@@ -1,4 +1,4 @@
-import 'package:affairs/core/entity/task.dart';
+import 'package:affairs/core/hive/task.dart';
 import 'package:hive/hive.dart';
 
 part 'group.g.dart';

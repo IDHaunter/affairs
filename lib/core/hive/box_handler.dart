@@ -1,5 +1,5 @@
 //Создание экземпляра Носителя всех боксов с данными
-import 'package:affairs/core/entity/task.dart';
+import 'package:affairs/core/hive/task.dart';
 import 'package:hive/hive.dart';
 import 'group.dart';
 

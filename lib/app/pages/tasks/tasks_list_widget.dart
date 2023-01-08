@@ -1,6 +1,6 @@
 import 'package:affairs/app/pages/tasks/tasks_list_widget_model.dart';
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/core/entity/task.dart';
+import 'package:affairs/core/hive/task.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TasksListWidget extends StatelessWidget {

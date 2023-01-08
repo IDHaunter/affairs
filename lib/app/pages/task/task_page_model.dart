@@ -1,10 +1,8 @@
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/core/entity/group.dart';
-import 'package:hive/hive.dart';
 
-import 'package:affairs/core/entity/task.dart';
+import 'package:affairs/core/hive/task.dart';
 
-import '../../../core/entity/box_handler.dart';
+import '../../../core/hive/box_handler.dart';
 
 class TaskPageModel {
   int groupKey;

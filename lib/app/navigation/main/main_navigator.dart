@@ -28,7 +28,7 @@ class MainNavigator {
    //2. если страница №2 вызывается со страницы №1 то контекст первой
    //не наследуется во второй (видно в DevTools и важно для моделей данных)
    MainNavigatorRouteNames.groups: (context) => GroupsPage(),
-   MainNavigatorRouteNames.group: (context) => Provider<GroupPageModel>(
+   MainNavigatorRouteNames.group: (context) => ChangeNotifierProvider<GroupPageModel>(
        create: (context) => GroupPageModel(),
        child: GroupPage()),
    MainNavigatorRouteNames.theme: (context) => ThemePage(),

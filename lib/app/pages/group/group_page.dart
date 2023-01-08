@@ -34,7 +34,8 @@ class GroupPage extends StatelessWidget {
           Provider.of<GroupPageModel>(context, listen: false)
               .saveGroup(context);
           //возвращаемся на предыдущую страницу
-          Navigator.of(context).pop();
+          Provider.of<GroupPageModel>(context, listen: false).errorText ??
+              Navigator.of(context).pop();
         },
         elevation: 5,
         child: const Icon(color: Colors.white, Icons.done),
@@ -57,6 +58,8 @@ class GroupNameWidget extends StatelessWidget {
         //    border: OutlineInputBorder(),
         hintText: 'Введите имя группы',
         hintStyle: basic,
+        errorText: Provider.of<GroupPageModel>(context, listen: true).errorText,
+        errorStyle: regular.copyWith(fontSize: errorSize, color: curITheme.failure()) ,
         //helperText: 'Имя группы',
       ),
       //по изменению
@@ -64,11 +67,11 @@ class GroupNameWidget extends StatelessWidget {
           Provider.of<GroupPageModel>(context, listen: false).groupName = value,
       //по нажатию на кнопку done
       onEditingComplete: () {
-          Provider.of<GroupPageModel>(context, listen: false)
-              .saveGroup(context);
-          //возвращаемся на предыдущую страницу
-          Navigator.of(context).pop();
-          },
+        Provider.of<GroupPageModel>(context, listen: false).saveGroup(context);
+        //возвращаемся на предыдущую страницу
+        Provider.of<GroupPageModel>(context, listen: false).errorText ??
+            Navigator.of(context).pop();
+      },
     );
   }
 }

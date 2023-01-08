@@ -2,7 +2,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'app/my_app.dart';
 import 'core/common_export.dart';
-import 'core/entity/box_handler.dart';
+import 'core/hive/box_handler.dart';
 
 void main() async {
   //WidgetsFlutterBinding.ensureInitialized() используется для взаимодействия с движком Flutter, иначе асинхронные

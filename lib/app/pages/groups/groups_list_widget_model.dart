@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/core/entity/group.dart';
+import 'package:affairs/core/hive/group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../core/entity/box_handler.dart';
+import '../../../core/hive/box_handler.dart';
 
 class GroupsListWidgetModel extends ChangeNotifier {
   var _groups = <Group>[];
