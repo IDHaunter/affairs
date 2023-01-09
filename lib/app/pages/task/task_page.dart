@@ -13,7 +13,7 @@ class TaskPage extends StatelessWidget {
     //final currentGroupKey = ModalRoute.of(context)!.settings.arguments as int; - при работе через свой навигатор (MainNavigator) будет = null !!!
     final currentGroupKey=groupKeyFromNavigator;
 
-    return Provider<TaskPageModel>(
+    return ChangeNotifierProvider<TaskPageModel>(
         create: (context) => TaskPageModel(groupKey: currentGroupKey),
         lazy: false,
         child: TaskPageWidget());
@@ -58,6 +58,7 @@ class TaskPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('---- TaskPageWidget.build');
     return Scaffold(
       drawer: const NavigationDrawer(),
       body: Column(
@@ -77,8 +78,12 @@ class TaskPageWidget extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Provider.of<TaskPageModel>(context, listen: false).saveTask(context);
-          //возвращаемся на предыдущую страницу
-          Navigator.of(context).pop();
+          if (Provider.of<TaskPageModel>(context, listen: false).errorText != null)
+          {print('---- TaskPageWidget.ScaffoldMessenger');
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No way!')));}
+          {//возвращаемся на предыдущую страницу
+            print('---- TaskPageWidget.Navigator.of(context).pop');
+            Navigator.of(context).pop();}
         },
         elevation: 5,
         child: const Icon(color: Colors.white, Icons.done),
