@@ -13,10 +13,7 @@ class TasksPage extends StatelessWidget {
     final currentGroupKey =ModalRoute.of(context)!.settings.arguments as int;
     //print('--- TasksPageState.build currentGroupKey=$currentGroupKey');
 
-    return Provider<TaskPageModel>(
-      create: (context) => TaskPageModel(groupKey: currentGroupKey),
-      lazy: false,
-      child: Scaffold(
+    return Scaffold(
         //backgroundColor: Colors.white,
         drawer: NavigationDrawer(),
         body: Column(
@@ -41,7 +38,6 @@ class TasksPage extends StatelessWidget {
           tooltip: 'Добавить новую задачу',
           child: const Icon(color: Colors.white, Icons.add),
         ),
-      ),
     );
   }
 }
