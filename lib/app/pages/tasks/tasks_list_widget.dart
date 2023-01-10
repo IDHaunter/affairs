@@ -8,9 +8,9 @@ class TasksListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('---_TasksListWidgetState.build before tasksCount');
+    //print('---_TasksListWidgetState.build before tasksCount');
     final int tasksCount = Provider.of<TasksListWidgetModel>(context, listen: true).tasks.length;
-    print('---_TasksListWidgetState.build tasksCount= $tasksCount');
+    //print('---_TasksListWidgetState.build tasksCount= $tasksCount');
 
     return Column(
       children: [

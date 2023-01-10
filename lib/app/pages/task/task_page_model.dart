@@ -1,28 +1,25 @@
-import 'package:affairs/core/common_export.dart';
-
 import 'package:affairs/core/hive/task.dart';
-
 import '../../../core/hive/box_handler.dart';
 
-class TaskPageModel extends ChangeNotifier {
+class TaskPageModel /*extends ChangeNotifier*/ {
   int groupKey;
   var _taskText = '';
   String? errorText;
 
   TaskPageModel({required this.groupKey})
   {
-    print(" ---- TaskPageModel.created");
+    //print(" ---- TaskPageModel.created");
   }
 
   set taskText (String value) {
     if (errorText != null && value.trim().isNotEmpty) {
       errorText = null;
-      notifyListeners();
+      //notifyListeners();
     }
-    _taskText = value;
+    _taskText = value.trim();
   }
 
-  void saveTask(BuildContext context) async {
+  void saveTask() async {
     //Если текст не задан то выходим
     if (_taskText.isEmpty) {
       errorText='Текст задачи отсутствует';

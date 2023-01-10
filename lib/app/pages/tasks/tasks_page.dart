@@ -30,7 +30,6 @@ class TasksPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            print(' ---- Floating OnPressed ');
             Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: currentGroupKey);
             //Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage()));
           },
