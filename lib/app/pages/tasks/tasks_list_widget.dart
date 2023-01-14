@@ -12,11 +12,14 @@ class TasksListWidget extends StatelessWidget {
     final int tasksCount = Provider.of<TasksListWidgetModel>(context, listen: true).tasks.length;
     //print('---_TasksListWidgetState.build tasksCount= $tasksCount');
 
-    return Column(
-      children: [
-        Text(Provider.of<TasksListWidgetModel>(context, listen: true).group?.name ?? 'Список задач'),
-        Expanded(
-          child: ListView.separated(
+    return Column(children: [
+      SizedBox(height: 5),
+      Text(
+        Provider.of<TasksListWidgetModel>(context, listen: true).group?.name ?? 'Список задач',
+        style: regular.copyWith(fontSize: titleSize),
+      ),
+      Expanded(
+        child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
               return TasksListRowWidget(indexInList: index);
             },
@@ -26,15 +29,14 @@ class TasksListWidget extends StatelessWidget {
               );
             },
             itemCount: tasksCount),
-        ),
-    ]
-    );
-
+      ),
+    ]);
   }
 }
 
 class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
   final int indexInList;
+
   TasksListRowWidget({Key? key, required this.indexInList}) : super(key: key);
 
   @override
@@ -84,7 +86,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
-            onPressed: (context){},
+            onPressed: (context) {},
             backgroundColor: curITheme.majorShadow(),
             foregroundColor: curITheme.buttonText(),
             icon: Icons.drive_file_rename_outline,
@@ -92,8 +94,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
           ),
           // A SlidableAction can have an icon and/or a label.
           SlidableAction(
-
-            onPressed: (context){
+            onPressed: (context) {
               Provider.of<TasksListWidgetModel>(context, listen: false).deleteTask(indexInList);
               //print('----delete: $indexInList');
             },
@@ -105,7 +106,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
         ],
       ),
       child: ListTile(
-        title: Text(task.text , style: taskTextStyle ),
+        title: Text(task.text, style: taskTextStyle),
         trailing: Padding(
           padding: const EdgeInsets.only(right: 6),
           child: Icon(icon),
@@ -121,7 +122,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
         onTap: () {
           Provider.of<TasksListWidgetModel>(context, listen: false).doneToggle(indexInList);
           //Navigator.of(context).pushNamed('/tasks_page', arguments: Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroupKey);
-          },
+        },
       ),
     );
   }
