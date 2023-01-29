@@ -1,7 +1,7 @@
 import 'package:affairs/core/common_export.dart';
 import 'package:intl/intl.dart';
 
-class TopBar extends StatefulWidget  {
+class TopBar extends StatefulWidget {
   TopBar({Key? key}) : super(key: key);
 
   @override
@@ -9,28 +9,57 @@ class TopBar extends StatefulWidget  {
 }
 
 class _TopBarState extends State<TopBar> with DefaultBackColor {
- static const _sFilterDefault='Фильтр не задан';
- late String _sFilter;
+  static const _sFilterDefault = 'Фильтр не задан';
+  late String _sFilter;
+  late TextEditingController controller;
 
- @override
+  @override
   void initState() {
     // TODO: implement initState
-   _sFilter=_sFilterDefault;
+    _sFilter = _sFilterDefault;
     super.initState();
+    controller = TextEditingController();
   }
 
- void onFilterPressed() {
-   if (_sFilter==_sFilterDefault)
-     {_sFilter = DateFormat("dd.MM.yyyy").format(DateTime.now());}
-   else _sFilter=_sFilterDefault;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
 
-   setState(() {
-   });
- }
+  Future<String?> openDialog() => showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text('Фильтр'),
+            content: TextField(
+              autofocus: true,
+              decoration: InputDecoration(hintText: 'Задайте фильтр по имени'),
+              controller: controller,
+            ),
+            actions: [
+              TextButton(onPressed: submit, child: Text('ОК')),
+            ],
+          ));
 
- @override
+  void submit() {
+    Navigator.of(context).pop(controller.text.isEmpty ? _sFilterDefault : controller.text);
+  }
+
+  void onFilterPressed() async {
+    _sFilter = await openDialog() ?? _sFilterDefault;
+
+    // if (_sFilter == _sFilterDefault) {
+    //   _sFilter = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    // } else
+    //   _sFilter = _sFilterDefault;
+
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-   IconData iconFilter = (_sFilter != _sFilterDefault) ? Icons.filter_alt : Icons.filter_alt_off;
+    Icon iconFilter = (_sFilter != _sFilterDefault) ? Icon(color: curITheme.accent(), Icons.filter_alt) : Icon(color: curITheme.icon(), Icons.filter_alt_off) ;
     return Container(
       width: double.infinity,
       height: context.screenHeight() > context.screenWidth() ? 290 : 116,
@@ -65,7 +94,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                       Scaffold.of(context).openDrawer();
                     },
                     icon: const Icon(Icons.dehaze),
-                    color: Colors.white,
+                    color: curITheme.icon(),
                   ),
                 ),
                 CircleAvatar(
@@ -73,7 +102,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.calendar_today),
-                    color: Colors.white,
+                    color: curITheme.icon(),
                   ),
                 ),
               ],
@@ -94,13 +123,16 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                 ),
                 //Блок с округлёнными краями
                 Chip(
-                  label: Text(_sFilter,
+                  label: Text(
+                    _sFilter,
                     style: medium,
                   ),
                   //avatar: Icon(Icons.filter_alt),
-                  onDeleted: (){debugPrint('---- TopBar.Chip.onDeleted');
-                  onFilterPressed(); },
-                  deleteIcon: Icon(iconFilter),
+                  onDeleted: () {
+                    debugPrint('---- TopBar.Chip.onDeleted');
+                    onFilterPressed();
+                  },
+                  deleteIcon: iconFilter,
                   backgroundColor: Color.fromRGBO(r, g, b, 0.2),
                 ),
                 const SizedBox(
@@ -111,7 +143,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                   child: IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.search),
-                    color: Colors.white,
+                    color: curITheme.icon(),
                     tooltip: 'Показать график',
                   ),
                 ),
