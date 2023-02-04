@@ -103,6 +103,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                     onPressed: () {},
                     icon: Icon(Icons.calendar_today),
                     color: curITheme.icon(),
+                    tooltip: 'Календарь событий',
                   ),
                 ),
               ],
@@ -117,7 +118,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      //Иконки с датами
+                      //Иконки с датами ближайших событий
                     ],
                   ),
                 ),
@@ -134,18 +135,6 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                   },
                   deleteIcon: iconFilter,
                   backgroundColor: Color.fromRGBO(r, g, b, 0.2),
-                ),
-                const SizedBox(
-                  width: 14,
-                ),
-                CircleAvatar(
-                  backgroundColor: Color.fromRGBO(r, g, b, 0.2),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.search),
-                    color: curITheme.icon(),
-                    tooltip: 'Показать график',
-                  ),
                 ),
               ],
             )
