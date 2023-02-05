@@ -18,7 +18,7 @@ class TasksPage extends StatelessWidget {
         drawer: NavigationDrawer(),
         body: Column(
           children: [
-            TopBar(),
+            TopBar(showCalendar: true, showFilter: true,showDatePicker: false),
             Expanded(
                 child: ChangeNotifierProvider<TasksListWidgetModel>( //.value
                   //value: model,

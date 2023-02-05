@@ -2,7 +2,12 @@ import 'package:affairs/core/common_export.dart';
 import 'package:intl/intl.dart';
 
 class TopBar extends StatefulWidget {
-  TopBar({Key? key}) : super(key: key);
+  final bool showFilter;
+  final bool showCalendar;
+  final bool showDatePicker;
+
+  TopBar({Key? key, required this.showFilter, required this.showCalendar, required this.showDatePicker})
+      : super(key: key);
 
   @override
   State<TopBar> createState() => _TopBarState();
@@ -10,13 +15,16 @@ class TopBar extends StatefulWidget {
 
 class _TopBarState extends State<TopBar> with DefaultBackColor {
   static const _sFilterDefault = 'Фильтр не задан';
+  static const _sDateDefault = 'Дата не задана';
   late String _sFilter;
+  late String _sDate;
   late TextEditingController controller;
 
   @override
   void initState() {
     // TODO: implement initState
     _sFilter = _sFilterDefault;
+    _sDate = _sDateDefault;
     super.initState();
     controller = TextEditingController();
   }
@@ -59,7 +67,12 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
 
   @override
   Widget build(BuildContext context) {
-    Icon iconFilter = (_sFilter != _sFilterDefault) ? Icon(color: curITheme.accent(), Icons.filter_alt) : Icon(color: curITheme.icon(), Icons.filter_alt_off) ;
+    Icon iconFilter = (_sFilter != _sFilterDefault)
+        ? Icon(color: curITheme.accent(), Icons.filter_alt)
+        : Icon(color: curITheme.icon(), Icons.filter_alt_off);
+    Icon iconDatePicker = (_sDate != _sDateDefault)
+        ? Icon(color: curITheme.accent(), Icons.update)
+        : Icon(color: curITheme.icon(), Icons.update_disabled);
     return Container(
       width: double.infinity,
       height: context.screenHeight() > context.screenWidth() ? 290 : 116,
@@ -97,45 +110,65 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                     color: curITheme.icon(),
                   ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Color.fromRGBO(r, g, b, 0.3),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.calendar_today),
-                    color: curITheme.icon(),
-                    tooltip: 'Календарь событий',
-                  ),
-                ),
+                widget.showCalendar
+                    ? CircleAvatar(
+                        backgroundColor: Color.fromRGBO(r, g, b, 0.3),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.calendar_today),
+                          color: curITheme.icon(),
+                          tooltip: 'Календарь событий',
+                        ),
+                      )
+                    : SizedBox(width: 16, height: 16),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  height: 50,
-                  width: 150,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      //Иконки с датами ближайших событий
-                    ],
-                  ),
-                ),
-                //Блок с округлёнными краями
-                Chip(
-                  label: Text(
-                    _sFilter,
-                    style: medium,
-                  ),
-                  //avatar: Icon(Icons.filter_alt),
-                  onDeleted: () {
-                    debugPrint('---- TopBar.Chip.onDeleted');
-                    onFilterPressed();
-                  },
-                  deleteIcon: iconFilter,
-                  backgroundColor: Color.fromRGBO(r, g, b, 0.2),
-                ),
+                widget.showDatePicker
+                    ? Chip(
+                        label: Text(
+                          _sDate,
+                          style: medium,
+                        ),
+                        //avatar: Icon(Icons.filter_alt),
+                        onDeleted: () {
+                          debugPrint('---- TopBar.ChipDatePicker.onDeleted');
+                        },
+                        deleteIcon: iconDatePicker,
+                        backgroundColor: Color.fromRGBO(r, g, b, 0.2),
+                      )
+                    : Container(
+                        alignment: Alignment.centerLeft,
+                        height: 50,
+                        width: 200,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            //Иконки с датами ближайших событий
+                          ],
+                        ),
+                      ),
+                //Блок с округлёнными краями - фильтр
+                widget.showFilter
+                    ? Chip(
+                        label: Text(
+                          _sFilter,
+                          style: medium,
+                        ),
+                        //avatar: Icon(Icons.filter_alt),
+                        onDeleted: () {
+                          debugPrint('---- TopBar.ChipFilter.onDeleted');
+                          onFilterPressed();
+                        },
+                        deleteIcon: iconFilter,
+                        backgroundColor: Color.fromRGBO(r, g, b, 0.2),
+                      )
+                    : SizedBox(
+                        width: 0,
+                        height: 0,
+                      ),
               ],
             )
           ],

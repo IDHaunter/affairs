@@ -18,7 +18,7 @@ class _ThemePage extends State<ThemePage> {
       drawer: NavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
           ListTile(
             leading: Icon(Icons.light_mode_outlined),
             title: Text(AppLocalizations.of(context)!.light, style: regular.copyWith(fontSize: titleSize)),

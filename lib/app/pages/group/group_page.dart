@@ -14,7 +14,7 @@ class GroupPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TopBar(),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
           Padding(
             padding: EdgeInsets.symmetric(
                 vertical:

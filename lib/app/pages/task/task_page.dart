@@ -61,7 +61,7 @@ class TaskPageWidget extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TopBar(),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: true),
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(

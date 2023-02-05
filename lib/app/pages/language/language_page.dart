@@ -18,7 +18,7 @@ class _LanguagePage extends State<LanguagePage> {
       drawer: const NavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
           ListTile(
             leading: const Icon(Icons.language),
             title: Text('Русский', style: regular.copyWith(fontSize: titleSize)),

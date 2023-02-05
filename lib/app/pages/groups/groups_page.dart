@@ -19,7 +19,7 @@ class GroupsPage extends StatelessWidget {
       drawer: NavigationDrawer(),
       body: Column(
         children: [
-          TopBar(),
+          TopBar(showCalendar: true, showFilter: true, showDatePicker: false),
           Expanded(
               child: ChangeNotifierProvider<GroupsListWidgetModel>(
                   create: (context) => GroupsListWidgetModel(),
