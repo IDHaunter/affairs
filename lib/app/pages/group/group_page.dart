@@ -1,5 +1,5 @@
 import 'package:affairs/app/widgets/top_bar.dart';
-import 'package:affairs/app/widgets/navigation_drawer.dart';
+import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
 import 'group_page_model.dart';
@@ -10,7 +10,7 @@ class GroupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const CustomNavigationDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

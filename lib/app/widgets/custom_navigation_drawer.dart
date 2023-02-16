@@ -1,7 +1,7 @@
 import 'package:affairs/core/common_export.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class CustomNavigationDrawer extends StatelessWidget {
+  const CustomNavigationDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

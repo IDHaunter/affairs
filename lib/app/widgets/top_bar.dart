@@ -18,6 +18,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
   static const _sDateDefault = 'Дата не задана';
   late String _sFilter;
   late String _sDate;
+  DateTime? _dateTime;
   late TextEditingController controller;
 
   @override
@@ -56,12 +57,23 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
 
   void onFilterPressed() async {
     _sFilter = await openDialog() ?? _sFilterDefault;
+    setState(() {});
+  }
 
-    // if (_sFilter == _sFilterDefault) {
-    //   _sFilter = DateFormat("dd.MM.yyyy").format(DateTime.now());
-    // } else
-    //   _sFilter = _sFilterDefault;
-
+  void onDatePickerPressed() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2025))
+        .then((value) {
+      _dateTime = value;
+      if (_dateTime == null) {
+        _sFilter = _sDateDefault;
+      } else {
+        _sDate = DateFormat("dd.MM.yyyy").format(_dateTime!);
+      }
+    });
     setState(() {});
   }
 
@@ -135,6 +147,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                         //avatar: Icon(Icons.filter_alt),
                         onDeleted: () {
                           debugPrint('---- TopBar.ChipDatePicker.onDeleted');
+                          onDatePickerPressed();
                         },
                         deleteIcon: iconDatePicker,
                         backgroundColor: Color.fromRGBO(r, g, b, 0.2),

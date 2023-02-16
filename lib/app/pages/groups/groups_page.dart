@@ -1,5 +1,5 @@
 import 'package:affairs/app/widgets/top_bar.dart';
-import 'package:affairs/app/widgets/navigation_drawer.dart';
+import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/groups/groups_list_widget.dart';
 import '../../pages/groups/groups_list_widget_model.dart';
@@ -16,7 +16,7 @@ class GroupsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Colors.white,
-      drawer: NavigationDrawer(),
+      drawer: CustomNavigationDrawer(),
       body: Column(
         children: [
           TopBar(showCalendar: true, showFilter: true, showDatePicker: false),

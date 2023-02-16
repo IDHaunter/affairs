@@ -1,6 +1,6 @@
 import 'package:affairs/app/pages/tasks/tasks_list_widget_model.dart';
 import 'package:affairs/app/widgets/top_bar.dart';
-import 'package:affairs/app/widgets/navigation_drawer.dart';
+import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/tasks/tasks_list_widget.dart';
 import '../task/task_page_model.dart';
@@ -15,7 +15,7 @@ class TasksPage extends StatelessWidget {
 
     return Scaffold(
         //backgroundColor: Colors.white,
-        drawer: NavigationDrawer(),
+        drawer: CustomNavigationDrawer(),
         body: Column(
           children: [
             TopBar(showCalendar: true, showFilter: true,showDatePicker: false),

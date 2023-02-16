@@ -1,6 +1,6 @@
 import 'package:affairs/app/pages/task/task_page_model.dart';
 import 'package:affairs/app/widgets/top_bar.dart';
-import 'package:affairs/app/widgets/navigation_drawer.dart';
+import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
 class TaskPage extends StatelessWidget {
@@ -57,7 +57,7 @@ class TaskPageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     //print('---- TaskPageWidget.build');
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const CustomNavigationDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

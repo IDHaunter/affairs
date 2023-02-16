@@ -1,5 +1,5 @@
 import 'package:affairs/app/widgets/top_bar.dart';
-import 'package:affairs/app/widgets/navigation_drawer.dart';
+import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -15,7 +15,7 @@ class _LanguagePage extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
           TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
