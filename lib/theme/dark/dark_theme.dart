@@ -17,9 +17,8 @@ class DarkTheme extends ITheme {
   final Color _textPrimary = const Color(0xFFFFFFFF);
   final Color _textSecondary = const Color(0x80FFFFFF);
   final Color _icon = const Color(0xFFFFFFFF);
-  final Color _dark = const Color(0xFF131E17);
   final Color _failure = const Color(0xFFFF0059);
-  final Color _success = const Color(0xFFA3FF40);
+  final Color _success = const Color(0xFFFCD0A4);
   final Color _grey = const Color(0xFFE4DCFB);
   final Color _buttonText = const Color(0xFFFFFFFF);
 
@@ -52,9 +51,6 @@ class DarkTheme extends ITheme {
 
   @override
   Gradient backspaceGradient() => _accentGradient;
-
-  @override
-  Color dark() => _dark;
 
   @override
   Color failure() => _failure;

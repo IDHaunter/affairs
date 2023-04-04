@@ -68,8 +68,8 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
             lastDate: DateTime(2025))
         .then((value) {
       _dateTime = value;
-      if (_dateTime == null) {
-        _sFilter = _sDateDefault;
+      if (_dateTime == null || DateUtils.dateOnly(_dateTime??DateTime.now())==DateUtils.dateOnly(DateTime.now()) )   {
+        _sDate = _sDateDefault;
       } else {
         _sDate = DateFormat("dd.MM.yyyy").format(_dateTime!);
       }

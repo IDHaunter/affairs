@@ -20,8 +20,6 @@ abstract class ITheme {
 
   Color icon();
 
-  Color dark();
-
   Color failure();
 
   Color unreadNotification();
