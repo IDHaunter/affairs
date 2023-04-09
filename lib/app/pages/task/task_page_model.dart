@@ -1,9 +1,11 @@
+import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/hive/task.dart';
 import '../../../core/hive/box_handler.dart';
 
 class TaskPageModel /*extends ChangeNotifier*/ {
   int groupKey;
-  var _taskText = '';
+  String _taskText = '';
+  DateTime? _taskDateTime;
   String? errorText;
 
   TaskPageModel({required this.groupKey})
@@ -19,6 +21,10 @@ class TaskPageModel /*extends ChangeNotifier*/ {
     _taskText = value.trim();
   }
 
+  set taskDateTime (DateTime value) {
+    _taskDateTime=value;
+  }
+
   void saveTask() async {
     //Если текст не задан то выходим
     if (_taskText.isEmpty) {
@@ -28,7 +34,8 @@ class TaskPageModel /*extends ChangeNotifier*/ {
 
     final taskBox = boxHandler.taskBox;
     //Создаём Task
-    final task= Task(text: _taskText, isDone: false);
+    final task= Task(text: _taskText, isDone: false, creationDate: DateTime.now() ,taskDate: _taskDateTime);
+    debugPrint('-----------   ----  $_taskText -creationDate- ${DateTime.now()} -taskDate- $_taskDateTime');
     taskBox.add(task);
 
     final groupBox = boxHandler.groupBox;

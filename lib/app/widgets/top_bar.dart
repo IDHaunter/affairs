@@ -1,6 +1,8 @@
 import 'package:affairs/core/common_export.dart';
 import 'package:intl/intl.dart';
 
+import '../pages/task/task_page_model.dart';
+
 class TopBar extends StatefulWidget {
   final bool showFilter;
   final bool showCalendar;
@@ -72,6 +74,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
         _sDate = _sDateDefault;
       } else {
         _sDate = DateFormat("dd.MM.yyyy").format(_dateTime!);
+        Provider.of<TaskPageModel>(context, listen: false).taskDateTime = _dateTime!;
       }
     });
     setState(() {});

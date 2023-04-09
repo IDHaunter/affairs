@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class TestInheritNotifier extends StatelessWidget {
   const TestInheritNotifier({super.key});
 
-  static const String _title = 'Flutter Code Sample';
+  //static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {

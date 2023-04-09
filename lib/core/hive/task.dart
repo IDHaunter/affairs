@@ -8,7 +8,11 @@ class Task extends HiveObject{
   String text;
   @HiveField(1)
   bool isDone;
+  @HiveField(2)
+  DateTime creationDate;
+  @HiveField(3)
+  DateTime? taskDate;
 
-  Task({required this.text, required this.isDone});
+  Task({required this.text, required this.isDone, required this.creationDate, this.taskDate});
 }
 

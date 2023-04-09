@@ -1,7 +1,7 @@
 import 'package:affairs/app/pages/tasks/tasks_list_widget_model.dart';
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/core/hive/task.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
 class TasksListWidget extends StatelessWidget {
   const TasksListWidget({Key? key}) : super(key: key);
@@ -46,6 +46,10 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
     //иконка и текст будут зависить от статуса таски
     final icon = task.isDone ? Icons.done : null;
     final taskTextStyle = task.isDone ? medium.copyWith(decoration: TextDecoration.lineThrough) : medium;
+    final String sCreationDate = DateFormat("dd.MM.yyyy").format(task.creationDate);
+    final String sTaskDate = (task.taskDate==null) ? '' : DateFormat("dd.MM.yyyy").format(task.taskDate!);
+    final creationDateStyle = medium.copyWith(color: curITheme.textSecondary(), fontSize: 12);
+    final taskDateStyle = medium.copyWith(color: curITheme.primary(), fontSize: 12);
 
     return Slidable(
       // Specify a key if the Slidable is dismissible.
@@ -106,7 +110,18 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
         ],
       ),
       child: ListTile(
-        title: Text(task.text, style: taskTextStyle),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [Row(
+            children: [
+              Text(sCreationDate, style: creationDateStyle),
+              SizedBox(width: 12),
+              Text(sTaskDate, style: taskDateStyle),
+            ],
+          ),
+            Text(task.text, style: taskTextStyle),
+          ],
+        ),
         trailing: Padding(
           padding: const EdgeInsets.only(right: 6),
           child: Icon(icon),
