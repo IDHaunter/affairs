@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+//В отличие от provider или inherit для getIt не нужен context и его единый контейнер с данными может быть доступен
+//из любой части программы при условии что была произведена его однократная инициализация
+//минусом getIt является необходимость делать действия по инициализации контейнера, инициализации (setup) всего
+// его содержимого и действия при init и dispose для прослушивателей addListener
+// особым плюсом также является описание всех зависимостей внутри одного контейнера, т.е. лаконичный код
 
 //наш глобальный ServiceLocator
+//по сути это глобальная переменная-контейнер для хранения данных
 GetIt getIt = GetIt.instance;
 
 //Модель данных
@@ -30,6 +36,7 @@ class AppModelImplementation extends AppModel {
 }
 
 void main() {
+  //
   getIt.registerSingleton<AppModel>(AppModelImplementation(),
       signalsReady: true);
 
@@ -39,7 +46,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
