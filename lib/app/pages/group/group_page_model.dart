@@ -20,7 +20,7 @@ class GroupPageModel extends ChangeNotifier{
     if (groupName.isEmpty) {
       errorText='Название группы не указано';
       notifyListeners();
-      return;};
+      return;}
     final box = boxHandler.groupBox;
     final group = Group(name: groupName);
     //add - не требует задания ключа, он автоинкрементиться в отличие от put

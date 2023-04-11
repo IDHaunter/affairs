@@ -17,10 +17,12 @@ class DarkTheme extends ITheme {
   final Color _textPrimary = const Color(0xFFFFFFFF);
   final Color _textSecondary = const Color(0x80FFFFFF);
   final Color _icon = const Color(0xFFFFFFFF);
-  final Color _failure = const Color(0xFFFF0059);
-  final Color _success = const Color(0xFFFCD0A4);
+  final Color _failure = const Color(0xFFFF246E);
+  final Color _success = const Color(0xFFB5D772);
   final Color _grey = const Color(0xFFE4DCFB);
   final Color _buttonText = const Color(0xFFFFFFFF);
+  final Color _quickSelectionText = const Color(0x80FFFFFF);
+  final Color _unreadNotification = const Color(0xFFFD3A7F);
 
   late final Gradient _accentGradient = LinearGradient(
     colors: [_accent, const Color(0xFFE91E63), const Color(0x1BFF4081)],
@@ -35,10 +37,7 @@ class DarkTheme extends ITheme {
   );
 
   @override
-  Color quickSelectionBackground() => const Color(0x802A2C30);
-
-  @override
-  Color quickSelectionText() => const Color(0x80FFFFFF);
+  Color quickSelectionText() => _quickSelectionText;
 
   @override
   Color accent() => _accent;
@@ -59,7 +58,7 @@ class DarkTheme extends ITheme {
   Color grey() => _grey;
 
   @override
-  Color unreadNotification() => const Color(0xFFB11919);
+  Color unreadNotification() => _unreadNotification;
 
   @override
   Color primary() => _primary;
@@ -88,9 +87,4 @@ class DarkTheme extends ITheme {
   @override
   Color buttonText() => _buttonText;
 
-  @override
-  Color altButton() => _accent;
-
-  @override
-  Color altButtonText() => Colors.white;
 }

@@ -6,28 +6,28 @@ class PSimpleCalcModel extends ChangeNotifier {
   int sumResult = 0;
 
   set putFirstNumber(String sValue) {
-    print('putFirstNumber' + sValue);
+    debugPrint('putFirstNumber $sValue');
     _firstNumber = int.tryParse(sValue) ?? 0;
   }
 
   set putSecondNumber(String sValue) {
-    print('putSecondNumber' + sValue);
+    debugPrint('putSecondNumber $sValue');
     _secondNumber = int.tryParse(sValue) ?? 0;
   }
 
   get takeSumResult {
-    print('takeSumResult=$sumResult');
+    debugPrint('takeSumResult=$sumResult');
     return sumResult;
   }
 
   void calcSum() {
     sumResult = _firstNumber + _secondNumber;
-    print('calcSum $sumResult');
+    debugPrint('calcSum $sumResult');
     notifyListeners();
   }
 }
 
-//Стейтфул нужен чтобы хранить модель не нужен! Этим занимается провайдер!
+//Стейтфул чтобы хранить модель не нужен! Этим занимается провайдер!
 class PSimpleCalcWidget extends StatelessWidget {
   const PSimpleCalcWidget({Key? key}) : super(key: key);
 
@@ -64,27 +64,27 @@ class PCalcArea extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
                 width: 100,
                 height: 46,
                 child: TextField(
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration: const InputDecoration(border: OutlineInputBorder()),
                   onChanged: (newValue) {
                     context.read<PSimpleCalcModel>().putFirstNumber = newValue;
                   },
                 )),
-            Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('+')),
-            Container(
+            Container(padding: const EdgeInsets.symmetric(horizontal: 10), child: const Text('+')),
+            SizedBox(
                 width: 100,
                 height: 46,
                 child: TextField(
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration: const InputDecoration(border: OutlineInputBorder()),
                   onChanged: (newValue) {
                     context.read<PSimpleCalcModel>().putSecondNumber = newValue;
                   },
                 )),
-            Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('=')),
-            Container(padding: EdgeInsets.symmetric(horizontal: 10), child: PResultWidget()),
+            Container(padding: const EdgeInsets.symmetric(horizontal: 10), child: const Text('=')),
+            Container(padding: const EdgeInsets.symmetric(horizontal: 10), child: const PResultWidget()),
           ],
         ),
         Consumer<PSimpleCalcModel>(
@@ -109,7 +109,7 @@ class PCalcArea extends StatelessWidget {
         // ),
         ElevatedButton(
             onPressed: () {
-              print('pressed');
+              debugPrint('pressed');
               model.calcSum();
             },
             child: Text('Calculate!', style: TextStyle(color: curITheme.buttonText()),)),

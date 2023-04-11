@@ -10,7 +10,7 @@ class TestInheritNotifier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyStatefulWidget();
+    return const MyStatefulWidget();
   }
 }
 

@@ -24,11 +24,11 @@ class _TestSharedPreferencesState extends State<TestSharedPreferences> {
   Future<void> _intChange(int iDif) async {
     final SharedPreferences sp = await _preferences;
     _intValue = (sp.getInt(spIntKey) ?? 0) + iDif;
-    print(_intValue.toString());
+    debugPrint(_intValue.toString());
     sp.setInt(spIntKey, _intValue);
 
     setState(() {
-      print('setState _intChange');
+      debugPrint('setState _intChange');
     });
   }
 
@@ -36,22 +36,22 @@ class _TestSharedPreferencesState extends State<TestSharedPreferences> {
     final SharedPreferences sp = await _preferences;
     _boolValue = (sp.getBool(spBoolKey) ?? false) ? false : true;
 
-    print('new boolean is $_boolValue');
+    debugPrint('new boolean is $_boolValue');
 
     sp.setBool(spBoolKey, _boolValue);
 
     setState(() {
-      print('setState _boolChange');
+      debugPrint('setState _boolChange');
     });
   }
 
   Future<void> _boolExist() async {
     final SharedPreferences sp = await _preferences;
     _sExist = ('exist = ${sp.containsKey(spBoolKey)}');
-    print(_sExist);
+    debugPrint(_sExist);
 
     setState(() {
-      print('setState _boolExist');
+      debugPrint('setState _boolExist');
     });
   }
 
@@ -63,14 +63,14 @@ class _TestSharedPreferencesState extends State<TestSharedPreferences> {
       _boolValue = sp.getBool(spBoolKey) ?? false;
       _intValue = sp.getInt(spIntKey) ?? 0;
       setState(() {
-        print('setState init');
+        debugPrint('setState init');
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print('build');
+    debugPrint('build');
     return Column(
       children: [
         Row(children: [

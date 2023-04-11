@@ -144,7 +144,12 @@ class ThemeModel extends ChangeNotifier {
       colorScheme: currentTheme.colorScheme.copyWith(
           secondary: curITheme.accent(),
           primary: curITheme.primary()), //Colors.pinkAccent Colors.pink
-
+          //примешивать цвета текста можно как отдельно по видам headline1, headline2 ...
+          //textTheme: TextTheme(headline1: TextStyle(color: curITheme.textPrimary()),
+          //                     subtitle1: TextStyle(color: curITheme.textPrimary())),
+          //так и по группам видов bodyColor и displayColor
+          textTheme: currentTheme.textTheme.apply(bodyColor: curITheme.textPrimary(),
+                                                  displayColor: curITheme.textPrimary()),
     );
   }
 

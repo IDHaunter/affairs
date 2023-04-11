@@ -18,9 +18,11 @@ class LightTheme extends ITheme {
   final Color _textSecondary = const Color(0x80131E17);
   final Color _icon = const Color(0xFFFFFFFF);
   final Color _failure = const Color(0xFFFF0059);
-  final Color _success = const Color(0xFFFCD0A4);
+  final Color _success = const Color(0xFF9FBD63);
   final Color _grey = const Color(0xFFE4DCFB);
   final Color _buttonText = const Color(0xFFFFFFFF);
+  final Color _quickSelectionText = const Color(0xFFFFFFFF);
+  final Color _unreadNotification = const Color(0xFFFF0059);
 
   late final Gradient _accentGradient = LinearGradient(
     colors: [_accent, const Color(0xFFE91E63), const Color(0x1BFF4081)],
@@ -41,10 +43,7 @@ class LightTheme extends ITheme {
   );
 
   @override
-  Color quickSelectionBackground() => const Color(0x4D19242D);
-
-  @override
-  Color quickSelectionText() => const Color(0xFFFFFFFF);
+  Color quickSelectionText() => _quickSelectionText;
 
   @override
   Color accent() => _accent;
@@ -59,7 +58,7 @@ class LightTheme extends ITheme {
   Gradient backspaceGradient() => _backspaceGradient;
 
   @override
-  Color unreadNotification() => const Color(0xFFB11919);
+  Color unreadNotification() => _unreadNotification;
 
   @override
   Color failure() => _failure;
@@ -94,9 +93,4 @@ class LightTheme extends ITheme {
   @override
   Color buttonText() => _buttonText;
 
-  @override
-  Color altButton() => _secondary;
-
-  @override
-  Color altButtonText() => _accent;
 }

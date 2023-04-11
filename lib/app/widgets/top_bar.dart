@@ -8,7 +8,7 @@ class TopBar extends StatefulWidget {
   final bool showCalendar;
   final bool showDatePicker;
 
-  TopBar({Key? key, required this.showFilter, required this.showCalendar, required this.showDatePicker})
+  const TopBar({Key? key, required this.showFilter, required this.showCalendar, required this.showDatePicker})
       : super(key: key);
 
   @override
@@ -42,14 +42,14 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
   Future<String?> openDialog() => showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-            title: Text('Фильтр'),
+            title: const Text('Фильтр'),
             content: TextField(
               autofocus: true,
-              decoration: InputDecoration(hintText: 'Задайте фильтр по имени'),
+              decoration: const InputDecoration(hintText: 'Задайте фильтр по имени'),
               controller: controller,
             ),
             actions: [
-              TextButton(onPressed: submit, child: Text('ОК')),
+              TextButton(onPressed: submit, child: const Text('ОК')),
             ],
           ));
 
@@ -130,12 +130,12 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                         backgroundColor: Color.fromRGBO(r, g, b, 0.3),
                         child: IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.calendar_today),
+                          icon: const Icon(Icons.calendar_today),
                           color: curITheme.icon(),
                           tooltip: 'Календарь событий',
                         ),
                       )
-                    : SizedBox(width: 16, height: 16),
+                    : const SizedBox(width: 16, height: 16),
               ],
             ),
             Row(
@@ -161,7 +161,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                         width: 200,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: [
+                          children: const [
                             //Иконки с датами ближайших событий
                           ],
                         ),
@@ -181,7 +181,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                         deleteIcon: iconFilter,
                         backgroundColor: Color.fromRGBO(r, g, b, 0.2),
                       )
-                    : SizedBox(
+                    : const SizedBox(
                         width: 0,
                         height: 0,
                       ),

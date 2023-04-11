@@ -3,7 +3,6 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/tasks/tasks_list_widget.dart';
-import '../task/task_page_model.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);

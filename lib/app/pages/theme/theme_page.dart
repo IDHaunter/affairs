@@ -20,7 +20,7 @@ class _ThemePage extends State<ThemePage> {
         children: <Widget>[
           TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
           ListTile(
-            leading: Icon(Icons.light_mode_outlined),
+            leading: const Icon(Icons.light_mode_outlined),
             title: Text(AppLocalizations.of(context)!.light, style: regular.copyWith(fontSize: titleSize)),
             trailing: Transform.scale(
               scale: 1.6,

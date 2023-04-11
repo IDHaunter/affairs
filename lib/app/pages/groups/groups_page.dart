@@ -4,10 +4,10 @@ import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/groups/groups_list_widget.dart';
 import '../../pages/groups/groups_list_widget_model.dart';
 
-//import 'package:affairs/tests/test_inherit.dart';
-//import 'package:affairs/tests/test_inherit_notifier.dart';
-//import 'package:affairs/tests/test_change_notifier_provider.dart';
-//import 'package:affairs/tests/test_shared_preferences.dart';
+//import 'package:affairs/tests/learn_inherit.dart';
+//import 'package:affairs/tests/learn_inherit_notifier.dart';
+//import 'package:affairs/tests/learn_change_notifier_provider.dart';
+//import 'package:affairs/tests/learn_shared_preferences.dart';
 
 class GroupsPage extends StatelessWidget {
   const GroupsPage({Key? key}) : super(key: key);

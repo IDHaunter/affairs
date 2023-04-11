@@ -19,7 +19,7 @@ class TaskPage extends StatelessWidget {
         //ChangeNotifier
         create: (context) => TaskPageModel(groupKey: currentGroupKey),
         lazy: false,
-        child: TaskPageWidget());
+        child: const TaskPageWidget());
   }
 }
 
@@ -57,7 +57,7 @@ class TaskPageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     //print('---- TaskPageWidget.build');
     return Scaffold(
-      drawer: const CustomNavigationDrawer(),
+      drawer: CustomNavigationDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -68,7 +68,7 @@ class TaskPageWidget extends StatelessWidget {
                 vertical:
                     context.screenHeight() > context.screenWidth() ? 10 : 0,
                 horizontal: 10),
-            child: TaskTextWidget(),
+            child: const TaskTextWidget(),
           )),
         ],
       ),

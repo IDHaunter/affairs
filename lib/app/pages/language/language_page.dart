@@ -15,7 +15,7 @@ class _LanguagePage extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const CustomNavigationDrawer(),
+      drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
           TopBar(showCalendar: false, showFilter: false, showDatePicker: false),

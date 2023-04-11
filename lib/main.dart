@@ -27,7 +27,7 @@ void main() async {
       create: (context) => ThemeModel(),
       child: ChangeNotifierProvider<LanguageModel>(
         create: (context) => LanguageModel(),
-        child: MyApp(),
+        child: const MyApp(),
       ),
     ),
   );

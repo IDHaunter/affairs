@@ -24,7 +24,7 @@ class MainNavigator {
  final initialRoute = MainNavigatorRouteNames.groups;
  //routes проверяется до вызова onGenerateRoute
  final routes = <String, Widget Function(BuildContext)>{
-   //1. тут нельзя задавать const т.к. при смене тем оформления будет глюк
+   //1. тут нельзя задавать const т.к. при смене тем оформления будет глюк !!!
    //2. если страница №2 вызывается со страницы №1 то контекст первой
    //не наследуется во второй (видно в DevTools и важно для моделей данных)
    MainNavigatorRouteNames.groups: (context) => GroupsPage(),

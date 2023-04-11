@@ -13,7 +13,7 @@ class TasksListWidget extends StatelessWidget {
     //print('---_TasksListWidgetState.build tasksCount= $tasksCount');
 
     return Column(children: [
-      SizedBox(height: 5),
+      const SizedBox(height: 5),
       Text(
         Provider.of<TasksListWidgetModel>(context, listen: true).group?.name ?? 'Список задач',
         style: regular.copyWith(fontSize: titleSize),
@@ -115,7 +115,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
           children: [Row(
             children: [
               Text(sCreationDate, style: creationDateStyle),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Text(sTaskDate, style: taskDateStyle),
             ],
           ),

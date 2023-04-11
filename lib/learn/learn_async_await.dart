@@ -4,23 +4,23 @@
 import '../core/common_export.dart';
 
 Future<String> getWeatherForecast() {
-  return Future.delayed(Duration(seconds: 2), () => "Partly cloudy");
+  return Future.delayed(const Duration(seconds: 2), () => "Partly cloudy");
 }
 
 void fetchWeatherForecast() {
-  print("start: fetchWeatherForecast");
+  debugPrint("start: fetchWeatherForecast");
   final forecast = getWeatherForecast();
   forecast.then(
-        (value) => print("fetchWeatherForecast: $value"),
+        (value) => debugPrint("fetchWeatherForecast: $value"),
 
   );
-  print("end: fetchWeatherForecast");
+  debugPrint("end: fetchWeatherForecast");
 }
 
 void testMain(List<String> arguments) {
-  print('start: main');
+  debugPrint('start: main');
   fetchWeatherForecast();
-  print('end: main');
+  debugPrint('end: main');
 }
 
 //Результат:
@@ -40,16 +40,16 @@ void testMain(List<String> arguments) {
 // ПРИМЕЧАНИЕ: внутри async функции после await всё будет последовательно, но вызов самой async функции без await не будет последовательным
 
 Future<void> fetchWeatherForecast2() async {
-  print("start: fetchWeatherForecast");
+  debugPrint("start: fetchWeatherForecast");
   final forecast = await getWeatherForecast();
-  print("fetchWeatherForecast: $forecast");
-  print("end: fetchWeatherForecast");
+  debugPrint("fetchWeatherForecast: $forecast");
+  debugPrint("end: fetchWeatherForecast");
 }
 
 void testMain2(List<String> arguments) {
-  print('start: main');
+  debugPrint('start: main');
   fetchWeatherForecast2();
-  print('end: main');
+  debugPrint('end: main');
 }
 
 // результат:
@@ -66,17 +66,17 @@ void testMain2(List<String> arguments) {
 
 Future<void> fetchWeatherForecast3() async {
 
-  print("start: fetchWeatherForecast");
+  debugPrint("start: fetchWeatherForecast");
   final forecast = await getWeatherForecast();
 
-  print("fetchWeatherForecast: $forecast");
-  print("end: fetchWeatherForecast");
+  debugPrint("fetchWeatherForecast: $forecast");
+  debugPrint("end: fetchWeatherForecast");
 }
 
 void main(List<String> arguments) async {
-  print('start: main');
+  debugPrint('start: main');
   await fetchWeatherForecast3();
-  print('end: main');
+  debugPrint('end: main');
 }
 
 // результат:
@@ -108,8 +108,10 @@ class MyCustomClass {
 }
 
 class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
   @override
-  _MyWidgetState createState() => _MyWidgetState();
+  State createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<MyWidget> {

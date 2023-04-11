@@ -16,7 +16,7 @@ class AppModelImplementation extends AppModel {
 
   AppModelImplementation() {
     /// Имитируем асинхронную инициализацию
-    Future.delayed(Duration(seconds: 3)).then((_) => getIt.signalReady(this));
+    Future.delayed(const Duration(seconds: 3)).then((_) => getIt.signalReady(this));
   }
 
   @override
@@ -33,10 +33,12 @@ void main() {
   getIt.registerSingleton<AppModel>(AppModelImplementation(),
       signalsReady: true);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -45,18 +47,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -96,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'You have pushed the button this many times:',
                       ),
                       Text(
@@ -109,14 +111,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 floatingActionButton: FloatingActionButton(
                   onPressed: getIt<AppModel>().incrementCounter,
                   tooltip: 'Increment',
-                  child: Icon(Icons.add),
+                  child: const Icon(Icons.add),
                 ),
               );
             } else {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: const [
                   Text('Waiting for initialisation'),
                   SizedBox(
                     height: 16,

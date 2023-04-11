@@ -30,7 +30,7 @@ class TaskPageModel /*extends ChangeNotifier*/ {
     if (_taskText.isEmpty) {
       errorText='Текст задачи отсутствует';
       //notifyListeners();
-      return;};
+      return;}
 
     final taskBox = boxHandler.taskBox;
     //Создаём Task

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 abstract class ITheme {
 
-  Color quickSelectionBackground();
-
   Color quickSelectionText();
 
   Color primary();
@@ -29,10 +27,6 @@ abstract class ITheme {
   Color grey();
 
   Color buttonText();
-
-  Color altButton();
-
-  Color altButtonText();
 
   Gradient accentGradient();
 

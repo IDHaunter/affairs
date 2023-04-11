@@ -104,29 +104,29 @@ class _TestInheritState extends State<TestInherit> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center,
           children: [
           ElevatedButton(onPressed: onePressed, child: const Text('Value One Up')),
-          SizedBox(width: 20,),
+          const SizedBox(width: 20,),
           ElevatedButton(onPressed: twoPressed, child: const Text('Value Two Up')),
         ],),
 
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         DataProviderInherited2( // DataProviderInherited(
             valueOne: _valueOne,
             valueTwo: _valueTwo,
-            child: ShowMeAll2()),
-        SizedBox(
+            child: const ShowMeAll2()),
+        const SizedBox(
           height: 20,
         ),
         DataProviderInherited( // DataProviderInherited(
             value: _valueOne,
-            child: ShowMeAll1()),
+            child: const ShowMeAll1()),
       ],
     );
   }
@@ -139,18 +139,18 @@ int _secondNumber=0;
 int sumResult=0;
 
 set putFirstNumber(String sValue) {
-  print('putFirstNumber' + sValue);
+  debugPrint('putFirstNumber $sValue');
   _firstNumber = int.tryParse(sValue) ?? 0; }
 set putSecondNumber(String sValue) {
-  print('putSecondNumber' + sValue);
+  debugPrint('putSecondNumber $sValue');
   _secondNumber = int.tryParse(sValue) ?? 0; }
 get takeSumResult {
-  print('takeSumResult=$sumResult' );
+  debugPrint('takeSumResult=$sumResult' );
   return sumResult;}
 
 void calcSum() {
   sumResult =  _firstNumber + _secondNumber;
-  print('calcSum $sumResult');
+  debugPrint('calcSum $sumResult');
   notifyListeners();
 }
 
@@ -198,7 +198,7 @@ class _SimpleCalcWidgetState extends State<SimpleCalcWidget> {
       //в качестве чайлда нужен отдельный виджет чтобы в его билд передать контекст
       //с SimpleCalcProvider и его моделью данных,
       //иначе dependOnInheritedWidgetOfExactType<SimpleCalcProvider> ничего не найдёт
-      child: CalcArea(),
+      child: const CalcArea(),
     );
   }
 }
@@ -212,19 +212,19 @@ class CalcArea extends StatelessWidget {
       children: [Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(width: 100, height: 46, child: TextField(decoration: InputDecoration( border: OutlineInputBorder()), onChanged: (newValue) {
+          SizedBox(width: 100, height: 46, child: TextField(decoration: const InputDecoration( border: OutlineInputBorder()), onChanged: (newValue) {
             SimpleCalcProvider.read(context)?.putFirstNumber=newValue;
           },)),
-          Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('+')),
-          SizedBox(width: 100, height: 46, child: TextField(decoration: InputDecoration(border: OutlineInputBorder()), onChanged: (newValue) {
+          Container(padding: const EdgeInsets.symmetric(horizontal: 10), child: const Text('+')),
+          SizedBox(width: 100, height: 46, child: TextField(decoration: const InputDecoration(border: OutlineInputBorder()), onChanged: (newValue) {
             SimpleCalcProvider.read(context)?.putSecondNumber=newValue;
           },)),
-          Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text('=')),
-          Container(padding: EdgeInsets.symmetric(horizontal: 10), child: ResultWidget()),
+          Container(padding: const EdgeInsets.symmetric(horizontal: 10), child: const Text('=')),
+          Container(padding: const EdgeInsets.symmetric(horizontal: 10), child: const ResultWidget()),
         ],
       ),
         ElevatedButton( onPressed: () {
-          print('pressed');
+          debugPrint('pressed');
           SimpleCalcProvider.read(context)?.calcSum;
           context.dependOnInheritedWidgetOfExactType<SimpleCalcProvider>()?.model.calcSum();
         } ,

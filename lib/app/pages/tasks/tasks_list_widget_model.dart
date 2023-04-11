@@ -35,7 +35,7 @@ void _loadGroup() async {
   //если либо бокс пустой либо в группе нет связей то возвращаем пустой лист
   if (box.length == 0) {_tasks = <Task>[];}
   else { _tasks = _group?.tasks ?? <Task>[]; }
-  print('---- box.length = ${box.length} ::: _tasks.length = ${_tasks.length} ');
+  debugPrint('---- box.length = ${box.length} ::: _tasks.length = ${_tasks.length} ');
   notifyListeners();
   }
 
