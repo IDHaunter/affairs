@@ -13,29 +13,29 @@ abstract class MainNavigatorRouteNames {
   //стартовая страница всегда должна начинаться с "/", иначе (если например "/aaa") компилятор будет давать возможность делать с этой страницы
   //переход назад до "/", или нужно называть страницы вообще без символов "/" чтобы не использовать принцип deep link
   static const groups = '/'; // GroupsPage()
-  static const group = '/group_page'; // Provider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
+  static const group =
+      '/group_page'; // Provider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
   static const theme = '/theme_page'; // ThemePage()
-  static const language ='/language_page'; // LanguagePage(),
+  static const language = '/language_page'; // LanguagePage(),
   static const tasks = '/tasks_page'; // TasksPage(),
   static const task = '/tasks_page/task_page'; // TaskPage(),
 }
 
 class MainNavigator {
- final initialRoute = MainNavigatorRouteNames.groups;
- //routes проверяется до вызова onGenerateRoute
- final routes = <String, Widget Function(BuildContext)>{
-   //1. тут нельзя задавать const т.к. при смене тем оформления будет глюк !!!
-   //2. если страница №2 вызывается со страницы №1 то контекст первой
-   //не наследуется во второй (видно в DevTools и важно для моделей данных)
-   MainNavigatorRouteNames.groups: (context) => GroupsPage(),
-   MainNavigatorRouteNames.group: (context) => ChangeNotifierProvider<GroupPageModel>(
-       create: (context) => GroupPageModel(),
-       child: GroupPage()),
-   MainNavigatorRouteNames.theme: (context) => ThemePage(),
-   MainNavigatorRouteNames.language: (context) => LanguagePage(),
-   MainNavigatorRouteNames.tasks: (context) => TasksPage(),
-   //MainNavigatorRouteNames.task: (context) => TaskPage(),
- };
+  final initialRoute = MainNavigatorRouteNames.groups;
+
+  //routes проверяется до вызова onGenerateRoute
+  final routes = <String, Widget Function(BuildContext)>{
+    //1. тут нельзя задавать const т.к. при смене тем оформления будет глюк !!!
+    //2. если страница №2 вызывается со страницы №1 то контекст первой
+    //не наследуется во второй (видно в DevTools и важно для моделей данных)
+    MainNavigatorRouteNames.groups: (context) => GroupsPage(),
+    //MainNavigatorRouteNames.group: (context) => ChangeNotifierProvider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
+    MainNavigatorRouteNames.theme: (context) => ThemePage(),
+    MainNavigatorRouteNames.language: (context) => LanguagePage(),
+    MainNavigatorRouteNames.tasks: (context) => TasksPage(),
+    //MainNavigatorRouteNames.task: (context) => TaskPage(),
+  };
 
 //Эта функция позволяет в зависимости от имени и аргумента возвращать разные экраны
   //кроме передачи параметров используется часто для кастомной анимации смены разных экранов
@@ -44,13 +44,20 @@ class MainNavigator {
     //print('---- onGenerateRoute ${settings.name} ::: ${settings.arguments} ');
     switch (settings.name) {
       case MainNavigatorRouteNames.task:
-        final groupKey = settings.arguments as int;
-        return MaterialPageRoute(builder: (context) => TaskPage(groupKeyFromNavigator: groupKey)
-        );
-      default: const widget = Text('Requested page not found!');
-               return MaterialPageRoute(builder: (context) => widget);
+        {
+          final groupKey = settings.arguments as int;
+          return MaterialPageRoute(builder: (context) => TaskPage(groupKeyFromNavigator: groupKey));
+        }
+      case MainNavigatorRouteNames.group:
+        {
+          final groupKey = settings.arguments as int;
+          return MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider<GroupPageModel>(
+                  create: (context) => GroupPageModel(groupIndex: groupKey), child: GroupPage(groupKeyFromNavigator: groupKey)));
+        }
+      default:
+        const widget = Text('Requested page not found!');
+        return MaterialPageRoute(builder: (context) => widget);
     }
   }
-
 }
-

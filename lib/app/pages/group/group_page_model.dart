@@ -3,6 +3,10 @@ import 'package:affairs/core/hive/group.dart';
 import '../../../core/hive/box_handler.dart';
 
 class GroupPageModel extends ChangeNotifier{
+  int groupIndex;
+
+  GroupPageModel({required this.groupIndex});
+
   var _groupName = '';
   String? errorText;
 
@@ -14,7 +18,7 @@ class GroupPageModel extends ChangeNotifier{
     _groupName = value;
   }
 
-  void saveGroup(BuildContext context) async {
+  void addGroup(BuildContext context) async {
     //Если группа не задана или состоит из пробелов то показываем ошибку и выходим
     final groupName = _groupName.trim();
     if (groupName.isEmpty) {
@@ -30,4 +34,20 @@ class GroupPageModel extends ChangeNotifier{
     await box.add(group);
     //print('------- $groupName');
   }
+
+  void editGroup(BuildContext context) async {
+    //Если группа не задана или состоит из пробелов то показываем ошибку и выходим
+    final groupName = _groupName.trim();
+    if (groupName.isEmpty) {
+      errorText='Название группы не указано';
+      notifyListeners();
+      return;}
+    final box = boxHandler.groupBox;
+    final int groupKey = box.keyAt(groupIndex);
+    final Group? group2edit = box.get(groupKey);
+    group2edit!.name = groupName;
+    await box.put(groupKey, group2edit!);
+    //await box.putAt(groupIndex, group2edit!); - Тоже работает
+  }
+
 }

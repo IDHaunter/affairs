@@ -130,7 +130,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                         backgroundColor: Color.fromRGBO(r, g, b, 0.3),
                         child: IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.calendar_today),
+                          icon: const Icon(Icons.calendar_today_outlined),
                           color: curITheme.icon(),
                           tooltip: 'Календарь событий',
                         ),

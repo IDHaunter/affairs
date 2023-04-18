@@ -5,7 +5,8 @@ import 'package:affairs/core/common_export.dart';
 import 'group_page_model.dart';
 
 class GroupPage extends StatelessWidget {
-  const GroupPage({Key? key}) : super(key: key);
+  final int groupKeyFromNavigator;
+  const GroupPage({Key? key, required this.groupKeyFromNavigator}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,8 @@ class GroupPage extends StatelessWidget {
             child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children:  const [
+                  //Text(groupKeyFromNavigator.toString()),
                   GroupNameWidget(),
                 ]),
           )
@@ -31,8 +33,19 @@ class GroupPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Provider.of<GroupPageModel>(context, listen: false)
-              .saveGroup(context);
+          if (groupKeyFromNavigator==-1)
+           { //Добавление
+             Provider.of<GroupPageModel>(context, listen: false)
+                 .addGroup(context);
+           }
+          else
+            { //Изменение
+              debugPrint('--------- before editGroup');
+              Provider.of<GroupPageModel>(context, listen: false)
+                  .editGroup(context);
+              debugPrint('--------- after editGroup');
+            }
+
           //возвращаемся на предыдущую страницу
           Provider.of<GroupPageModel>(context, listen: false).errorText ??
               Navigator.of(context).pop();
@@ -67,7 +80,7 @@ class GroupNameWidget extends StatelessWidget {
           Provider.of<GroupPageModel>(context, listen: false).groupName = value,
       //по нажатию на кнопку done
       onEditingComplete: () {
-        Provider.of<GroupPageModel>(context, listen: false).saveGroup(context);
+        Provider.of<GroupPageModel>(context, listen: false).addGroup(context);
         //возвращаемся на предыдущую страницу
         Provider.of<GroupPageModel>(context, listen: false).errorText ??
             Navigator.of(context).pop();

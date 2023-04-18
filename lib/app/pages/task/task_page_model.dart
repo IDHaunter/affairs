@@ -41,6 +41,7 @@ class TaskPageModel /*extends ChangeNotifier*/ {
     final groupBox = boxHandler.groupBox;
     //Получаем группу по ключу
     final group = groupBox.get(groupKey);
+    debugPrint('-----------   ----  $groupKey');
     //Добавляем в группу Task
     group?.addTask(taskBox, task);
 
