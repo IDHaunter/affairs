@@ -21,6 +21,12 @@ abstract class MainNavigatorRouteNames {
   static const task = '/tasks_page/task_page'; // TaskPage(),
 }
 
+class GroupPageArguments {
+  final int groupIndex;
+  final String groupName;
+  GroupPageArguments ({required this.groupIndex, required this.groupName});
+}
+
 class MainNavigator {
   final initialRoute = MainNavigatorRouteNames.groups;
 
@@ -50,10 +56,12 @@ class MainNavigator {
         }
       case MainNavigatorRouteNames.group:
         {
-          final groupKey = settings.arguments as int;
+          final groupPageArguments = settings.arguments as GroupPageArguments;
           return MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider<GroupPageModel>(
-                  create: (context) => GroupPageModel(groupIndex: groupKey), child: GroupPage(groupKeyFromNavigator: groupKey)));
+              builder: (context) =>
+                  ChangeNotifierProvider<GroupPageModel>(
+                      create: (context) => GroupPageModel(groupIndex: groupPageArguments.groupIndex, editGroupName: groupPageArguments.groupName),
+                      child: GroupPage(groupKeyFromNavigator: groupPageArguments.groupIndex, groupNameFromNavigator: groupPageArguments.groupName,)));
         }
       default:
         const widget = Text('Requested page not found!');

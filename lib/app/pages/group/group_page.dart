@@ -6,7 +6,8 @@ import 'group_page_model.dart';
 
 class GroupPage extends StatelessWidget {
   final int groupKeyFromNavigator;
-  const GroupPage({Key? key, required this.groupKeyFromNavigator}) : super(key: key);
+  final String groupNameFromNavigator;
+  const GroupPage({Key? key, required this.groupKeyFromNavigator, required this.groupNameFromNavigator}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class GroupPage extends StatelessWidget {
             child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:  const [
+                children:  [
                   //Text(groupKeyFromNavigator.toString()),
-                  GroupNameWidget(),
+                  GroupNameWidget(initialValue: groupNameFromNavigator),
                 ]),
           )
         ],
@@ -57,8 +58,22 @@ class GroupPage extends StatelessWidget {
   }
 }
 
-class GroupNameWidget extends StatelessWidget {
-  const GroupNameWidget({Key? key}) : super(key: key);
+class GroupNameWidget extends StatefulWidget {
+  final String initialValue;
+  const GroupNameWidget({Key? key, required this.initialValue}) : super(key: key);
+
+  @override
+  State<GroupNameWidget> createState() => _GroupNameWidgetState();
+}
+
+class _GroupNameWidgetState extends State<GroupNameWidget> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +100,7 @@ class GroupNameWidget extends StatelessWidget {
         Provider.of<GroupPageModel>(context, listen: false).errorText ??
             Navigator.of(context).pop();
       },
+      controller: _controller,
     );
   }
 }

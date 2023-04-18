@@ -36,7 +36,8 @@ class GroupsListRowWidget extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
-              Navigator.of(context).pushNamed(MainNavigatorRouteNames.group, arguments: indexInList);
+              GroupPageArguments groupPageArguments = GroupPageArguments(groupIndex: indexInList, groupName: group.name);
+              Navigator.of(context).pushNamed(MainNavigatorRouteNames.group, arguments: groupPageArguments);
             },
             backgroundColor: curITheme.majorShadow(),
             foregroundColor: curITheme.buttonText(),

@@ -37,7 +37,8 @@ class GroupsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //showGroupPage(context);
-          Navigator.of(context).pushNamed(MainNavigatorRouteNames.group, arguments: -1);
+          GroupPageArguments groupPageArguments = GroupPageArguments(groupIndex: -1, groupName: '');
+          Navigator.of(context).pushNamed(MainNavigatorRouteNames.group, arguments: groupPageArguments);
           //context.read<DataGlobal>().putDataS(AppLocalizations.of(context)!.helloWorld); //пишет в модель
         },
         elevation: 5,

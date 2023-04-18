@@ -4,8 +4,9 @@ import '../../../core/hive/box_handler.dart';
 
 class GroupPageModel extends ChangeNotifier{
   int groupIndex;
+  String editGroupName;
 
-  GroupPageModel({required this.groupIndex});
+  GroupPageModel({required this.groupIndex, required this.editGroupName});
 
   var _groupName = '';
   String? errorText;
