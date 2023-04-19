@@ -3,6 +3,8 @@ import 'package:affairs/core/common_export.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/hive/task.dart';
+
 class TasksListWidget extends StatelessWidget {
   const TasksListWidget({Key? key}) : super(key: key);
 
@@ -42,6 +44,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
   @override
   Widget build(BuildContext context) {
     final task = Provider.of<TasksListWidgetModel>(context, listen: false).tasks[indexInList];
+    final TaskPageArguments taskPageArguments = TaskPageArguments(groupKey: indexInList, curTask: task);
 
     //иконка и текст будут зависить от статуса таски
     final icon = task.isDone ? Icons.done : null;
@@ -52,52 +55,22 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
     final taskDateStyle = medium.copyWith(color: curITheme.primary(), fontSize: 12);
 
     return Slidable(
-      // Specify a key if the Slidable is dismissible.
-      //key: const ValueKey(0),
-      // The start action pane is the one at the left or the top side.
-//      startActionPane: ActionPane(
-      // A motion is a widget used to control how the pane animates.
-//        motion: const ScrollMotion(),
-
-      // A pane can dismiss the Slidable.
-      //dismissible: DismissiblePane(onDismissed: () {}),
-
-      // All actions are defined in the children parameter.
-//        children:  [
-
-      // SlidableAction(
-      //   // An action can be bigger than the others.
-      //   flex: 2,
-      //   onPressed:(context){},
-      //   backgroundColor: Color(0xFF7BC043),
-      //   foregroundColor: Colors.white,
-      //   icon: Icons.archive,
-      //   label: 'Archive',
-      // ),
-      // SlidableAction(
-      //   onPressed: (context){},
-      //   backgroundColor: Color(0xFF0392CF),
-      //   foregroundColor: Colors.white,
-      //   icon: Icons.save,
-      //   label: 'Save',
-      // ),
-
-//        ],
-//      ),
 
       //The end action pane is the one at the right or the bottom side.
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
-          SlidableAction(
-            onPressed: (context) {},
+          SlidableAction( //редактирование
+            onPressed: (context) {
+              Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: taskPageArguments);
+            },
             backgroundColor: curITheme.majorShadow(),
             foregroundColor: curITheme.buttonText(),
             icon: Icons.drive_file_rename_outline,
             //label: 'Rename',
           ),
           // A SlidableAction can have an icon and/or a label.
-          SlidableAction(
+          SlidableAction( //удаление
             onPressed: (context) {
               Provider.of<TasksListWidgetModel>(context, listen: false).deleteTask(indexInList);
               //print('----delete: $indexInList');

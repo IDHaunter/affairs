@@ -4,12 +4,15 @@ import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/tasks/tasks_list_widget.dart';
 
+import '../../../core/hive/task.dart';
+
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final currentGroupKey =ModalRoute.of(context)!.settings.arguments as int;
+    final TaskPageArguments taskPageArguments = TaskPageArguments(groupKey: currentGroupKey, curTask: Task(text: '', isDone: false, creationDate: DateTime.now()));
     //print('--- TasksPageState.build currentGroupKey=$currentGroupKey');
 
     return Scaffold(
@@ -29,7 +32,7 @@ class TasksPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: currentGroupKey);
+            Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: taskPageArguments);
             //Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage()));
           },
           elevation: 5,

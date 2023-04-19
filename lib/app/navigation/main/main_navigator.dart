@@ -1,4 +1,5 @@
 import '../../../core/common_export.dart';
+import '../../../core/hive/task.dart';
 import '../../pages/group/group_page.dart';
 import '../../pages/group/group_page_model.dart';
 import '../../pages/groups/groups_page.dart';
@@ -27,6 +28,12 @@ class GroupPageArguments {
   GroupPageArguments ({required this.groupIndex, required this.groupName});
 }
 
+class TaskPageArguments {
+  final int groupKey;
+  final Task curTask;
+  TaskPageArguments({required this.groupKey, required this.curTask});
+}
+
 class MainNavigator {
   final initialRoute = MainNavigatorRouteNames.groups;
 
@@ -51,8 +58,9 @@ class MainNavigator {
     switch (settings.name) {
       case MainNavigatorRouteNames.task:
         {
-          final groupKey = settings.arguments as int;
-          return MaterialPageRoute(builder: (context) => TaskPage(groupKeyFromNavigator: groupKey));
+          //final groupKey = settings.arguments as int;
+          final taskPageArguments = settings.arguments as TaskPageArguments;
+          return MaterialPageRoute(builder: (context) => TaskPage(groupKeyFromNavigator: taskPageArguments.groupKey, taskFromNavigator: taskPageArguments.curTask ,));
         }
       case MainNavigatorRouteNames.group:
         {

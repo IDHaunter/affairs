@@ -19,6 +19,10 @@ TasksListWidgetModel({required this.groupKey}){
   _setup();
 }
 
+void refresh() {
+  notifyListeners();
+}
+
 //Получение группы по ключу
 void _loadGroup() async {
   final box = boxHandler.groupBox;
@@ -32,6 +36,7 @@ void _loadGroup() async {
 
   void _readTasks() async {
   final box = boxHandler.taskBox;
+  box.listenable().addListener(()=>notifyListeners());
   //если либо бокс пустой либо в группе нет связей то возвращаем пустой лист
   if (box.length == 0) {_tasks = <Task>[];}
   else { _tasks = _group?.tasks ?? <Task>[]; }
@@ -43,19 +48,19 @@ void _loadGroup() async {
   final box = boxHandler.groupBox;
   _readTasks();
   //идея в том, чтобы слушать изменения внутри бокса с группами только по определённой группе используя ключ groupKey
-   box.listenable(keys: <dynamic>[groupKey]).addListener(_readTasks);
+  box.listenable(keys: <dynamic>[groupKey]).addListener(_readTasks);
   //если бы мы повесили слушателя на весь массив тасков или на всеь массив групп то при изменении любого элемента мы бы обновлялись
   //а так мы обновляемся только при изменении в одной группе
   }
 
-  void deleteTask(int groupIndex) async {
-    await _group?.tasks?.deleteFromHive(groupIndex);
+  void deleteTask(int taskIndex) async {
+    await _group?.tasks?.deleteFromHive(taskIndex);
     //при работе со связями обязательно после изменений нужно сохранять
     await _group?.save();
   }
 
-  void doneToggle(int groupIndex) async {
-  final task = _group?.tasks?[groupIndex];
+  void doneToggle(int taskIndex) async {
+  final task = _group?.tasks?[taskIndex];
   final currentState = task?.isDone ?? false;
   task?.isDone = !currentState;
   await task?.save();

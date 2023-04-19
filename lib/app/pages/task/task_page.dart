@@ -3,10 +3,14 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
+import '../../../core/hive/task.dart';
+import '../tasks/tasks_list_widget_model.dart';
+
 class TaskPage extends StatelessWidget {
   final int groupKeyFromNavigator;
+  final Task taskFromNavigator;
 
-  const TaskPage({Key? key, required this.groupKeyFromNavigator})
+  const TaskPage({Key? key, required this.groupKeyFromNavigator, required this.taskFromNavigator})
       : super(key: key);
 
   @override
@@ -14,10 +18,11 @@ class TaskPage extends StatelessWidget {
     //print('---- TaskPage.build groupKeyFromNavigator=$groupKeyFromNavigator');
     //final currentGroupKey = ModalRoute.of(context)!.settings.arguments as int; - при работе через свой навигатор (MainNavigator) будет = null !!!
     final currentGroupKey = groupKeyFromNavigator;
+    final Task currentTask = taskFromNavigator;
 
     return Provider<TaskPageModel>(
         //ChangeNotifier
-        create: (context) => TaskPageModel(groupKey: currentGroupKey),
+        create: (context) => TaskPageModel(groupKey: currentGroupKey, currentTask: currentTask),
         lazy: false,
         child: const TaskPageWidget());
   }
@@ -74,7 +79,16 @@ class TaskPageWidget extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Provider.of<TaskPageModel>(context, listen: false).saveTask();
+
+          if (Provider.of<TaskPageModel>(context, listen: false).currentTask.text=='')
+            { //Если входная таска была пустой то значит это внесение новой таски
+              Provider.of<TaskPageModel>(context, listen: false).saveTask();
+            }
+          else { //редактирование таски
+              Provider.of<TaskPageModel>(context, listen: false).editTask();
+              //Provider.of<TasksListWidgetModel>(context, listen: false).refresh();
+          }
+
           if (Provider.of<TaskPageModel>(context, listen: false).errorText !=
               null) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
