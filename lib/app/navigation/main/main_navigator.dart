@@ -30,8 +30,9 @@ class GroupPageArguments {
 
 class TaskPageArguments {
   final int groupKey;
+  final int taskKey;
   final Task curTask;
-  TaskPageArguments({required this.groupKey, required this.curTask});
+  TaskPageArguments({required this.groupKey, required this.curTask, required this.taskKey});
 }
 
 class MainNavigator {
@@ -60,7 +61,7 @@ class MainNavigator {
         {
           //final groupKey = settings.arguments as int;
           final taskPageArguments = settings.arguments as TaskPageArguments;
-          return MaterialPageRoute(builder: (context) => TaskPage(groupKeyFromNavigator: taskPageArguments.groupKey, taskFromNavigator: taskPageArguments.curTask ,));
+          return MaterialPageRoute(builder: (context) => TaskPage(groupKeyFromNavigator: taskPageArguments.groupKey, taskFromNavigator: taskPageArguments.curTask, taskKeyFromNavigator:taskPageArguments.taskKey ,));
         }
       case MainNavigatorRouteNames.group:
         {

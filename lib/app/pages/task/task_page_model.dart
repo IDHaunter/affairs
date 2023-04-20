@@ -8,12 +8,13 @@ import '../../../core/hive/box_handler.dart';
 
 class TaskPageModel /*extends ChangeNotifier*/ {
   int groupKey;
+  int taskIndex;
   Task currentTask; //таска подлежащая редактированию
   String _taskText = '';
   DateTime? _taskDateTime;
   String? errorText;
 
-  TaskPageModel({required this.groupKey, required this.currentTask}) {
+  TaskPageModel({required this.groupKey, required this.taskIndex, required this.currentTask}) {
     //print(" ---- TaskPageModel.created");
   }
 
@@ -62,15 +63,11 @@ class TaskPageModel /*extends ChangeNotifier*/ {
     final taskBox = boxHandler.taskBox;
     //Модифицируем таску
     currentTask.text=_taskText;
-    debugPrint('----------- editTask ----  ${currentTask.text} -creationDate- ${currentTask.creationDate} -taskDate- ${currentTask.taskDate}');
+    debugPrint('----------- editTask ---- taskKey=$taskIndex ---  ${currentTask.text} -creationDate- ${currentTask.creationDate} -taskDate- ${currentTask.taskDate}');
 
-    await taskBox.putAt(1, currentTask);
-
-    //final int groupKey = taskBox.keyAt(groupKey);
-    //final Group? group2edit = box.get(groupKey);
-    //group2edit!.name = groupName;
-    //await box.put(groupKey, group2edit!);
-    //await box.putAt(groupIndex, group2edit!); - Тоже работает
+    //await taskBox.putAt(taskIndex, currentTask); - Работает по индексу
+    final int taskKey = taskBox.keyAt(taskIndex);
+    await taskBox.put(taskKey, currentTask);
   }
 
 }

@@ -8,21 +8,20 @@ import '../tasks/tasks_list_widget_model.dart';
 
 class TaskPage extends StatelessWidget {
   final int groupKeyFromNavigator;
+  final int taskKeyFromNavigator;
   final Task taskFromNavigator;
 
-  const TaskPage({Key? key, required this.groupKeyFromNavigator, required this.taskFromNavigator})
+  const TaskPage({Key? key, required this.groupKeyFromNavigator, required this.taskFromNavigator, required this.taskKeyFromNavigator, })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //print('---- TaskPage.build groupKeyFromNavigator=$groupKeyFromNavigator');
     //final currentGroupKey = ModalRoute.of(context)!.settings.arguments as int; - при работе через свой навигатор (MainNavigator) будет = null !!!
-    final currentGroupKey = groupKeyFromNavigator;
-    final Task currentTask = taskFromNavigator;
 
     return Provider<TaskPageModel>(
         //ChangeNotifier
-        create: (context) => TaskPageModel(groupKey: currentGroupKey, currentTask: currentTask),
+        create: (context) => TaskPageModel(groupKey: groupKeyFromNavigator, currentTask: taskFromNavigator, taskIndex: taskKeyFromNavigator ),
         lazy: false,
         child: const TaskPageWidget());
   }

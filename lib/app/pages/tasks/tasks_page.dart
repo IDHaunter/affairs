@@ -12,7 +12,7 @@ class TasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentGroupKey =ModalRoute.of(context)!.settings.arguments as int;
-    final TaskPageArguments taskPageArguments = TaskPageArguments(groupKey: currentGroupKey, curTask: Task(text: '', isDone: false, creationDate: DateTime.now()));
+    final TaskPageArguments newTaskPageArguments = TaskPageArguments(groupKey: currentGroupKey, curTask: Task(text: '', isDone: false, creationDate: DateTime.now()), taskKey: -1);
     //print('--- TasksPageState.build currentGroupKey=$currentGroupKey');
 
     return Scaffold(
@@ -32,7 +32,7 @@ class TasksPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: taskPageArguments);
+            Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: newTaskPageArguments);
             //Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage()));
           },
           elevation: 5,

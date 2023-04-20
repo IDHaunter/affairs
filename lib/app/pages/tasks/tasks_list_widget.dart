@@ -44,7 +44,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
   @override
   Widget build(BuildContext context) {
     final task = Provider.of<TasksListWidgetModel>(context, listen: false).tasks[indexInList];
-    final TaskPageArguments taskPageArguments = TaskPageArguments(groupKey: indexInList, curTask: task);
+    final TaskPageArguments editTaskPageArguments = TaskPageArguments(groupKey: -1, curTask: task, taskKey: indexInList);
 
     //иконка и текст будут зависить от статуса таски
     final icon = task.isDone ? Icons.done : null;
@@ -55,14 +55,13 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
     final taskDateStyle = medium.copyWith(color: curITheme.primary(), fontSize: 12);
 
     return Slidable(
-
       //The end action pane is the one at the right or the bottom side.
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
           SlidableAction( //редактирование
             onPressed: (context) {
-              Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: taskPageArguments);
+              Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: editTaskPageArguments);
             },
             backgroundColor: curITheme.majorShadow(),
             foregroundColor: curITheme.buttonText(),
