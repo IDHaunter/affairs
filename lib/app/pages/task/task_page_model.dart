@@ -65,9 +65,15 @@ class TaskPageModel /*extends ChangeNotifier*/ {
     currentTask.text=_taskText;
     debugPrint('----------- editTask ---- taskKey=$taskIndex ---  ${currentTask.text} -creationDate- ${currentTask.creationDate} -taskDate- ${currentTask.taskDate}');
 
-    //await taskBox.putAt(taskIndex, currentTask); - Работает по индексу
+    //Непосредственно перед тем как модифицировать объект нужно его получить из бокса по ключу
+    //Если попытаться принести тот же объект (наследуемый от HiveObject) из других виджетов и добавить его здесь
+    // (как currentTask ) в данном случае, то будет ошибка The same instance of an HiveObject cannot be stored with two different keys
     final int taskKey = taskBox.keyAt(taskIndex);
-    await taskBox.put(taskKey, currentTask);
+    final Task? task2edit = taskBox.get(taskKey);
+    task2edit!.text = _taskText;
+    await taskBox.put(taskKey, task2edit!);
+    //await taskBox.put(taskKey, currentTask); - вызовет ошибку HiveError: The same instance of an HiveObject cannot be stored with two different keys
+    //await taskBox.putAt(taskIndex, currentTask); - тоже будет ошибка
   }
 
 }
