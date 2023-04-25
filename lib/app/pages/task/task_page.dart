@@ -26,48 +26,6 @@ class TaskPage extends StatelessWidget {
   }
 }
 
-class TaskTextWidget extends StatefulWidget {
-  final Task initialTask;
-  const TaskTextWidget({Key? key, required this.initialTask}) : super(key: key);
-
-  @override
-  State<TaskTextWidget> createState() => _TaskTextWidgetState();
-}
-
-class _TaskTextWidgetState extends State<TaskTextWidget> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.initialTask.text);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      //textAlign: TextAlign.center,
-      style: regular.copyWith(fontSize: titleSize),
-      autofocus: true,
-      minLines: null,
-      maxLines: null,
-      expands: true,
-      decoration: const InputDecoration(
-        //contentPadding: EdgeInsets.symmetric(horizontal: 25),
-        //border: OutlineInputBorder(),
-        border: InputBorder.none,
-        hintText: 'Текст задачи',
-        //hintStyle: basic,
-        //helperText: 'Имя группы',
-      ),
-      //по изменению
-      onChanged: (value) =>
-          Provider.of<TaskPageModel>(context, listen: false).taskText = value,
-      controller: _controller,
-    );
-  }
-}
-
 class TaskPageWidget extends StatelessWidget {
   const TaskPageWidget({Key? key}) : super(key: key);
 
@@ -116,6 +74,48 @@ class TaskPageWidget extends StatelessWidget {
         elevation: 5,
         child: const Icon(color: Colors.white, Icons.done),
       ),
+    );
+  }
+}
+
+class TaskTextWidget extends StatefulWidget {
+  final Task initialTask;
+  const TaskTextWidget({Key? key, required this.initialTask}) : super(key: key);
+
+  @override
+  State<TaskTextWidget> createState() => _TaskTextWidgetState();
+}
+
+class _TaskTextWidgetState extends State<TaskTextWidget> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialTask.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      //textAlign: TextAlign.center,
+      style: regular.copyWith(fontSize: titleSize),
+      autofocus: true,
+      minLines: null,
+      maxLines: null,
+      expands: true,
+      decoration: const InputDecoration(
+        //contentPadding: EdgeInsets.symmetric(horizontal: 25),
+        //border: OutlineInputBorder(),
+        border: InputBorder.none,
+        hintText: 'Текст задачи',
+        //hintStyle: basic,
+        //helperText: 'Имя группы',
+      ),
+      //по изменению
+      onChanged: (value) =>
+      Provider.of<TaskPageModel>(context, listen: false).taskText = value,
+      controller: _controller,
     );
   }
 }

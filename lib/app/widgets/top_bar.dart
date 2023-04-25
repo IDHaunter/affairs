@@ -32,6 +32,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
       _sDate = _sDateDefault;
     } else {
       _sDate = DateFormat("dd.MM.yyyy").format(widget.editDate!);
+      _dateTime = widget.editDate;
       Provider.of<TaskPageModel>(context, listen: false).taskDateTime = widget.editDate!;
     }
 
@@ -72,13 +73,16 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
   void onDatePickerPressed() {
     showDatePicker(
             context: context,
-            initialDate: DateTime.now(),
+            initialDate: _dateTime ?? DateTime.now() ,
             firstDate: DateTime(2000),
             lastDate: DateTime(2025))
         .then((value) {
       _dateTime = value;
+      //работа с датой подразумевает наличие модели TaskPageModel т.к. её выбор возможен только на странице TaskPage
       if (_dateTime == null || DateUtils.dateOnly(_dateTime??DateTime.now())==DateUtils.dateOnly(DateTime.now()) )   {
         _sDate = _sDateDefault;
+        _dateTime = null;
+        Provider.of<TaskPageModel>(context, listen: false).taskDateTime= null;
       } else {
         _sDate = DateFormat("dd.MM.yyyy").format(_dateTime!);
         Provider.of<TaskPageModel>(context, listen: false).taskDateTime = _dateTime!;

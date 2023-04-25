@@ -16,9 +16,10 @@ class TaskPageModel /*extends ChangeNotifier*/ {
 
   TaskPageModel({required this.groupKey, required this.taskIndex, required this.currentTask}) {
     //print(" ---- TaskPageModel.created");
+    fillTaskText(currentTask.text);
   }
 
-  set taskText(String value) {
+  void fillTaskText(String value) {
     if (errorText != null && value.trim().isNotEmpty) {
       errorText = null;
       //notifyListeners();
@@ -26,7 +27,11 @@ class TaskPageModel /*extends ChangeNotifier*/ {
     _taskText = value.trim();
   }
 
-  set taskDateTime(DateTime value) {
+  set taskText(String value) {
+    fillTaskText(value);
+  }
+
+  set taskDateTime(DateTime? value) {
     _taskDateTime = value;
     currentTask.taskDate = value;
   }
