@@ -7,8 +7,9 @@ class TopBar extends StatefulWidget {
   final bool showFilter;
   final bool showCalendar;
   final bool showDatePicker;
+  final DateTime? editDate;
 
-  const TopBar({Key? key, required this.showFilter, required this.showCalendar, required this.showDatePicker})
+  const TopBar({Key? key, required this.showFilter, required this.showCalendar, required this.showDatePicker, this.editDate})
       : super(key: key);
 
   @override
@@ -21,21 +22,27 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
   late String _sFilter;
   late String _sDate;
   DateTime? _dateTime;
-  late TextEditingController controller;
+  late TextEditingController _controller;
 
   @override
   void initState() {
     // TODO: implement initState
     _sFilter = _sFilterDefault;
-    _sDate = _sDateDefault;
+    if (widget.editDate==null) {
+      _sDate = _sDateDefault;
+    } else {
+      _sDate = DateFormat("dd.MM.yyyy").format(widget.editDate!);
+      Provider.of<TaskPageModel>(context, listen: false).taskDateTime = widget.editDate!;
+    }
+
     super.initState();
-    controller = TextEditingController();
+    _controller = TextEditingController();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -46,7 +53,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
             content: TextField(
               autofocus: true,
               decoration: const InputDecoration(hintText: 'Задайте фильтр по имени'),
-              controller: controller,
+              controller: _controller,
             ),
             actions: [
               TextButton(onPressed: submit, child: const Text('ОК')),
@@ -54,7 +61,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
           ));
 
   void submit() {
-    Navigator.of(context).pop(controller.text.isEmpty ? _sFilterDefault : controller.text);
+    Navigator.of(context).pop(_controller.text.isEmpty ? _sFilterDefault : _controller.text);
   }
 
   void onFilterPressed() async {

@@ -4,7 +4,6 @@ import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
 import '../../../core/hive/task.dart';
-import '../tasks/tasks_list_widget_model.dart';
 
 class TaskPage extends StatelessWidget {
   final int groupKeyFromNavigator;
@@ -27,8 +26,22 @@ class TaskPage extends StatelessWidget {
   }
 }
 
-class TaskTextWidget extends StatelessWidget {
-  const TaskTextWidget({Key? key}) : super(key: key);
+class TaskTextWidget extends StatefulWidget {
+  final Task initialTask;
+  const TaskTextWidget({Key? key, required this.initialTask}) : super(key: key);
+
+  @override
+  State<TaskTextWidget> createState() => _TaskTextWidgetState();
+}
+
+class _TaskTextWidgetState extends State<TaskTextWidget> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialTask.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +63,7 @@ class TaskTextWidget extends StatelessWidget {
       //по изменению
       onChanged: (value) =>
           Provider.of<TaskPageModel>(context, listen: false).taskText = value,
+      controller: _controller,
     );
   }
 }
@@ -65,14 +79,14 @@ class TaskPageWidget extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: true),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: true, editDate: Provider.of<TaskPageModel>(context, listen: false).currentTask.taskDate),
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical:
                     context.screenHeight() > context.screenWidth() ? 10 : 0,
                 horizontal: 10),
-            child: const TaskTextWidget(),
+            child: TaskTextWidget(initialTask: Provider.of<TaskPageModel>(context, listen: false).currentTask),
           )),
         ],
       ),

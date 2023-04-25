@@ -28,6 +28,7 @@ class TaskPageModel /*extends ChangeNotifier*/ {
 
   set taskDateTime(DateTime value) {
     _taskDateTime = value;
+    currentTask.taskDate = value;
   }
 
   void saveTask() async {
@@ -71,7 +72,7 @@ class TaskPageModel /*extends ChangeNotifier*/ {
     final int taskKey = taskBox.keyAt(taskIndex);
     final Task? task2edit = taskBox.get(taskKey);
     task2edit!.text = _taskText;
-    await taskBox.put(taskKey, task2edit!);
+    await taskBox.put(taskKey, task2edit);
     //await taskBox.put(taskKey, currentTask); - вызовет ошибку HiveError: The same instance of an HiveObject cannot be stored with two different keys
     //await taskBox.putAt(taskIndex, currentTask); - тоже будет ошибка
   }

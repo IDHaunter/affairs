@@ -27,7 +27,7 @@ class GroupPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
                   //Text(groupKeyFromNavigator.toString()),
-                  GroupNameWidget(initialValue: groupNameFromNavigator),
+                  GroupTextWidget(initialValue: groupNameFromNavigator),
                 ]),
           )
         ],
@@ -58,15 +58,15 @@ class GroupPage extends StatelessWidget {
   }
 }
 
-class GroupNameWidget extends StatefulWidget {
+class GroupTextWidget extends StatefulWidget {
   final String initialValue;
-  const GroupNameWidget({Key? key, required this.initialValue}) : super(key: key);
+  const GroupTextWidget({Key? key, required this.initialValue}) : super(key: key);
 
   @override
-  State<GroupNameWidget> createState() => _GroupNameWidgetState();
+  State<GroupTextWidget> createState() => _GroupTextWidgetState();
 }
 
-class _GroupNameWidgetState extends State<GroupNameWidget> {
+class _GroupTextWidgetState extends State<GroupTextWidget> {
   late TextEditingController _controller;
 
   @override
