@@ -20,7 +20,7 @@ class TaskPage extends StatelessWidget {
 
     return Provider<TaskPageModel>(
         //ChangeNotifier
-        create: (context) => TaskPageModel(groupKey: groupKeyFromNavigator, currentTask: taskFromNavigator, taskIndex: taskKeyFromNavigator ),
+        create: (context) => TaskPageModel(groupKey: groupKeyFromNavigator, currentTask: taskFromNavigator, taskKey: taskKeyFromNavigator ),
         lazy: false,
         child: const TaskPageWidget());
   }
@@ -53,7 +53,7 @@ class TaskPageWidget extends StatelessWidget {
 
           if (Provider.of<TaskPageModel>(context, listen: false).currentTask.text=='')
             { //Если входная таска была пустой то значит это внесение новой таски
-              Provider.of<TaskPageModel>(context, listen: false).saveTask();
+              Provider.of<TaskPageModel>(context, listen: false).addTask();
             }
           else { //редактирование таски
               Provider.of<TaskPageModel>(context, listen: false).editTask();

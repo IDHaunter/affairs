@@ -44,7 +44,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
   @override
   Widget build(BuildContext context) {
     final task = Provider.of<TasksListWidgetModel>(context, listen: false).tasks[indexInList];
-    final TaskPageArguments editTaskPageArguments = TaskPageArguments(groupKey: -1, curTask: task, taskKey: indexInList);
+    final TaskPageArguments editTaskPageArguments = TaskPageArguments(groupKey: -1, curTask: task, taskKey: Provider.of<TasksListWidgetModel>(context, listen: false).tasks[indexInList].key);
 
     //иконка и текст будут зависить от статуса таски
     final icon = task.isDone ? Icons.done : null;
