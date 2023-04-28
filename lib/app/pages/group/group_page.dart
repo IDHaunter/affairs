@@ -2,7 +2,7 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
-import 'group_page_model.dart';
+import 'group_page_viewmodel.dart';
 
 class GroupPage extends StatelessWidget {
   final int groupKeyFromNavigator;
@@ -36,19 +36,19 @@ class GroupPage extends StatelessWidget {
         onPressed: () {
           if (groupKeyFromNavigator==-1)
            { //Добавление
-             Provider.of<GroupPageModel>(context, listen: false)
+             Provider.of<GroupPageViewModel>(context, listen: false)
                  .addGroup(context);
            }
           else
             { //Изменение
               debugPrint('--------- before editGroup');
-              Provider.of<GroupPageModel>(context, listen: false)
+              Provider.of<GroupPageViewModel>(context, listen: false)
                   .editGroup(context);
               debugPrint('--------- after editGroup');
             }
 
           //возвращаемся на предыдущую страницу
-          Provider.of<GroupPageModel>(context, listen: false).errorText ??
+          Provider.of<GroupPageViewModel>(context, listen: false).errorText ??
               Navigator.of(context).pop();
         },
         elevation: 5,
@@ -86,18 +86,18 @@ class _GroupTextWidgetState extends State<GroupTextWidget> {
         //    border: OutlineInputBorder(),
         hintText: 'Введите имя группы',
         hintStyle: basic,
-        errorText: Provider.of<GroupPageModel>(context, listen: true).errorText,
+        errorText: Provider.of<GroupPageViewModel>(context, listen: true).errorText,
         errorStyle: regular.copyWith(fontSize: errorSize, color: curITheme.failure()) ,
         //helperText: 'Имя группы',
       ),
       //по изменению
       onChanged: (value) =>
-          Provider.of<GroupPageModel>(context, listen: false).groupName = value,
+          Provider.of<GroupPageViewModel>(context, listen: false).groupName = value,
       //по нажатию на кнопку done
       onEditingComplete: () {
-        Provider.of<GroupPageModel>(context, listen: false).addGroup(context);
+        Provider.of<GroupPageViewModel>(context, listen: false).addGroup(context);
         //возвращаемся на предыдущую страницу
-        Provider.of<GroupPageModel>(context, listen: false).errorText ??
+        Provider.of<GroupPageViewModel>(context, listen: false).errorText ??
             Navigator.of(context).pop();
       },
       controller: _controller,

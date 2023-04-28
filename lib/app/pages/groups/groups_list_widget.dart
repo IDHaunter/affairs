@@ -1,4 +1,4 @@
-import 'package:affairs/app/pages/groups/groups_list_widget_model.dart';
+import 'package:affairs/app/pages/groups/groups_list_widget_viewmodel.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -7,7 +7,7 @@ class GroupsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int groupsCount = Provider.of<GroupsListWidgetModel>(context, listen: true).takeGroups.length;
+    final int groupsCount = Provider.of<GroupsListWidgetViewModel>(context, listen: true).takeGroups.length;
     return ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return GroupsListRowWidget(indexInList: index);
@@ -28,7 +28,7 @@ class GroupsListRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final group = Provider.of<GroupsListWidgetModel>(context, listen: true).takeGroups[indexInList];
+    final group = Provider.of<GroupsListWidgetViewModel>(context, listen: true).takeGroups[indexInList];
 
     return Slidable(
       endActionPane: ActionPane(
@@ -47,7 +47,7 @@ class GroupsListRowWidget extends StatelessWidget {
           // A SlidableAction can have an icon and/or a label.
           SlidableAction(
             onPressed: (context) {
-              Provider.of<GroupsListWidgetModel>(context, listen: false).deleteGroupFromHive(indexInList);
+              Provider.of<GroupsListWidgetViewModel>(context, listen: false).deleteGroupFromHive(indexInList);
               debugPrint('----delete: $indexInList');
             },
             backgroundColor: curITheme.accent(),
@@ -62,7 +62,7 @@ class GroupsListRowWidget extends StatelessWidget {
         trailing: const Icon(Icons.chevron_right),
         onTap: () {
           debugPrint('--- groups_list_widget indexInList=$indexInList');
-          Provider.of<GroupsListWidgetModel>(context, listen: false).showTasks(context, indexInList);
+          Provider.of<GroupsListWidgetViewModel>(context, listen: false).showTasks(context, indexInList);
         },
       ),
     );

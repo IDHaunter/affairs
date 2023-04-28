@@ -1,4 +1,4 @@
-import 'package:affairs/app/pages/task/task_page_model.dart';
+import 'package:affairs/app/pages/task/task_page_viewmodel.dart';
 import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
@@ -18,9 +18,9 @@ class TaskPage extends StatelessWidget {
     //print('---- TaskPage.build groupKeyFromNavigator=$groupKeyFromNavigator');
     //final currentGroupKey = ModalRoute.of(context)!.settings.arguments as int; - при работе через свой навигатор (MainNavigator) будет = null !!!
 
-    return Provider<TaskPageModel>(
+    return Provider<TaskPageViewModel>(
         //ChangeNotifier
-        create: (context) => TaskPageModel(groupKey: groupKeyFromNavigator, currentTask: taskFromNavigator, taskKey: taskKeyFromNavigator ),
+        create: (context) => TaskPageViewModel(groupKey: groupKeyFromNavigator, currentTask: taskFromNavigator, taskKey: taskKeyFromNavigator ),
         lazy: false,
         child: const TaskPageWidget());
   }
@@ -37,34 +37,34 @@ class TaskPageWidget extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: true, editDate: Provider.of<TaskPageModel>(context, listen: false).currentTask.taskDate),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: true, editDate: Provider.of<TaskPageViewModel>(context, listen: false).currentTask.taskDate),
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical:
                     context.screenHeight() > context.screenWidth() ? 10 : 0,
                 horizontal: 10),
-            child: TaskTextWidget(initialTask: Provider.of<TaskPageModel>(context, listen: false).currentTask),
+            child: TaskTextWidget(initialTask: Provider.of<TaskPageViewModel>(context, listen: false).currentTask),
           )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
 
-          if (Provider.of<TaskPageModel>(context, listen: false).currentTask.text=='')
+          if (Provider.of<TaskPageViewModel>(context, listen: false).currentTask.text=='')
             { //Если входная таска была пустой то значит это внесение новой таски
-              Provider.of<TaskPageModel>(context, listen: false).addTask();
+              Provider.of<TaskPageViewModel>(context, listen: false).addTask();
             }
           else { //редактирование таски
-              Provider.of<TaskPageModel>(context, listen: false).editTask();
+              Provider.of<TaskPageViewModel>(context, listen: false).editTask();
               //Provider.of<TasksListWidgetModel>(context, listen: false).refresh();
           }
 
-          if (Provider.of<TaskPageModel>(context, listen: false).errorText !=
+          if (Provider.of<TaskPageViewModel>(context, listen: false).errorText !=
               null) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: themeHandler.currentITheme.secondary(),
-                content: Text(Provider.of<TaskPageModel>(context, listen: false)
+                content: Text(Provider.of<TaskPageViewModel>(context, listen: false)
                     .errorText!, style: regular.copyWith(color: curITheme.failure()),))  );
           } else {
             //возвращаемся на предыдущую страницу
@@ -114,7 +114,7 @@ class _TaskTextWidgetState extends State<TaskTextWidget> {
       ),
       //по изменению
       onChanged: (value) =>
-      Provider.of<TaskPageModel>(context, listen: false).taskText = value,
+      Provider.of<TaskPageViewModel>(context, listen: false).taskText = value,
       controller: _controller,
     );
   }

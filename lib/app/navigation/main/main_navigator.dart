@@ -1,7 +1,7 @@
 import '../../../core/common_export.dart';
 import '../../../core/hive/task.dart';
 import '../../pages/group/group_page.dart';
-import '../../pages/group/group_page_model.dart';
+import '../../pages/group/group_page_viewmodel.dart';
 import '../../pages/groups/groups_page.dart';
 import '../../pages/language/language_page.dart';
 import '../../pages/task/task_page.dart';
@@ -68,8 +68,8 @@ class MainNavigator {
           final groupPageArguments = settings.arguments as GroupPageArguments;
           return MaterialPageRoute(
               builder: (context) =>
-                  ChangeNotifierProvider<GroupPageModel>(
-                      create: (context) => GroupPageModel(groupIndex: groupPageArguments.groupIndex, editGroupName: groupPageArguments.groupName),
+                  ChangeNotifierProvider<GroupPageViewModel>(
+                      create: (context) => GroupPageViewModel(groupIndex: groupPageArguments.groupIndex, editGroupName: groupPageArguments.groupName),
                       child: GroupPage(groupKeyFromNavigator: groupPageArguments.groupIndex, groupNameFromNavigator: groupPageArguments.groupName,)));
         }
       default:

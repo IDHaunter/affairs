@@ -1,4 +1,4 @@
-import 'package:affairs/app/pages/tasks/tasks_list_widget_model.dart';
+import 'package:affairs/app/pages/tasks/tasks_list_widget_viewmodel.dart';
 import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
@@ -22,9 +22,9 @@ class TasksPage extends StatelessWidget {
           children: [
             TopBar(showCalendar: true, showFilter: true,showDatePicker: false),
             Expanded(
-                child: ChangeNotifierProvider<TasksListWidgetModel>( //.value
+                child: ChangeNotifierProvider<TasksListWidgetViewModel>( //.value
                   //value: model,
-                    create: (context) => TasksListWidgetModel(groupKey: currentGroupKey),
+                    create: (context) => TasksListWidgetViewModel(groupKey: currentGroupKey),
                     lazy: false,
                     child: TasksListWidget())
             ),

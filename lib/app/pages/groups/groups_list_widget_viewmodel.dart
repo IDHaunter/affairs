@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/hive/box_handler.dart';
 
-class GroupsListWidgetModel extends ChangeNotifier {
+class GroupsListWidgetViewModel extends ChangeNotifier {
   var _groups = <Group>[];
 
   //toList() - вернёт другой список, чтобы снаружи не сделали add (это защита)
@@ -42,7 +42,7 @@ class GroupsListWidgetModel extends ChangeNotifier {
   }
 
   //В конструкторе сетапимся
-  GroupsListWidgetModel() {
+  GroupsListWidgetViewModel() {
     _setup();
   }
 

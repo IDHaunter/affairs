@@ -5,7 +5,7 @@ import '../../../core/hive/box_handler.dart';
 import '../../../core/hive/group.dart';
 import '../../../core/hive/task.dart';
 
-class TasksListWidgetModel extends ChangeNotifier {
+class TasksListWidgetViewModel extends ChangeNotifier {
   int groupKey;
 
   bool isDisposed = false;
@@ -16,7 +16,7 @@ class TasksListWidgetModel extends ChangeNotifier {
   Group? _group;
   Group? get group => _group;
 
-  TasksListWidgetModel({required this.groupKey}){
+  TasksListWidgetViewModel({required this.groupKey}){
     debugPrint('--- TasksListWidgetModel = $groupKey ');
     _setup();
   }

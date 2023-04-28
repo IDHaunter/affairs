@@ -2,7 +2,7 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/groups/groups_list_widget.dart';
-import '../../pages/groups/groups_list_widget_model.dart';
+import '../../pages/groups/groups_list_widget_viewmodel.dart';
 
 //import 'package:affairs/tests/learn_inherit.dart';
 //import 'package:affairs/tests/learn_inherit_notifier.dart';
@@ -21,8 +21,8 @@ class GroupsPage extends StatelessWidget {
         children: [
           TopBar(showCalendar: true, showFilter: true, showDatePicker: false),
           Expanded(
-              child: ChangeNotifierProvider<GroupsListWidgetModel>(
-                  create: (context) => GroupsListWidgetModel(),
+              child: ChangeNotifierProvider<GroupsListWidgetViewModel>(
+                  create: (context) => GroupsListWidgetViewModel(),
                   child: GroupsListWidget())
               ),
           //TestSharedPreferences(),

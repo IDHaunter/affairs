@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class GlobalModel with ChangeNotifier {
+class GlobalViewModel with ChangeNotifier {
   String dataS='Top level string';
 
   get takeDataS => dataS;

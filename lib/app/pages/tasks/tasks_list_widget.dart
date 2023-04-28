@@ -1,9 +1,10 @@
-import 'package:affairs/app/pages/tasks/tasks_list_widget_model.dart';
+import 'package:affairs/app/pages/tasks/tasks_list_widget_viewmodel.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/hive/task.dart';
+import '../../widgets/animated_circle.dart';
 
 class TasksListWidget extends StatelessWidget {
   const TasksListWidget({Key? key}) : super(key: key);
@@ -11,13 +12,13 @@ class TasksListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //print('---_TasksListWidgetState.build before tasksCount');
-    final int tasksCount = Provider.of<TasksListWidgetModel>(context, listen: true).tasks.length;
+    final int tasksCount = Provider.of<TasksListWidgetViewModel>(context, listen: true).tasks.length;
     //print('---_TasksListWidgetState.build tasksCount= $tasksCount');
 
     return Column(children: [
       const SizedBox(height: 5),
       Text(
-        Provider.of<TasksListWidgetModel>(context, listen: true).group?.name ?? 'Список задач',
+        Provider.of<TasksListWidgetViewModel>(context, listen: true).group?.name ?? 'Список задач',
         style: regular.copyWith(fontSize: titleSize),
       ),
       Expanded(
@@ -43,8 +44,8 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
 
   @override
   Widget build(BuildContext context) {
-    final task = Provider.of<TasksListWidgetModel>(context, listen: false).tasks[indexInList];
-    final TaskPageArguments editTaskPageArguments = TaskPageArguments(groupKey: -1, curTask: task, taskKey: Provider.of<TasksListWidgetModel>(context, listen: false).tasks[indexInList].key);
+    final task = Provider.of<TasksListWidgetViewModel>(context, listen: false).tasks[indexInList];
+    final TaskPageArguments editTaskPageArguments = TaskPageArguments(groupKey: -1, curTask: task, taskKey: Provider.of<TasksListWidgetViewModel>(context, listen: false).tasks[indexInList].key);
 
     //иконка и текст будут зависить от статуса таски
     final icon = task.isDone ? Icons.done : null;
@@ -71,7 +72,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
           // A SlidableAction can have an icon and/or a label.
           SlidableAction( //удаление
             onPressed: (context) {
-              Provider.of<TasksListWidgetModel>(context, listen: false).deleteTask(indexInList);
+              Provider.of<TasksListWidgetViewModel>(context, listen: false).deleteTask(indexInList);
               //print('----delete: $indexInList');
             },
             backgroundColor: curITheme.accent(),
@@ -89,6 +90,8 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
               Text(sCreationDate, style: creationDateStyle),
               const SizedBox(width: 12),
               Text(sTaskDate, style: taskDateStyle),
+              const SizedBox(width: 12),
+              const AnimatedCircle(radius: 6),
             ],
           ),
             Text(task.text, style: taskTextStyle),
@@ -107,7 +110,7 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
         //   ),
         // ),
         onTap: () {
-          Provider.of<TasksListWidgetModel>(context, listen: false).doneToggle(indexInList);
+          Provider.of<TasksListWidgetViewModel>(context, listen: false).doneToggle(indexInList);
           //Navigator.of(context).pushNamed('/tasks_page', arguments: Provider.of<GroupsListWidgetModel>(context, listen: false).takeGroupKey);
         },
       ),
