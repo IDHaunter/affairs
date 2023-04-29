@@ -18,6 +18,7 @@ class LightTheme extends ITheme {
   final Color _textSecondary = const Color(0x80131E17);
   final Color _icon = const Color(0xFFFFFFFF);
   final Color _failure = const Color(0xFFFF0059);
+  final Color _beforeFailure = const Color(0xFFFFABC7);
   final Color _success = const Color(0xFF9FBD63);
   final Color _grey = const Color(0xFFE4DCFB);
   final Color _buttonText = const Color(0xFFFFFFFF);
@@ -62,6 +63,9 @@ class LightTheme extends ITheme {
 
   @override
   Color failure() => _failure;
+
+  @override
+  Color beforeFailure() => _beforeFailure;
 
   @override
   Color grey() => _grey;

@@ -3,8 +3,7 @@ import 'package:affairs/core/common_export.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/hive/task.dart';
-import '../../widgets/animated_circle.dart';
+import '../../widgets/animated_fading.dart';
 
 class TasksListWidget extends StatelessWidget {
   const TasksListWidget({Key? key}) : super(key: key);
@@ -45,22 +44,43 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
   @override
   Widget build(BuildContext context) {
     final task = Provider.of<TasksListWidgetViewModel>(context, listen: false).tasks[indexInList];
-    final TaskPageArguments editTaskPageArguments = TaskPageArguments(groupKey: -1, curTask: task, taskKey: Provider.of<TasksListWidgetViewModel>(context, listen: false).tasks[indexInList].key);
+    final TaskPageArguments editTaskPageArguments = TaskPageArguments(
+        groupKey: -1,
+        curTask: task,
+        taskKey: Provider.of<TasksListWidgetViewModel>(context, listen: false).tasks[indexInList].key);
 
     //иконка и текст будут зависить от статуса таски
     final icon = task.isDone ? Icons.done : null;
     final taskTextStyle = task.isDone ? medium.copyWith(decoration: TextDecoration.lineThrough) : medium;
     final String sCreationDate = DateFormat("dd.MM.yyyy").format(task.creationDate);
-    final String sTaskDate = (task.taskDate==null) ? '' : DateFormat("dd.MM.yyyy").format(task.taskDate!);
+    final String sTaskDate = (task.taskDate == null) ? '' : DateFormat("dd.MM.yyyy").format(task.taskDate!);
     final creationDateStyle = medium.copyWith(color: curITheme.textSecondary(), fontSize: 12);
     final taskDateStyle = medium.copyWith(color: curITheme.primary(), fontSize: 12);
+
+    //Анимация просроченной таски по умолчанию пустая
+    Widget animatedWarning = const SizedBox(height: 12, width: 12, );
+    if (task.isDone == false && task.taskDate != null) {
+      // но если таска не выполнена то анимация зависит от даты
+      int daysBetween(DateTime from, DateTime to) {
+        from = DateTime(from.year, from.month, from.day);
+        to = DateTime(to.year, to.month, to.day);
+        return (to.difference(from).inHours / 24).round();
+      }
+      final int difference = daysBetween(DateTime.now(), task.taskDate!);
+      if (difference<0) { animatedWarning = AnimatedFading(customWidget: CirclePaint(radius: 4, instanceColor: curITheme.failure()) ,) ; }
+      else {
+        if (difference==1) {animatedWarning = AnimatedFading(customWidget: CirclePaint(radius: 4, instanceColor: curITheme.beforeFailure()) ,); }
+      }
+
+    }
 
     return Slidable(
       //The end action pane is the one at the right or the bottom side.
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
-          SlidableAction( //редактирование
+          SlidableAction(
+            //редактирование
             onPressed: (context) {
               Navigator.of(context).pushNamed(MainNavigatorRouteNames.task, arguments: editTaskPageArguments);
             },
@@ -70,7 +90,8 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
             //label: 'Rename',
           ),
           // A SlidableAction can have an icon and/or a label.
-          SlidableAction( //удаление
+          SlidableAction(
+            //удаление
             onPressed: (context) {
               Provider.of<TasksListWidgetViewModel>(context, listen: false).deleteTask(indexInList);
               //print('----delete: $indexInList');
@@ -85,15 +106,16 @@ class TasksListRowWidget extends StatelessWidget with DefaultBackColor {
       child: ListTile(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [Row(
-            children: [
-              Text(sCreationDate, style: creationDateStyle),
-              const SizedBox(width: 12),
-              Text(sTaskDate, style: taskDateStyle),
-              const SizedBox(width: 12),
-              const AnimatedCircle(radius: 6),
-            ],
-          ),
+          children: [
+            Row(
+              children: [
+                Text(sCreationDate, style: creationDateStyle),
+                const SizedBox(width: 12),
+                Text(sTaskDate, style: taskDateStyle),
+                const SizedBox(width: 12),
+                Center(child: animatedWarning),
+              ],
+            ),
             Text(task.text, style: taskTextStyle),
           ],
         ),

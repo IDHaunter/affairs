@@ -20,6 +20,8 @@ abstract class ITheme {
 
   Color failure();
 
+  Color beforeFailure();
+
   Color unreadNotification();
 
   Color success();

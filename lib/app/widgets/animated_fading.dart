@@ -2,13 +2,15 @@ import '../../core/common_export.dart';
 
 //Рисователь круга (или чего угодно) -------------------------------------------------------------------------
 class CirclePainter extends CustomPainter {
-  final warningPaint = Paint()
-    ..color = curITheme.failure() //Color(0xff63aa65)
-    ..style = PaintingStyle.fill;
+  final Color instanceColor;
+  CirclePainter({required this.instanceColor});
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(const Offset(0, 0), size.width, warningPaint);
+    final customPaint = Paint()
+      ..color =  instanceColor //curITheme.failure() //Color(0xff63aa65)
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(const Offset(0, 0), size.width, customPaint);
   }
 
   @override
@@ -17,25 +19,26 @@ class CirclePainter extends CustomPainter {
 
 class CirclePaint extends StatelessWidget {
   final double radius;
-  const CirclePaint({Key? key, required this.radius}) : super(key: key);
+  final Color instanceColor;
+  const CirclePaint({Key? key, required this.radius, required this.instanceColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: radius, height: radius, child: CustomPaint(painter: CirclePainter(),));
+    return SizedBox(width: radius, height: radius, child: CustomPaint(painter: CirclePainter(instanceColor: instanceColor),));
   }
 }
 
 
 //Реализация вечной анимации мигания -------------------------------------------------------------------------
-class AnimatedCircle extends StatefulWidget {
-  final double radius;
-  const AnimatedCircle({Key? key, required this.radius}) : super(key: key);
+class AnimatedFading extends StatefulWidget {
+  final Widget customWidget;
+  const AnimatedFading({Key? key, required this.customWidget, }) : super(key: key);
 
   @override
-  State<AnimatedCircle> createState() => _AnimatedCircleState();
+  State<AnimatedFading> createState() => _AnimatedFadingState();
 }
 
-class _AnimatedCircleState extends State<AnimatedCircle> with TickerProviderStateMixin {
+class _AnimatedFadingState extends State<AnimatedFading> with TickerProviderStateMixin {
   //создаём контроллер
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
@@ -57,7 +60,7 @@ class _AnimatedCircleState extends State<AnimatedCircle> with TickerProviderStat
     return Center(
       child: FadeTransition(
         opacity: _animation,
-        child: CirclePaint(radius: widget.radius),
+        child: widget.customWidget,
       ),
     );
   }
