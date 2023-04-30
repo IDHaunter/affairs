@@ -9,6 +9,7 @@ export 'package:affairs/l10n/language_handler.dart';
 export 'package:provider/provider.dart';
 export 'package:affairs/learn/models/learn_global_viewmodel.dart';
 export 'package:affairs/core/utils/context_utils.dart';
+export 'package:dio/dio.dart';
 
 
 
