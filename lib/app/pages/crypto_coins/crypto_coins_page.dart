@@ -1,5 +1,5 @@
 import '../../../core/common_export.dart';
-import '../../../core/repositories/crypto_coins/crypto_coins_repository.dart';
+import '../../../core/data/http/crypto_coins/crypto_coins_repository.dart';
 import '../../widgets/custom_navigation_drawer.dart';
 import '../../widgets/top_bar.dart';
 

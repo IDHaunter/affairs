@@ -4,7 +4,7 @@ import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/app/pages/tasks/tasks_list_widget.dart';
 
-import '../../../core/hive/task.dart';
+import '../../../core/data/hive/task.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);

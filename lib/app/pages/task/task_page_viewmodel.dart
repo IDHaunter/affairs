@@ -1,6 +1,6 @@
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/core/hive/task.dart';
-import '../../../core/hive/box_handler.dart';
+import 'package:affairs/core/data/hive/task.dart';
+import '../../../core/data/hive/box_handler.dart';
 
 //В отличие от GroupPageModel тут мы не наследуемся от ChangeNotifier и используем через обычный Provider
 //т.к. текст сообщения об ошибке мы делаем не через  errorText: Provider.of<GroupPageModel>(context, listen: true).errorText,

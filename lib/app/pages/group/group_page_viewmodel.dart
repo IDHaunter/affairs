@@ -1,6 +1,6 @@
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/core/hive/group.dart';
-import '../../../core/hive/box_handler.dart';
+import 'package:affairs/core/data/hive/group.dart';
+import '../../../core/data/hive/box_handler.dart';
 
 class GroupPageViewModel extends ChangeNotifier{
   int groupIndex;

@@ -3,7 +3,7 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
-import '../../../core/hive/task.dart';
+import '../../../core/data/hive/task.dart';
 
 class TaskPage extends StatelessWidget {
   final int groupKeyFromNavigator;

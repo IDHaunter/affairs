@@ -1,9 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/common_export.dart';
-import '../../../core/hive/box_handler.dart';
-import '../../../core/hive/group.dart';
-import '../../../core/hive/task.dart';
+import '../../../core/data/hive/box_handler.dart';
+import '../../../core/data/hive/group.dart';
+import '../../../core/data/hive/task.dart';
 
 class TasksListWidgetViewModel extends ChangeNotifier {
   int groupKey;

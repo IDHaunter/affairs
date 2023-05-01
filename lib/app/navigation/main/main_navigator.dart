@@ -1,5 +1,5 @@
 import '../../../core/common_export.dart';
-import '../../../core/hive/task.dart';
+import '../../../core/data/hive/task.dart';
 import '../../pages/crypto_coins/crypto_coins_page.dart';
 import '../../pages/group/group_page.dart';
 import '../../pages/group/group_page_viewmodel.dart';
