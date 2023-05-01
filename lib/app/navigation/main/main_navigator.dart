@@ -1,5 +1,6 @@
 import '../../../core/common_export.dart';
 import '../../../core/hive/task.dart';
+import '../../pages/crypto_coins/crypto_coins_page.dart';
 import '../../pages/group/group_page.dart';
 import '../../pages/group/group_page_viewmodel.dart';
 import '../../pages/groups/groups_page.dart';
@@ -20,6 +21,7 @@ abstract class MainNavigatorRouteNames {
   static const language = '/language_page'; // LanguagePage(),
   static const tasks = '/tasks_page'; // TasksPage(),
   static const task = '/tasks_page/task_page'; // TaskPage(),
+  static const cryptoCoins = '/crypto_coins_page'; //CryptoCoinsPage()
 }
 
 class GroupPageArguments {
@@ -49,6 +51,7 @@ class MainNavigator {
     MainNavigatorRouteNames.language: (context) => LanguagePage(),
     MainNavigatorRouteNames.tasks: (context) => TasksPage(),
     //MainNavigatorRouteNames.task: (context) => TaskPage(),
+    MainNavigatorRouteNames.cryptoCoins: (context) => CryptoCoinsPage(),
   };
 
 //Эта функция позволяет в зависимости от имени и аргумента возвращать разные экраны

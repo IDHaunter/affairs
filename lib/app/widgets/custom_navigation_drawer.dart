@@ -46,7 +46,14 @@ class CustomNavigationDrawer extends StatelessWidget {
              padding: const EdgeInsets.symmetric(horizontal: 4),
               child: Column(
                 children: [
-
+                  Card(
+                    child: ListTile(
+                      title: Text('Crypto exchange', style: bold),
+                      leading: const Icon(Icons.currency_exchange),
+                      onTap: () { Navigator.pushNamed(context, MainNavigatorRouteNames.cryptoCoins);},
+                    ),
+                  ),
+                  const Divider(),
                   Card(
                     child: ListTile(
                       title: Text(context.l()!.theme, style: bold ),
