@@ -2,11 +2,11 @@ import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/data/hive/group.dart';
 import '../../../core/data/hive/box_handler.dart';
 
-class GroupPageViewModel extends ChangeNotifier{
+class GroupViewModel extends ChangeNotifier{
   int groupIndex;
   String editGroupName;
 
-  GroupPageViewModel({required this.groupIndex, required this.editGroupName});
+  GroupViewModel({required this.groupIndex, required this.editGroupName});
 
   var _groupName = '';
   String? errorText;

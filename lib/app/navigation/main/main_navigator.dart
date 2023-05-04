@@ -1,13 +1,13 @@
 import '../../../core/common_export.dart';
 import '../../../core/data/hive/task.dart';
-import '../../pages/crypto_coins/crypto_coins_page.dart';
-import '../../pages/group/group_page.dart';
-import '../../pages/group/group_page_viewmodel.dart';
-import '../../pages/groups/groups_page.dart';
-import '../../pages/language/language_page.dart';
-import '../../pages/task/task_page.dart';
-import '../../pages/tasks/tasks_page.dart';
-import '../../pages/theme/theme_page.dart';
+import '../../pages/crypto_coins/crypto_coins_view.dart';
+import '../../pages/group/group_view.dart';
+import '../../pages/group/group_viewmodel.dart';
+import '../../pages/groups/groups_view.dart';
+import '../../pages/language/language_view.dart';
+import '../../pages/task/task_view.dart';
+import '../../pages/tasks/tasks_view.dart';
+import '../../pages/theme/theme_view.dart';
 
 //Мы создали этот абстрактный класс для того чтобы нигде в коде не писать имена страниц т.к. в них можно ошибиться
 //согласно принципу - S.S.O.T. - single source of truth
@@ -45,13 +45,13 @@ class MainNavigator {
     //1. тут нельзя задавать const т.к. при смене тем оформления будет глюк !!!
     //2. если страница №2 вызывается со страницы №1 то контекст первой
     //не наследуется во второй (видно в DevTools и важно для моделей данных)
-    MainNavigatorRouteNames.groups: (context) => GroupsPage(),
+    MainNavigatorRouteNames.groups: (context) => GroupsView(),
     //MainNavigatorRouteNames.group: (context) => ChangeNotifierProvider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
-    MainNavigatorRouteNames.theme: (context) => ThemePage(),
-    MainNavigatorRouteNames.language: (context) => LanguagePage(),
-    MainNavigatorRouteNames.tasks: (context) => TasksPage(),
+    MainNavigatorRouteNames.theme: (context) => ThemeView(),
+    MainNavigatorRouteNames.language: (context) => LanguageView(),
+    MainNavigatorRouteNames.tasks: (context) => TasksView(),
     //MainNavigatorRouteNames.task: (context) => TaskPage(),
-    MainNavigatorRouteNames.cryptoCoins: (context) => CryptoCoinsPage(),
+    MainNavigatorRouteNames.cryptoCoins: (context) => CryptoCoinsView(),
   };
 
 //Эта функция позволяет в зависимости от имени и аргумента возвращать разные экраны
@@ -64,16 +64,16 @@ class MainNavigator {
         {
           //final groupKey = settings.arguments as int;
           final taskPageArguments = settings.arguments as TaskPageArguments;
-          return MaterialPageRoute(builder: (context) => TaskPage(groupKeyFromNavigator: taskPageArguments.groupKey, taskFromNavigator: taskPageArguments.curTask, taskKeyFromNavigator:taskPageArguments.taskKey ,));
+          return MaterialPageRoute(builder: (context) => TaskView(groupKeyFromNavigator: taskPageArguments.groupKey, taskFromNavigator: taskPageArguments.curTask, taskKeyFromNavigator:taskPageArguments.taskKey ,));
         }
       case MainNavigatorRouteNames.group:
         {
           final groupPageArguments = settings.arguments as GroupPageArguments;
           return MaterialPageRoute(
               builder: (context) =>
-                  ChangeNotifierProvider<GroupPageViewModel>(
-                      create: (context) => GroupPageViewModel(groupIndex: groupPageArguments.groupIndex, editGroupName: groupPageArguments.groupName),
-                      child: GroupPage(groupKeyFromNavigator: groupPageArguments.groupIndex, groupNameFromNavigator: groupPageArguments.groupName,)));
+                  ChangeNotifierProvider<GroupViewModel>(
+                      create: (context) => GroupViewModel(groupIndex: groupPageArguments.groupIndex, editGroupName: groupPageArguments.groupName),
+                      child: GroupView(groupKeyFromNavigator: groupPageArguments.groupIndex, groupNameFromNavigator: groupPageArguments.groupName,)));
         }
       default:
         const widget = Text('Requested page not found!');

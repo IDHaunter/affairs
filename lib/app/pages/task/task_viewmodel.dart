@@ -6,7 +6,7 @@ import '../../../core/data/hive/box_handler.dart';
 //т.к. текст сообщения об ошибке мы делаем не через  errorText: Provider.of<GroupPageModel>(context, listen: true).errorText,
 //а отображаем его через scaffold
 
-class TaskPageViewModel /*extends ChangeNotifier*/ {
+class TaskViewModel /*extends ChangeNotifier*/ {
   int groupKey;
   int taskKey;
   Task currentTask; //таска подлежащая редактированию
@@ -14,7 +14,7 @@ class TaskPageViewModel /*extends ChangeNotifier*/ {
   DateTime? _taskDateTime;
   String? errorText;
 
-  TaskPageViewModel({required this.groupKey, required this.taskKey, required this.currentTask}) {
+  TaskViewModel({required this.groupKey, required this.taskKey, required this.currentTask}) {
     //print(" ---- TaskPageModel.created");
     fillTaskText(currentTask.text);
   }

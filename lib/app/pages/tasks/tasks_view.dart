@@ -6,8 +6,8 @@ import 'package:affairs/app/pages/tasks/tasks_list_widget.dart';
 
 import '../../../core/data/hive/task.dart';
 
-class TasksPage extends StatelessWidget {
-  const TasksPage({Key? key}) : super(key: key);
+class TasksView extends StatelessWidget {
+  const TasksView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

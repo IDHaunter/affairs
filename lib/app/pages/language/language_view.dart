@@ -2,14 +2,14 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
-class LanguagePage extends StatefulWidget {
-  const LanguagePage({super.key});
+class LanguageView extends StatefulWidget {
+  const LanguageView({super.key});
 
   @override
-  State<LanguagePage> createState() => _LanguagePage();
+  State<LanguageView> createState() => _LanguageView();
 }
 
-class _LanguagePage extends State<LanguagePage> {
+class _LanguageView extends State<LanguageView> {
   Language? _language = languageHandler.language;
 
   @override

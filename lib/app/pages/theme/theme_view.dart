@@ -2,14 +2,14 @@ import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
 
-class ThemePage extends StatefulWidget {
-  const ThemePage({super.key});
+class ThemeView extends StatefulWidget {
+  const ThemeView({super.key});
 
   @override
-  State<ThemePage> createState() => _ThemePage();
+  State<ThemeView> createState() => _ThemeView();
 }
 
-class _ThemePage extends State<ThemePage> {
+class _ThemeView extends State<ThemeView> {
   Appearance? _appearance = themeHandler.appearance;
 
   @override

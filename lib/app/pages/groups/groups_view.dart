@@ -9,8 +9,8 @@ import '../../pages/groups/groups_list_widget_viewmodel.dart';
 //import 'package:affairs/tests/learn_change_notifier_provider.dart';
 //import 'package:affairs/tests/learn_shared_preferences.dart';
 
-class GroupsPage extends StatelessWidget {
-  const GroupsPage({Key? key}) : super(key: key);
+class GroupsView extends StatelessWidget {
+  const GroupsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

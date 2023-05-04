@@ -1,7 +1,7 @@
 import 'package:affairs/core/common_export.dart';
 import 'package:intl/intl.dart';
 
-import '../pages/task/task_page_viewmodel.dart';
+import '../pages/task/task_viewmodel.dart';
 
 class TopBar extends StatefulWidget {
   final bool showFilter;
@@ -33,7 +33,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
     } else {
       _sDate = DateFormat("dd.MM.yyyy").format(widget.editDate!);
       _dateTime = widget.editDate;
-      Provider.of<TaskPageViewModel>(context, listen: false).taskDateTime = widget.editDate!;
+      Provider.of<TaskViewModel>(context, listen: false).taskDateTime = widget.editDate!;
     }
 
     super.initState();
@@ -82,10 +82,10 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
       if (_dateTime == null || DateUtils.dateOnly(_dateTime??DateTime.now())==DateUtils.dateOnly(DateTime.now()) )   {
         _sDate = _sDateDefault;
         _dateTime = null;
-        Provider.of<TaskPageViewModel>(context, listen: false).taskDateTime= null;
+        Provider.of<TaskViewModel>(context, listen: false).taskDateTime= null;
       } else {
         _sDate = DateFormat("dd.MM.yyyy").format(_dateTime!);
-        Provider.of<TaskPageViewModel>(context, listen: false).taskDateTime = _dateTime!;
+        Provider.of<TaskViewModel>(context, listen: false).taskDateTime = _dateTime!;
       }
     });
     setState(() {});
