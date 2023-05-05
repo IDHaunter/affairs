@@ -16,7 +16,7 @@ class GroupView extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: (groupNameFromNavigator=='') ? 'Новая группа' : 'Изменение группы'),
           Padding(
             padding: EdgeInsets.symmetric(
                 vertical:

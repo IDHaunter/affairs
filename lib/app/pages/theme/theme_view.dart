@@ -18,7 +18,7 @@ class _ThemeView extends State<ThemeView> {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: context.l()!.theme),
           ListTile(
             leading: const Icon(Icons.light_mode_outlined),
             title: Text(AppLocalizations.of(context)!.light, style: regular.copyWith(fontSize: titleSize)),

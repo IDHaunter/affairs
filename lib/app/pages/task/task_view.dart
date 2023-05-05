@@ -37,7 +37,7 @@ class TaskPageWidget extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: true, editDate: Provider.of<TaskViewModel>(context, listen: false).currentTask.taskDate),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: true, editDate: Provider.of<TaskViewModel>(context, listen: false).currentTask.taskDate, title: (Provider.of<TaskViewModel>(context, listen: false).currentTask.text=='') ? 'Новое дело' : 'Изменение дела'),
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(

@@ -8,8 +8,15 @@ class TopBar extends StatefulWidget {
   final bool showCalendar;
   final bool showDatePicker;
   final DateTime? editDate;
+  final String? title;
 
-  const TopBar({Key? key, required this.showFilter, required this.showCalendar, required this.showDatePicker, this.editDate})
+  const TopBar(
+      {Key? key,
+      required this.showFilter,
+      required this.showCalendar,
+      required this.showDatePicker,
+      this.editDate,
+      this.title})
       : super(key: key);
 
   @override
@@ -28,7 +35,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
   void initState() {
     // TODO: implement initState
     _sFilter = _sFilterDefault;
-    if (widget.editDate==null) {
+    if (widget.editDate == null) {
       _sDate = _sDateDefault;
     } else {
       _sDate = DateFormat("dd.MM.yyyy").format(widget.editDate!);
@@ -73,16 +80,17 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
   void onDatePickerPressed() {
     showDatePicker(
             context: context,
-            initialDate: _dateTime ?? DateTime.now() ,
+            initialDate: _dateTime ?? DateTime.now(),
             firstDate: DateTime(2000),
             lastDate: DateTime(2025))
         .then((value) {
       _dateTime = value;
       //работа с датой подразумевает наличие модели TaskPageModel т.к. её выбор возможен только на странице TaskPage
-      if (_dateTime == null || DateUtils.dateOnly(_dateTime??DateTime.now())==DateUtils.dateOnly(DateTime.now()) )   {
+      if (_dateTime == null ||
+          DateUtils.dateOnly(_dateTime ?? DateTime.now()) == DateUtils.dateOnly(DateTime.now())) {
         _sDate = _sDateDefault;
         _dateTime = null;
-        Provider.of<TaskViewModel>(context, listen: false).taskDateTime= null;
+        Provider.of<TaskViewModel>(context, listen: false).taskDateTime = null;
       } else {
         _sDate = DateFormat("dd.MM.yyyy").format(_dateTime!);
         Provider.of<TaskViewModel>(context, listen: false).taskDateTime = _dateTime!;
@@ -104,7 +112,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
       height: context.screenHeight() > context.screenWidth() ? 290 : 116,
       padding: EdgeInsets.only(
           top: context.screenHeight() > context.screenWidth() ? 15 : 2,
-          left: 15,
+          left: context.screenHeight() > context.screenWidth() ? 15 : 0,
           right: 15,
           bottom: context.screenHeight() > context.screenWidth() ? 30 : 0),
       decoration: BoxDecoration(
@@ -136,6 +144,22 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                     color: curITheme.icon(),
                   ),
                 ),
+                (widget.title == null)
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                      )
+                    : Row(
+                      children: [
+                        const SizedBox(width: 8, height: 16,),
+                        Container( alignment: Alignment.centerLeft, width: context.screenWidth()-130,
+                          child: Text(
+                              widget.title!,
+                              style: bold,
+                            ),
+                        ),
+                      ],
+                    ),
                 widget.showCalendar
                     ? CircleAvatar(
                         backgroundColor: Color.fromRGBO(r, g, b, 0.3),

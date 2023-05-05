@@ -20,7 +20,7 @@ class TasksView extends StatelessWidget {
         drawer: CustomNavigationDrawer(),
         body: Column(
           children: [
-            TopBar(showCalendar: true, showFilter: true,showDatePicker: false),
+            TopBar(showCalendar: true, showFilter: true,showDatePicker: false, title: 'Список дел'),
             Expanded(
                 child: ChangeNotifierProvider<TasksListWidgetViewModel>( //.value
                   //value: model,

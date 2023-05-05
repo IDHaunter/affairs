@@ -18,7 +18,7 @@ class _LanguageView extends State<LanguageView> {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: context.l()!.language,),
           ListTile(
             leading: const Icon(Icons.language),
             title: Text('Русский', style: regular.copyWith(fontSize: titleSize)),

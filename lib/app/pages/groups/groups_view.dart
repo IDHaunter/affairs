@@ -19,7 +19,7 @@ class GroupsView extends StatelessWidget {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: [
-          TopBar(showCalendar: true, showFilter: true, showDatePicker: false),
+          TopBar(showCalendar: true, showFilter: true, showDatePicker: false, title: 'Список груп',),
           Expanded(
               child: ChangeNotifierProvider<GroupsListWidgetViewModel>(
                   create: (context) => GroupsListWidgetViewModel(),
@@ -43,7 +43,7 @@ class GroupsView extends StatelessWidget {
         },
         elevation: 5,
         tooltip: 'Добавить новую задачу',
-        child: const Icon(color: Colors.white, Icons.add),
+        child: Icon(color: curITheme.icon(), Icons.add),
       ),
     );
   }

@@ -33,7 +33,7 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Crypto rates'),
           Expanded(
             child: (_cryptoCoinsList == null)
                 ? const Center(child: CircularProgressIndicator())
@@ -52,7 +52,7 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.download),
+          child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
           onPressed: () async {
             await _loadCryptoCoins();
           }),
