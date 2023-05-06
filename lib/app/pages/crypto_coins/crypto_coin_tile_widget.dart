@@ -1,8 +1,8 @@
 import '../../../core/common_export.dart';
-import '../../../core/data/http/crypto_coins/models/crypto_coin.dart';
+import '../../../core/data/http/crypto_coins/models/crypto_coin_model.dart';
 
 class CryptoCoinTile extends StatelessWidget {
-  final CryptoCoin coin;
+  final CryptoCoinModel coin;
   const CryptoCoinTile({Key? key, required this.coin}) : super(key: key);
 
   @override

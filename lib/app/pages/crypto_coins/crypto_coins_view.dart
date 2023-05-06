@@ -2,7 +2,7 @@ import 'package:affairs/app/pages/crypto_coins/crypto_coin_tile_widget.dart';
 
 import '../../../core/common_export.dart';
 import '../../../core/data/http/crypto_coins/crypto_coins_repository.dart';
-import '../../../core/data/http/crypto_coins/models/crypto_coin.dart';
+import '../../../core/data/http/crypto_coins/models/crypto_coin_model.dart';
 import '../../widgets/custom_navigation_drawer.dart';
 import '../../widgets/top_bar.dart';
 
@@ -14,7 +14,7 @@ class CryptoCoinsView extends StatefulWidget {
 }
 
 class _CryptoCoinsViewState extends State<CryptoCoinsView> {
-  List<CryptoCoin>? _cryptoCoinsList;
+  List<CryptoCoinModel>? _cryptoCoinsList;
 
   Future<void> _loadCryptoCoins() async {
     _cryptoCoinsList = await CryptoCoinsRepository().getCoinsList();
