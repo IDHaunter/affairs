@@ -1,8 +1,10 @@
 import 'package:affairs/app/pages/crypto_coins/crypto_coin_tile_widget.dart';
+import 'package:affairs/core/data/http/crypto_coins/crypto_coins_repository_abstract.dart';
 
 import '../../../core/common_export.dart';
 import '../../../core/data/http/crypto_coins/crypto_coins_repository.dart';
 import '../../../core/data/http/crypto_coins/models/crypto_coin_model.dart';
+import '../../../core/get_it.dart';
 import '../../widgets/custom_navigation_drawer.dart';
 import '../../widgets/top_bar.dart';
 
@@ -17,7 +19,7 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
   List<CryptoCoinModel>? _cryptoCoinsList;
 
   Future<void> _loadCryptoCoins() async {
-    _cryptoCoinsList = await CryptoCoinsRepository().getCoinsList();
+    _cryptoCoinsList = await getIt<CryptoCoinsRepositoryAbstract>().getCoinsList(); //CryptoCoinsRepository(dio: Dio()).getCoinsList();
     setState(() {});
   }
 

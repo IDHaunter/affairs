@@ -3,6 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'app/my_app.dart';
 import 'core/common_export.dart';
 import 'core/data/hive/box_handler.dart';
+import 'core/get_it.dart';
 
 void main() async {
   //WidgetsFlutterBinding.ensureInitialized() используется для взаимодействия с движком Flutter, иначе асинхронные
@@ -21,6 +22,9 @@ void main() async {
   await Hive.initFlutter();
   //инициализация hive боксов
   await boxHandler.init();
+
+  //инициализация GetIt и его содержимого
+  setupGetIt();
 
   runApp(
     ChangeNotifierProvider<ThemeModel>(

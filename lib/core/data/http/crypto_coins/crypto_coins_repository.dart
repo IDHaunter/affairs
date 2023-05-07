@@ -1,14 +1,22 @@
 import 'package:affairs/core/common_export.dart';
-
+import 'crypto_coins_repository_abstract.dart';
 import 'models/crypto_coin_model.dart';
 import 'models/crypto_coin_response_model.dart';
 
-class CryptoCoinsRepository {
+//РЕПОЗИТОРИЙ - реализация методов указанных в одноимённой абстракции. Реализаций может быть много,
+//например одна реализация из одного источника, вторая из другого а третья из локального хранилища.
+
+class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
+  final Dio dio;
+
+  CryptoCoinsRepository({required this.dio});
+
+  @override
   Future<List<CryptoCoinModel>> getCoinsList() async {
     //https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,BNB,AVAX&tsyms=USD
     //https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,AVAX&tsyms=USD
     //https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,SOL,AID,CAG,DOV&tsyms=USD
-    final response = await Dio().get(
+    final response = await dio.get(
         'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,AVAX,SOL,AID,CAG&tsyms=USD');
     debugPrint(response.toString());
     //Получив в ответ некий JSON нам нужно его разпарсить в лист наших структурированных объектов
@@ -17,7 +25,7 @@ class CryptoCoinsRepository {
     //Не зависимо от метода разбора, JSON из API удобно парсить плагином "Json Parser"
     // (https://plugins.jetbrains.com/plugin/10650-json-parser)
 
-    //МЕТОД 1: Ручной разбор
+    //МЕТОД 1: Ручной разбор ---------------------------------------------------------------------------------
     /*final data = response.data as Map<String, dynamic>;
     final dataRaw = data['RAW'] as Map<String, dynamic>;
     //собственно пробежим по содержимому представляя его в виде CryptoCoin формируя List
@@ -30,7 +38,7 @@ class CryptoCoinsRepository {
     }).toList();
     */
 
-    //МЕТОД 2: Разбор с использованием автоматической генерации из JSON https://app.quicktype.io/
+    //МЕТОД 2: Разбор с использованием автоматической генерации из JSON https://app.quicktype.io/  -----------
     //при желании можно его юзать только для генерации классов и потом юзать json_serializable
     final cryptoCoinResponseModel = cryptoCoinResponseModelFromJson(response.toString());
 
