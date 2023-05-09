@@ -16,13 +16,29 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
     //https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,BNB,AVAX&tsyms=USD
     //https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,AVAX&tsyms=USD
     //https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,SOL,AID,CAG,DOV&tsyms=USD
-    final response = await dio.get(
-        'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,AVAX,SOL,AID,CAG&tsyms=USD');
+
+    //В Dio есть механизм отмены цепочки запросов с помощью токена, исп. когда юзер не хочет ждать
+    //генерит тип ошибки - DioErrorType.cancel
+    //CancelToken cancelToken = CancelToken();
+    //dio.get('path1', cancelToken: cancelToken);
+    //dio.get('path2', cancelToken: cancelToken);
+
+    //В Dio есть механизм перехватчиков (interceptors - используются для кэширования и логирования при выполнении запроса)
+    // и трансформеров (transformer - работает по факту выполнения запроса если есть body)
+    //добавляем перехватчик для логирования
+    dio.interceptors.add(LogInterceptor());
+
+    //для удобства можно использовать базовый url который в теории для debug-а и release может оличаться
+    dio.options.baseUrl='https://min-api.cryptocompare.com/';
+
+    final Response<dynamic> response = await dio.get(
+      'data/pricemultifull?fsyms=BTC,ETH,BNB,AVAX,SOL,AID,CAG&tsyms=USD',
+    );
     debugPrint(response.toString());
-    //Получив в ответ некий JSON нам нужно его разпарсить в лист наших структурированных объектов
+    //Получив в ответ некий JSON нам нужно его разпарсить в модель (лист структурированных объектов)
     //чтобы потом из этого листа сгенерировать ListView через билдер в нашей crypto_coins_view
 
-    //Не зависимо от метода разбора, JSON из API удобно парсить плагином "Json Parser"
+    //Не зависимо от метода разбора, JSON из API удобно визуализировать (парсить) плагином "Json Parser"
     // (https://plugins.jetbrains.com/plugin/10650-json-parser)
 
     //МЕТОД 1: Ручной разбор ---------------------------------------------------------------------------------
@@ -46,12 +62,13 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
       final usdData = (e.value).usd;
       final price = usdData.price;
       final imageURL = usdData.imageurl;
-      return CryptoCoinModel(name: e.key, priceInUSD: price, imageURL: 'https://www.cryptocompare.com/$imageURL' );
+      return CryptoCoinModel(
+          name: e.key, priceInUSD: price, imageURL: 'https://www.cryptocompare.com/$imageURL');
     }).toList();
 
     //МЕТОД 3: юзать FlutterJsonBeanFactory, но что-то мне не понравилось как он распарсил этот JSON
     //плюс он наделал кучу лишних файлов в которых можно запутаться
 
     return cryptoCoinsList;
-    }
+  }
 }

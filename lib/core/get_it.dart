@@ -11,5 +11,4 @@ void setupGetIt() {
   //getIt.registerSingleton<CryptoCoinsRepositoryAbstract>(CryptoCoinsRepository(dio: Dio()));
   //Lazy-синглтон зарегистрируется при первом обращении
   getIt.registerLazySingleton<CryptoCoinsRepositoryAbstract>(() => CryptoCoinsRepository(dio: Dio()));
-
 }
