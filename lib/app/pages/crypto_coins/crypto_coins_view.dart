@@ -4,7 +4,7 @@ import 'package:affairs/core/data/http/crypto_coins/crypto_coins_repository_abst
 import '../../../core/common_export.dart';
 import '../../../core/data/http/crypto_coins/crypto_coins_repository.dart';
 import '../../../core/data/http/crypto_coins/models/crypto_coin_model.dart';
-import '../../../core/get_it.dart';
+import '../../../core/get_it_service_locator.dart';
 import '../../widgets/custom_navigation_drawer.dart';
 import '../../widgets/top_bar.dart';
 

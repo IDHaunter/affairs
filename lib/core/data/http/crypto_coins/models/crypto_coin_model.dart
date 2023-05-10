@@ -5,3 +5,7 @@ class CryptoCoinModel {
   CryptoCoinModel({required this.name, required this.priceInUSD, required this.imageURL,});
 
 }
+
+class CryptoCoinsModel {
+  List<CryptoCoinModel> cryptoCoinsList=<CryptoCoinModel>[];
+}
