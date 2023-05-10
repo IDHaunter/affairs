@@ -25,11 +25,6 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
 
     //В Dio есть механизм перехватчиков (interceptors - используются для кэширования и логирования при выполнении запроса)
     // и трансформеров (transformer - работает по факту выполнения запроса если есть body)
-    //добавляем перехватчик для логирования
-    dio.interceptors.add(LogInterceptor());
-
-    //для удобства можно использовать базовый url который в теории для debug-а и release может оличаться
-    dio.options.baseUrl='https://min-api.cryptocompare.com/';
 
     final Response<dynamic> response = await dio.get(
       'data/pricemultifull?fsyms=BTC,ETH,BNB,AVAX,SOL,AID,CAG&tsyms=USD',

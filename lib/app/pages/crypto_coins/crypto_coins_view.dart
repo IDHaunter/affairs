@@ -2,7 +2,9 @@ import 'package:affairs/app/pages/crypto_coins/crypto_coin_tile_widget.dart';
 import 'package:affairs/app/pages/crypto_coins/crypto_coins_viewmodel.dart';
 
 import '../../../core/common_export.dart';
+import '../../../core/data/http/crypto_coins/crypto_coins_repository_abstract.dart';
 import '../../../core/data/http/crypto_coins/models/crypto_coin_model.dart';
+import '../../../core/get_it_service_locator.dart';
 import '../../widgets/custom_navigation_drawer.dart';
 import '../../widgets/top_bar.dart';
 
@@ -17,18 +19,20 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
   List<CryptoCoinModel>? _cryptoCoinsList;
 
   Future<void> _loadCryptoCoins() async {
-    //_cryptoCoinsList = await getIt<CryptoCoinsRepositoryAbstract>().getCoinsList(); //CryptoCoinsRepository(dio: Dio()).getCoinsList();
+    _cryptoCoinsList = await getIt<CryptoCoinsRepositoryAbstract>().getCoinsList(); //CryptoCoinsRepository(dio: Dio()).getCoinsList();
     setState(() {});
   }
 
   @override
   void initState() {
-    // _loadCryptoCoins();
+    //_loadCryptoCoins();
+    Provider.of<CryptoCoinsViewModel>(context, listen: false).loadCryptoCoinsList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('---- CryptoCoinsView.build ');
     _cryptoCoinsList = Provider.of<CryptoCoinsViewModel>(context, listen: true).cryptoCoinsList;
     return Scaffold(
           drawer: CustomNavigationDrawer(),
@@ -53,6 +57,7 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
           floatingActionButton: FloatingActionButton(
               child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
               onPressed: () async {
+                //_loadCryptoCoins();
                 Provider.of<CryptoCoinsViewModel>(context, listen: false).loadCryptoCoinsList();
               }),
         );

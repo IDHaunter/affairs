@@ -11,6 +11,7 @@ class CryptoCoinsViewModel extends HttpBaseViewModel {
   List<CryptoCoinModel>? get cryptoCoinsList => _cryptoCoinsList;
 
   Future<void> loadCryptoCoinsList() async {
+    debugPrint('---- loadCryptoCoinsList ');
     try {
       isLoading=true;
       _cryptoCoinsList = await cryptoCoinsRepository.getCoinsList();
@@ -26,7 +27,7 @@ class CryptoCoinsViewModel extends HttpBaseViewModel {
   }
 
   CryptoCoinsViewModel() {
-    loadCryptoCoinsList();
+   // loadCryptoCoinsList();
   }
 
 }
