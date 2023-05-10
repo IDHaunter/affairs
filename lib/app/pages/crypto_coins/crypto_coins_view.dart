@@ -1,10 +1,8 @@
 import 'package:affairs/app/pages/crypto_coins/crypto_coin_tile_widget.dart';
-import 'package:affairs/core/data/http/crypto_coins/crypto_coins_repository_abstract.dart';
+import 'package:affairs/app/pages/crypto_coins/crypto_coins_viewmodel.dart';
 
 import '../../../core/common_export.dart';
-import '../../../core/data/http/crypto_coins/crypto_coins_repository.dart';
 import '../../../core/data/http/crypto_coins/models/crypto_coin_model.dart';
-import '../../../core/get_it_service_locator.dart';
 import '../../widgets/custom_navigation_drawer.dart';
 import '../../widgets/top_bar.dart';
 
@@ -19,45 +17,45 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
   List<CryptoCoinModel>? _cryptoCoinsList;
 
   Future<void> _loadCryptoCoins() async {
-    _cryptoCoinsList = await getIt<CryptoCoinsRepositoryAbstract>().getCoinsList(); //CryptoCoinsRepository(dio: Dio()).getCoinsList();
+    //_cryptoCoinsList = await getIt<CryptoCoinsRepositoryAbstract>().getCoinsList(); //CryptoCoinsRepository(dio: Dio()).getCoinsList();
     setState(() {});
   }
 
   @override
   void initState() {
-    _loadCryptoCoins();
+    // _loadCryptoCoins();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    _cryptoCoinsList = Provider.of<CryptoCoinsViewModel>(context, listen: true).cryptoCoinsList;
     return Scaffold(
-      drawer: CustomNavigationDrawer(),
-      body: Column(
-        children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Crypto rates'),
-          Expanded(
-            child: (_cryptoCoinsList == null)
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.separated(
-                    itemBuilder: (BuildContext context, int index) {
-                      final coin = _cryptoCoinsList![index];
-                      return CryptoCoinTile(coin: coin);
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const Divider(
-                        height: 1,
-                      );
-                    },
-                    itemCount: _cryptoCoinsList!.length),
+          drawer: CustomNavigationDrawer(),
+          body: Column(
+            children: <Widget>[
+              TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Crypto rates'),
+              Expanded(child: (_cryptoCoinsList == null)
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.separated(
+                  itemBuilder: (BuildContext context, int index) {
+                    final coin = _cryptoCoinsList![index];
+                    return CryptoCoinTile(coin: coin);
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider(
+                      height: 1,
+                    );
+                  },
+                  itemCount: _cryptoCoinsList!.length))
+            ],
           ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
-          onPressed: () async {
-            await _loadCryptoCoins();
-          }),
-    );
+          floatingActionButton: FloatingActionButton(
+              child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
+              onPressed: () async {
+                Provider.of<CryptoCoinsViewModel>(context, listen: false).loadCryptoCoinsList();
+              }),
+        );
   }
 }
+

@@ -6,9 +6,9 @@ import '../../../core/get_it_service_locator.dart';
 
 class CryptoCoinsViewModel extends HttpBaseViewModel {
   final cryptoCoinsRepository = getIt<CryptoCoinsRepositoryAbstract>();
-  List<CryptoCoinModel>  _cryptoCoinsList = <CryptoCoinModel>[];
+  List<CryptoCoinModel>?  _cryptoCoinsList;
 
-  List<CryptoCoinModel> get cryptoCoinsList => _cryptoCoinsList;
+  List<CryptoCoinModel>? get cryptoCoinsList => _cryptoCoinsList;
 
   Future<void> loadCryptoCoinsList() async {
     try {
@@ -25,6 +25,8 @@ class CryptoCoinsViewModel extends HttpBaseViewModel {
     notifyListeners();
   }
 
-
+  CryptoCoinsViewModel() {
+    loadCryptoCoinsList();
+  }
 
 }

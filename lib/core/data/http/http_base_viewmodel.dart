@@ -17,7 +17,7 @@ class HttpBaseViewModel extends ChangeNotifier {
 
   set isLoading(bool isLoading) {
     _isLoading = isLoading;
-    notifyListeners();
+    //notifyListeners();
   }
 
   //обработка ошибок -----------------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ class HttpBaseViewModel extends ChangeNotifier {
 
   set sError(String? value) {
     _sError = value;
-    notifyListeners();
+    //notifyListeners();
   }
 
   void clearError() {

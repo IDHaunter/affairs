@@ -1,6 +1,7 @@
 import '../../../core/common_export.dart';
 import '../../../core/data/hive/task.dart';
 import '../../pages/crypto_coins/crypto_coins_view.dart';
+import '../../pages/crypto_coins/crypto_coins_viewmodel.dart';
 import '../../pages/group/group_view.dart';
 import '../../pages/group/group_viewmodel.dart';
 import '../../pages/groups/groups_view.dart';
@@ -51,7 +52,7 @@ class MainNavigator {
     MainNavigatorRouteNames.language: (context) => LanguageView(),
     MainNavigatorRouteNames.tasks: (context) => TasksView(),
     //MainNavigatorRouteNames.task: (context) => TaskPage(),
-    MainNavigatorRouteNames.cryptoCoins: (context) => CryptoCoinsView(),
+    //MainNavigatorRouteNames.cryptoCoins: (context) => CryptoCoinsView(),
   };
 
 //Эта функция позволяет в зависимости от имени и аргумента возвращать разные экраны
@@ -75,6 +76,15 @@ class MainNavigator {
                       create: (context) => GroupViewModel(groupIndex: groupPageArguments.groupIndex, editGroupName: groupPageArguments.groupName),
                       child: GroupView(groupKeyFromNavigator: groupPageArguments.groupIndex, groupNameFromNavigator: groupPageArguments.groupName,)));
         }
+      case MainNavigatorRouteNames.cryptoCoins:
+        {
+          return MaterialPageRoute(
+              builder: (context) =>
+                  ChangeNotifierProvider<CryptoCoinsViewModel>(
+                      create: (context) => CryptoCoinsViewModel(),
+                      child: CryptoCoinsView()));
+        }
+
       default:
         const widget = Text('Requested page not found!');
         return MaterialPageRoute(builder: (context) => widget);
