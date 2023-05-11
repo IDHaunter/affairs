@@ -13,8 +13,8 @@ class DioBaseViewModel extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  set isLoading(bool isLoading) {
-    _isLoading = isLoading;
+  set setLoading(bool value) {
+    _isLoading = value;
     //notifyListeners();
   }
 
@@ -43,7 +43,7 @@ class DioBaseViewModel extends ChangeNotifier {
       case 502:
         return 'Bad gateway';
       default:
-        return 'Oops something went wrong';
+        return 'Oops! something went wrong';
     }
   }
 
@@ -85,7 +85,7 @@ class DioBaseViewModel extends ChangeNotifier {
             } else {_sError = dioError.message;}
             break;
           }
-          _sError = "Unexpected error occurred, no explanation received";
+          _sError = "No Internet";
           break;
         default:
           _sError = "Something went wrong";
@@ -95,7 +95,7 @@ class DioBaseViewModel extends ChangeNotifier {
     } else {
         //обработка прочих ошибок
         _sError = err.toString();
-        return _sError ?? 'Unexpected error occurred';
+        //return _sError ?? 'Unexpected error occurred';
       }
     }
 

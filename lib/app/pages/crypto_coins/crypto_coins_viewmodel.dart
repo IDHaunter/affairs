@@ -12,17 +12,19 @@ class CryptoCoinsViewModel extends DioBaseViewModel {
 
   Future<void> loadCryptoCoinsList() async {
     debugPrint('---- loadCryptoCoinsList ');
+
     try {
-      isLoading=true;
+      clearError();
+      setLoading=true;
+      //notifyListeners();
       _cryptoCoinsList = await cryptoCoinsRepository.getCoinsList();
     } catch (e) {
       debugPrint('---- ERROR in fetchCryptoCoinsList: ${e.toString()}');
       handleApiError(e);
       debugPrint('---- ERROR in fetchCryptoCoinsList: $sError}');
-      notifyListeners();
     }
 
-    isLoading=false;
+    setLoading=false;
     notifyListeners();
   }
 

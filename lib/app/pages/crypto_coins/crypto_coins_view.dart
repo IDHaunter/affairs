@@ -17,9 +17,12 @@ class CryptoCoinsView extends StatefulWidget {
 
 class _CryptoCoinsViewState extends State<CryptoCoinsView> {
   List<CryptoCoinModel>? _cryptoCoinsList;
+  bool _isLoading = false;
+  String? _sError;
 
   Future<void> _loadCryptoCoins() async {
-    _cryptoCoinsList = await getIt<CryptoCoinsRepositoryAbstract>().getCoinsList(); //CryptoCoinsRepository(dio: Dio()).getCoinsList();
+    _cryptoCoinsList = await getIt<CryptoCoinsRepositoryAbstract>()
+        .getCoinsList(); //CryptoCoinsRepository(dio: Dio()).getCoinsList();
     setState(() {});
   }
 
@@ -33,34 +36,40 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
   @override
   Widget build(BuildContext context) {
     debugPrint('---- CryptoCoinsView.build ');
-    _cryptoCoinsList = Provider.of<CryptoCoinsViewModel>(context, listen: true).cryptoCoinsList;
+    _isLoading = Provider.of<CryptoCoinsViewModel>(context, listen: true).isLoading;
+    _sError = Provider.of<CryptoCoinsViewModel>(context, listen: false).sError;
+    _cryptoCoinsList = Provider.of<CryptoCoinsViewModel>(context, listen: false).cryptoCoinsList;
     return Scaffold(
-          drawer: CustomNavigationDrawer(),
-          body: Column(
-            children: <Widget>[
-              TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Crypto rates'),
-              Expanded(child: (_cryptoCoinsList == null)
+      drawer: CustomNavigationDrawer(),
+      body: Column(
+        children: <Widget>[
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Crypto rates'),
+          Expanded(
+              child: (_isLoading) //(_cryptoCoinsList == null)
                   ? const Center(child: CircularProgressIndicator())
-                  : ListView.separated(
-                  itemBuilder: (BuildContext context, int index) {
-                    final coin = _cryptoCoinsList![index];
-                    return CryptoCoinTile(coin: coin);
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider(
-                      height: 1,
-                    );
-                  },
-                  itemCount: _cryptoCoinsList!.length))
-            ],
-          ),
-          floatingActionButton: FloatingActionButton(
-              child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
-              onPressed: () async {
-                //_loadCryptoCoins();
-                Provider.of<CryptoCoinsViewModel>(context, listen: false).loadCryptoCoinsList();
-              }),
-        );
+                  : (_cryptoCoinsList != null)
+                      ? ListView.separated(
+                          itemBuilder: (BuildContext context, int index) {
+                            final coin = _cryptoCoinsList![index];
+                            return CryptoCoinTile(coin: coin);
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const Divider(
+                              height: 1,
+                            );
+                          },
+                          itemCount: _cryptoCoinsList!.length)
+                      : (_sError == null)
+                          ? const Center(child: CircularProgressIndicator())
+                          : Center(child: Text(_sError ?? 'fucking bad')))
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
+          onPressed: () async {
+            //_loadCryptoCoins();
+            Provider.of<CryptoCoinsViewModel>(context, listen: false).loadCryptoCoinsList();
+          }),
+    );
   }
 }
-
