@@ -1,4 +1,5 @@
 import 'package:affairs/core/common_export.dart';
+import '../dio_client.dart';
 import 'crypto_coins_repository_abstract.dart';
 import 'models/crypto_coin_model.dart';
 import 'models/crypto_coin_response_model.dart';
@@ -7,9 +8,9 @@ import 'models/crypto_coin_response_model.dart';
 //например одна реализация из одного источника, вторая из другого а третья из локального хранилища.
 
 class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
-  final Dio dio;
+  final DioClient dioClient;
 
-  CryptoCoinsRepository({required this.dio});
+  CryptoCoinsRepository({required this.dioClient});
 
   @override
   Future<List<CryptoCoinModel>> getCoinsList() async {
@@ -26,10 +27,10 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
     //В Dio есть механизм перехватчиков (interceptors - используются для кэширования и логирования при выполнении запроса)
     // и трансформеров (transformer - работает по факту выполнения запроса если есть body)
 
-    final Response<dynamic> response = await dio.get(
+    final Response<dynamic> response = await dioClient.get(
       'data/pricemultifull?fsyms=BTC,ETH,BNB,AVAX,SOL,AID,CAG&tsyms=USD',
     );
-    debugPrint(response.toString());
+    //debugPrint(response.toString());
     //Получив в ответ некий JSON нам нужно его разпарсить в модель (лист структурированных объектов)
     //чтобы потом из этого листа сгенерировать ListView через билдер в нашей crypto_coins_view
 

@@ -1,10 +1,10 @@
 import '../../../core/common_export.dart';
 import '../../../core/data/http/crypto_coins/crypto_coins_repository_abstract.dart';
 import '../../../core/data/http/crypto_coins/models/crypto_coin_model.dart';
-import '../../../core/data/http/http_base_viewmodel.dart';
+import '../../../core/data/http/dio_base_viewmodel.dart';
 import '../../../core/get_it_service_locator.dart';
 
-class CryptoCoinsViewModel extends HttpBaseViewModel {
+class CryptoCoinsViewModel extends DioBaseViewModel {
   final cryptoCoinsRepository = getIt<CryptoCoinsRepositoryAbstract>();
   List<CryptoCoinModel>?  _cryptoCoinsList;
 
