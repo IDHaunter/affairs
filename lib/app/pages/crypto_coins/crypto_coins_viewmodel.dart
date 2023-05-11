@@ -15,6 +15,9 @@ class CryptoCoinsViewModel extends DioBaseViewModel {
 
     try {
       clearError();
+      if (_cryptoCoinsList!=null) {
+        _cryptoCoinsList = null;
+      }
       setLoading=true;
       //notifyListeners();
       _cryptoCoinsList = await cryptoCoinsRepository.getCoinsList();
@@ -25,7 +28,7 @@ class CryptoCoinsViewModel extends DioBaseViewModel {
     }
 
     setLoading=false;
-    notifyListeners();
+    //notifyListeners();
   }
 
   CryptoCoinsViewModel() {
