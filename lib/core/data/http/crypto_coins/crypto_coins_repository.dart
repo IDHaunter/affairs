@@ -1,8 +1,9 @@
 import 'package:affairs/core/common_export.dart';
+import 'package:affairs/core/data/http/crypto_coins/models/crypto_coin_history_model.dart';
 import '../dio_client.dart';
 import 'crypto_coins_repository_abstract.dart';
 import 'models/crypto_coin_model.dart';
-import 'models/crypto_coin_response_model.dart';
+import 'models/crypto_coins_response_model.dart';
 
 //РЕПОЗИТОРИЙ - реализация методов указанных в одноимённой абстракции. Реализаций может быть много,
 //например одна реализация из одного источника, вторая из другого а третья из локального хранилища.
@@ -52,12 +53,12 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
 
     //МЕТОД 2: Разбор с использованием автоматической генерации из JSON https://app.quicktype.io/  -----------
     //при желании можно его юзать только для генерации классов и потом юзать json_serializable
-    final cryptoCoinResponseModel = cryptoCoinResponseModelFromJson(response.toString());
+    final cryptoCoinResponseModel = cryptoCoinsResponseModelFromJson(response.toString());
 
     final List<CryptoCoinModel> cryptoCoinsList = cryptoCoinResponseModel.raw.entries.map((e) {
-      final usdData = (e.value).usd;
-      final price = usdData.price;
-      final imageURL = usdData.imageurl;
+      final RawUsd rawUsd = (e.value).usd;
+      final price = rawUsd.price;
+      final imageURL = rawUsd.imageurl;
       return CryptoCoinModel(
           name: e.key, priceInUSD: price, imageURL: 'https://www.cryptocompare.com/$imageURL');
     }).toList();
@@ -67,4 +68,11 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
 
     return cryptoCoinsList;
   }
+
+  @override
+  Future<CryptoCoinHistoryModel> getCoinHistory() {
+    // TODO: implement getCoinHistory
+    throw UnimplementedError();
+  }
+
 }

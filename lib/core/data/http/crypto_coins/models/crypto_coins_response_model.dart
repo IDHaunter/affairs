@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-CryptoCoinResponseModel cryptoCoinResponseModelFromJson(String str) => CryptoCoinResponseModel.fromJson(json.decode(str));
+CryptoCoinsResponseModel cryptoCoinsResponseModelFromJson(String str) => CryptoCoinsResponseModel.fromJson(json.decode(str));
 
-String cryptoCoinResponseModelToJson(CryptoCoinResponseModel data) => json.encode(data.toJson());
+String cryptoCoinsResponseModelToJson(CryptoCoinsResponseModel data) => json.encode(data.toJson());
 
-class CryptoCoinResponseModel {
+class CryptoCoinsResponseModel {
   final Map<String, Raw> raw;
   final Map<String, Display> display;
 
-  CryptoCoinResponseModel({
+  CryptoCoinsResponseModel({
     required this.raw,
     required this.display,
   });
 
-  factory CryptoCoinResponseModel.fromJson(Map<String, dynamic> json) => CryptoCoinResponseModel(
+  factory CryptoCoinsResponseModel.fromJson(Map<String, dynamic> json) => CryptoCoinsResponseModel(
     raw: Map.from(json["RAW"]).map((k, v) => MapEntry<String, Raw>(k, Raw.fromJson(v))),
     display: Map.from(json["DISPLAY"]).map((k, v) => MapEntry<String, Display>(k, Display.fromJson(v))),
   );
