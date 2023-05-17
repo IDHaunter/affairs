@@ -12,7 +12,9 @@ class CryptoCoinTile extends StatelessWidget {
       title: Text(coin.name, style: bold),
       subtitle: Text("${coin.priceInUSD} \$", style: regular),
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(MainNavigatorRouteNames.cryptoCoinHistory, arguments: coin.name);
+      },
     );
   }
 }

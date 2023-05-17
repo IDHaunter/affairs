@@ -1,5 +1,7 @@
 import '../../../core/common_export.dart';
 import '../../../core/data/hive/task.dart';
+import '../../pages/crypto_coin_history/crypto_coin_history_view.dart';
+import '../../pages/crypto_coin_history/crypto_coin_history_viewmodel.dart';
 import '../../pages/crypto_coins/crypto_coins_view.dart';
 import '../../pages/crypto_coins/crypto_coins_viewmodel.dart';
 import '../../pages/group/group_view.dart';
@@ -18,11 +20,12 @@ abstract class MainNavigatorRouteNames {
   static const groups = '/'; // GroupsPage()
   static const group =
       '/group_page'; // Provider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
-  static const theme = '/theme_page'; // ThemePage()
-  static const language = '/language_page'; // LanguagePage(),
-  static const tasks = '/tasks_page'; // TasksPage(),
-  static const task = '/tasks_page/task_page'; // TaskPage(),
-  static const cryptoCoins = '/crypto_coins_page'; //CryptoCoinsPage()
+  static const theme = '/theme_page'; // ThemeView()
+  static const language = '/language_page'; // LanguageView(),
+  static const tasks = '/tasks_page'; // TasksView(),
+  static const task = '/tasks_page/task_page'; // TaskView(),
+  static const cryptoCoins = '/crypto_coins_page'; //CryptoCoinsView()
+  static const cryptoCoinHistory = '/crypto_coins_page/crypto_coin_history'; //CryptoCoinHistoryView()
 }
 
 class GroupPageArguments {
@@ -53,6 +56,7 @@ class MainNavigator {
     MainNavigatorRouteNames.tasks: (context) => TasksView(),
     //MainNavigatorRouteNames.task: (context) => TaskPage(),
     //MainNavigatorRouteNames.cryptoCoins: (context) => CryptoCoinsView(),
+    //MainNavigatorRouteNames.cryptoCoinHistory: (context) => CryptoCoinHistoryView(),
   };
 
 //Эта функция позволяет в зависимости от имени и аргумента возвращать разные экраны
@@ -83,6 +87,16 @@ class MainNavigator {
                   ChangeNotifierProvider<CryptoCoinsViewModel>(
                       create: (context) => CryptoCoinsViewModel(),
                       child: CryptoCoinsView()));
+        }
+
+      case MainNavigatorRouteNames.cryptoCoinHistory:
+        {
+          final cryptoCoinName = settings.arguments as String;
+          return MaterialPageRoute(
+              builder: (context) =>
+                  ChangeNotifierProvider<CryptoCoinHistoryViewModel>(
+                      create: (context) => CryptoCoinHistoryViewModel(cryptoCoinName: cryptoCoinName),
+                      child: CryptoCoinHistoryView(cryptoCoinName: cryptoCoinName,)));
         }
 
       default:

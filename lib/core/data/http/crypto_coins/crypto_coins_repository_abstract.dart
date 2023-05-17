@@ -11,6 +11,5 @@ abstract class CryptoCoinsRepositoryAbstract {
 
   //также нам понадобится история изменения цены за последние 30 дней в виде листа ивентов,
   // наименования крипты, последней цены и индикатор роста которые мы завернули в CryptoCoinHistoryModel
-  //https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30
   Future<CryptoCoinHistoryModel> getCoinHistory();
 }

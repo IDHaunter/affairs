@@ -2,6 +2,7 @@ import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/data/http/crypto_coins/models/crypto_coin_history_model.dart';
 import '../dio_client.dart';
 import 'crypto_coins_repository_abstract.dart';
+import 'models/crypto_coin_history_response_model.dart';
 import 'models/crypto_coin_model.dart';
 import 'models/crypto_coins_response_model.dart';
 
@@ -70,9 +71,28 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
   }
 
   @override
-  Future<CryptoCoinHistoryModel> getCoinHistory() {
-    // TODO: implement getCoinHistory
-    throw UnimplementedError();
+  Future<CryptoCoinHistoryModel> getCoinHistory() async {
+    //https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30
+    final Response<dynamic> response = await dioClient.get(
+      'data/v2/histoday?fsym=BTC&tsym=USD&limit=30',
+    );
+
+    final cryptoCoinHistoryResponseModel = cryptoCoinHistoryResponseModelFromJson(response.toString());
+
+    final cryptoCoinHistoryModel = CryptoCoinHistoryModel(cryptoName: 'BTC', lastPrice: 1, cryptoCoinEventsList: []);
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 100, sDate: '01.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 105, sDate: '02.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 112, sDate: '03.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 106, sDate: '04.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 108, sDate: '05.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 107, sDate: '06.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 99, sDate: '07.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 102, sDate: '08.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 104, sDate: '09.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 108, sDate: '10.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 109, sDate: '11.01.2023'));
+    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 116, sDate: '12.01.2023'));
+    return cryptoCoinHistoryModel;
   }
 
 }

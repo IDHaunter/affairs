@@ -22,9 +22,9 @@ class CryptoCoinsViewModel extends DioBaseViewModel {
       //notifyListeners();
       _cryptoCoinsList = await cryptoCoinsRepository.getCoinsList();
     } catch (e) {
-      debugPrint('---- ERROR in fetchCryptoCoinsList: ${e.toString()}');
+      debugPrint('---- ERROR in loadCryptoCoinsList: ${e.toString()}');
       handleApiError(e);
-      debugPrint('---- ERROR in fetchCryptoCoinsList: $sError}');
+      debugPrint('---- ERROR in loadCryptoCoinsList: $sError}');
     }
 
     setLoading=false;
