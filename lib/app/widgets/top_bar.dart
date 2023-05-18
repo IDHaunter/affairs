@@ -109,22 +109,18 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
         : Icon(color: curITheme.icon(), Icons.update_disabled);
     return Container(
       width: double.infinity,
-      height: context.screenHeight() > context.screenWidth() ? 290 : 116,
+      height: context.screenHeight() > context.screenWidth() ? 270 : 116,
       padding: EdgeInsets.only(
           top: context.screenHeight() > context.screenWidth() ? 15 : 2,
           left: context.screenHeight() > context.screenWidth() ? 15 : 0,
           right: 15,
-          bottom: context.screenHeight() > context.screenWidth() ? 30 : 0),
+          bottom: context.screenHeight() > context.screenWidth() ? 10 : 0),
       decoration: BoxDecoration(
         image: DecorationImage(
             image: Image.asset('assets/images/bg3.png').image,
             fit: BoxFit.contain,
             alignment: Alignment.centerRight),
-        gradient: const LinearGradient(
-          colors: [Colors.pink, Colors.transparent],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+        gradient: curITheme.accentGradientVertical(),
       ),
       child: SafeArea(
         child: Column(

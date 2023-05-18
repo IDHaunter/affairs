@@ -11,7 +11,7 @@ class LightTheme extends ITheme {
   LightTheme._internal();
 
   final Color _primary = const Color(0xFFEA2F8D);
-  final Color _secondary = const Color(0xFFFFFFFF);
+  final Color _secondary = const Color(0xFFFFFAFA);
   final Color _accent = const Color(0xFFFF4081);
   final Color _majorShadow = const Color(0x4FD2348D);
   final Color _textPrimary = const Color(0xFF131E17);
@@ -31,10 +31,10 @@ class LightTheme extends ITheme {
     end: Alignment.centerRight,
   );
 
-  late final Gradient _accentGradientVertical = LinearGradient(
-    colors: [_accent, const Color(0xFFE91E63), Colors.transparent],
-    begin: Alignment.bottomCenter,
-    end: Alignment.topCenter,
+  late final LinearGradient _accentGradientVertical = LinearGradient(
+    colors: [Colors.pink, _secondary],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
   );
 
   late final Gradient _backspaceGradient = LinearGradient(
@@ -53,7 +53,7 @@ class LightTheme extends ITheme {
   Gradient accentGradient() => _accentGradient;
 
   @override
-  Gradient accentGradientVertical() => _accentGradientVertical;
+  LinearGradient accentGradientVertical() => _accentGradientVertical;
 
   @override
   Gradient backspaceGradient() => _backspaceGradient;

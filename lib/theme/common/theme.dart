@@ -32,7 +32,7 @@ abstract class ITheme {
 
   Gradient accentGradient();
 
-  Gradient accentGradientVertical();
+  LinearGradient accentGradientVertical();
 
   Gradient backspaceGradient();
 

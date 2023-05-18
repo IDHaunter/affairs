@@ -31,10 +31,10 @@ class DarkTheme extends ITheme {
     end: Alignment.centerRight,
   );
 
-  late final Gradient _accentGradientVertical = LinearGradient(
-    colors: [_accent, const Color(0xFFE91E63), Colors.transparent],
-    begin: Alignment.bottomCenter,
-    end: Alignment.topCenter,
+  late final LinearGradient _accentGradientVertical = const LinearGradient(
+    colors: [Colors.pink, Colors.transparent],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
   );
 
   @override
@@ -47,7 +47,7 @@ class DarkTheme extends ITheme {
   Gradient accentGradient() => _accentGradient;
 
   @override
-  Gradient accentGradientVertical() => _accentGradientVertical;
+  LinearGradient accentGradientVertical() => _accentGradientVertical;
 
   @override
   Gradient backspaceGradient() => _accentGradient;
