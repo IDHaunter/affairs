@@ -16,20 +16,35 @@ class CryptoCoinHistoryChart extends StatelessWidget {
       primaryXAxis: CategoryAxis(),
       //Ось Y предполагает числовые значения, значит NumericAxis
       primaryYAxis: NumericAxis(),
-      legend: Legend(isVisible: true),
+      legend: Legend(isVisible: false),
       margin: const EdgeInsets.all(0),
       borderWidth: 0,
       borderColor: Colors.transparent,
       // series - это List числовых рядов кот. могут быть различных типопв
       // и накладываться друг на друга
+      // ChartSeries - класс носитель свойств и данных числовых рядов
+      // <
+      // CryptoCoinEvent, - лист этих элементов будет источником данных
+      // String - этот дженерик будет индексом для оси Х
+      // >
       series: <ChartSeries<CryptoCoinEvent, String>>[
         SplineAreaSeries(
-            dataSource: data,
-            xValueMapper: (CryptoCoinEvent event, _) => event.sDate,
-            yValueMapper: (CryptoCoinEvent event, _) => event.dValue,
-            gradient: curITheme.accentGradientVertical(),
+          dataSource: data,
+          xValueMapper: (CryptoCoinEvent event, _) => event.sDate,
+          yValueMapper: (CryptoCoinEvent event, _) => event.dValue,
+          gradient: curITheme.accentGradientVertical(),
         ),
-        
+        SplineSeries(
+            dataSource: data,
+            color: curITheme.accent(),
+            markerSettings: MarkerSettings(
+              isVisible: true,
+              shape: DataMarkerType.circle,
+              color: curITheme.textSecondary(),
+              borderWidth: 1,
+              ),
+            xValueMapper: (CryptoCoinEvent event, _) => event.sDate,
+            yValueMapper: (CryptoCoinEvent event, _) => event.dValue)
       ],
     );
   }

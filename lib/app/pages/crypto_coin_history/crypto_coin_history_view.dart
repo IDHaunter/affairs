@@ -62,11 +62,18 @@ class _CryptoCoinHistoryViewState extends State<CryptoCoinHistoryView> {
           })
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
-          onPressed: () async {
-            Provider.of<CryptoCoinHistoryViewModel>(context, listen: false).loadCryptoCoinHistory();
-          }),
+
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+              child: Icon(color: curITheme.icon(), Icons.refresh_outlined),
+              onPressed: () async {
+                Provider.of<CryptoCoinHistoryViewModel>(context, listen: false).loadCryptoCoinHistory();
+              }),
+          const SizedBox(height: 20, width: 20,),
+        ],
+      ),
     );
   }
 }

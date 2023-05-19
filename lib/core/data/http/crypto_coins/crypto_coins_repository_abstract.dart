@@ -11,5 +11,5 @@ abstract class CryptoCoinsRepositoryAbstract {
 
   //также нам понадобится история изменения цены за последние 30 дней в виде листа ивентов,
   // наименования крипты, последней цены и индикатор роста которые мы завернули в CryptoCoinHistoryModel
-  Future<CryptoCoinHistoryModel> getCoinHistory();
+  Future<CryptoCoinHistoryModel> getCoinHistory({required String cryptoCoinName});
 }

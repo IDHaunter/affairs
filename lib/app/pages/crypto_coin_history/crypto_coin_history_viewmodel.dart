@@ -23,7 +23,7 @@ class CryptoCoinHistoryViewModel extends DioBaseViewModel {
         _cryptoCoinHistoryModel = null;
       }
       setLoading=true;
-      _cryptoCoinHistoryModel = await cryptoCoinsRepository.getCoinHistory();
+      _cryptoCoinHistoryModel = await cryptoCoinsRepository.getCoinHistory(cryptoCoinName: cryptoCoinName);
     } catch (e) {
       debugPrint('---- ERROR in loadCryptoCoinHistory: ${e.toString()}');
       handleApiError(e);

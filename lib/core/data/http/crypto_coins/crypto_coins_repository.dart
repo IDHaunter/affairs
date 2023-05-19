@@ -1,5 +1,6 @@
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/data/http/crypto_coins/models/crypto_coin_history_model.dart';
+import 'package:intl/intl.dart';
 import '../dio_client.dart';
 import 'crypto_coins_repository_abstract.dart';
 import 'models/crypto_coin_history_response_model.dart';
@@ -60,8 +61,7 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
       final RawUsd rawUsd = (e.value).usd;
       final price = rawUsd.price;
       final imageURL = rawUsd.imageurl;
-      return CryptoCoinModel(
-          name: e.key, priceInUSD: price, imageURL: 'https://www.cryptocompare.com/$imageURL');
+      return CryptoCoinModel(name: e.key, priceInUSD: price, imageURL: 'https://www.cryptocompare.com/$imageURL');
     }).toList();
 
     //МЕТОД 3: юзать FlutterJsonBeanFactory, но что-то мне не понравилось как он распарсил этот JSON
@@ -71,16 +71,29 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
   }
 
   @override
-  Future<CryptoCoinHistoryModel> getCoinHistory() async {
+  Future<CryptoCoinHistoryModel> getCoinHistory( {required String cryptoCoinName} ) async {
     //https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30
     final Response<dynamic> response = await dioClient.get(
-      'data/v2/histoday?fsym=BTC&tsym=USD&limit=30',
+      'data/v2/histoday?fsym=$cryptoCoinName&tsym=USD&limit=30',
     );
 
     final cryptoCoinHistoryResponseModel = cryptoCoinHistoryResponseModelFromJson(response.toString());
+    //1 день - 86400000 милисекунд
+    int unixDate = cryptoCoinHistoryResponseModel.data.timeTo * 1000;
 
-    final cryptoCoinHistoryModel = CryptoCoinHistoryModel(cryptoName: 'BTC', lastPrice: 1, cryptoCoinEventsList: []);
-    cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 100, sDate: '01.01.2023'));
+    final cryptoCoinHistoryModel = CryptoCoinHistoryModel(cryptoName: cryptoCoinName,
+        lastPrice: 1, cryptoCoinEventsList: []);
+
+    for (var element in cryptoCoinHistoryResponseModel.data.data) {
+      cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(
+          dValue: element.close,
+          sDate: DateFormat("dd.MM").format(DateTime.fromMillisecondsSinceEpoch(unixDate))));
+      unixDate -= 86400000;
+      cryptoCoinHistoryModel.lastPrice = element.close;
+    }
+
+    //var cryptoCoinHistoryModel = CryptoCoinHistoryModel(cryptoName: 'BTC', lastPrice: 1, cryptoCoinEventsList: []);
+    /* cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 100, sDate: '01.01.2023'));
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 105, sDate: '02.01.2023'));
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 112, sDate: '03.01.2023'));
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 106, sDate: '04.01.2023'));
@@ -92,7 +105,8 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 108, sDate: '10.01.2023'));
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 109, sDate: '11.01.2023'));
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 116, sDate: '12.01.2023'));
+    */
+    
     return cryptoCoinHistoryModel;
   }
-
 }
