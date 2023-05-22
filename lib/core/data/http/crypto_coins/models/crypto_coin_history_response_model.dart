@@ -106,10 +106,10 @@ class Datum {
     high: json["high"]?.toDouble(),
     low: json["low"]?.toDouble(),
     open: json["open"]?.toDouble(),
-    volumefrom: json["volumefrom"]?.toDouble(),
-    volumeto: json["volumeto"]?.toDouble(),
+    volumefrom: json["volumefrom"]?.toDouble() ?? 0,
+    volumeto: json["volumeto"]?.toDouble() ?? 0,
     close: json["close"]?.toDouble(),
-    conversionType: conversionTypeValues.map[json["conversionType"]]!,
+    conversionType: conversionTypeValues.map[json["conversionType"]] ?? ConversionType.DIRECT,
     conversionSymbol: json["conversionSymbol"],
   );
 

@@ -71,7 +71,7 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
   }
 
   @override
-  Future<CryptoCoinHistoryModel> getCoinHistory( {required String cryptoCoinName} ) async {
+  Future<CryptoCoinHistoryModel> getCoinHistory({required String cryptoCoinName}) async {
     //https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=30
     final Response<dynamic> response = await dioClient.get(
       'data/v2/histoday?fsym=$cryptoCoinName&tsym=USD&limit=30',
@@ -81,15 +81,31 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
     //1 день - 86400000 милисекунд
     int unixDate = cryptoCoinHistoryResponseModel.data.timeTo * 1000;
 
-    final cryptoCoinHistoryModel = CryptoCoinHistoryModel(cryptoName: cryptoCoinName,
-        lastPrice: 1, cryptoCoinEventsList: []);
+    final cryptoCoinHistoryModel =
+        CryptoCoinHistoryModel(cryptoName: cryptoCoinName, diffPrice: 1, cryptoCoinEventsList: []);
+
+    double startPrice = 0;
+    double endPrice = 0;
 
     for (var element in cryptoCoinHistoryResponseModel.data.data) {
+      if (startPrice == 0) {
+        startPrice = element.close;
+      }
+      endPrice = element.close;
       cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(
-          dValue: element.close,
-          sDate: DateFormat("dd.MM").format(DateTime.fromMillisecondsSinceEpoch(unixDate))));
+          dValue: element.close, sDate: DateFormat("dd.MM").format(DateTime.fromMillisecondsSinceEpoch(unixDate))));
       unixDate -= 86400000;
-      cryptoCoinHistoryModel.lastPrice = element.close;
+    }
+
+    cryptoCoinHistoryModel.diffPrice = double.parse((endPrice - startPrice).toStringAsFixed(2));
+    if (cryptoCoinHistoryModel.diffPrice > 0) {
+      cryptoCoinHistoryModel.isGrowUp = true;
+    } else {
+      if (cryptoCoinHistoryModel.diffPrice < 0) {
+        cryptoCoinHistoryModel.isGrowUp = false;
+      } else {
+        cryptoCoinHistoryModel.isGrowUp = null;
+      }
     }
 
     //var cryptoCoinHistoryModel = CryptoCoinHistoryModel(cryptoName: 'BTC', lastPrice: 1, cryptoCoinEventsList: []);
@@ -106,7 +122,7 @@ class CryptoCoinsRepository implements CryptoCoinsRepositoryAbstract {
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 109, sDate: '11.01.2023'));
     cryptoCoinHistoryModel.cryptoCoinEventsList.add(CryptoCoinEvent(dValue: 116, sDate: '12.01.2023'));
     */
-    
+
     return cryptoCoinHistoryModel;
   }
 }

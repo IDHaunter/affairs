@@ -1,6 +1,5 @@
 import 'package:affairs/app/pages/crypto_coins/crypto_coins_viewmodel.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import '../../../core/common_export.dart';
 import '../../../core/data/http/crypto_coins/models/crypto_coin_history_model.dart';
 import '../../widgets/custom_navigation_drawer.dart';
@@ -38,27 +37,36 @@ class _CryptoCoinHistoryViewState extends State<CryptoCoinHistoryView> {
           TopBar(
               showCalendar: false, showFilter: false, showDatePicker: false, title: '${widget.cryptoCoinName} history'),
           Consumer<CryptoCoinHistoryViewModel>(builder: (context, model, child) {
+            Widget? growIcon;
+            if (model.cryptoCoinHistoryModel != null) {
+              if ((model.cryptoCoinHistoryModel?.isGrowUp) != null) {
+                bool bGrowUp = model.cryptoCoinHistoryModel!.isGrowUp!;
+                growIcon = bGrowUp ? Icon(color: curITheme.success(), Icons.arrow_drop_up_outlined) : Icon(
+                    color: curITheme.failure(), Icons.arrow_drop_down);
+              }
+            }
             return Expanded(
                 child: (model.isLoading)
                     ? const Center(child: CircularProgressIndicator())
                     : (model.cryptoCoinHistoryModel != null)
-                        ? Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('1 ${widget.cryptoCoinName} = ${model.cryptoCoinHistoryModel!.lastPrice} \$'),
-                                  Icon(color: curITheme.accent(), Icons.arrow_drop_up_outlined)
-                                ],
-                              ),
-                              Expanded(
-                                  child: Center(
-                                      child: CryptoCoinHistoryChart(data: model.cryptoCoinHistoryModel!.cryptoCoinEventsList ) )),
-                            ],
-                          )
-                        : (model.sError == null)
-                            ? const Center(child: CircularProgressIndicator())
-                            : Center(child: Text(model.sError ?? 'fucking bad')));
+                    ? Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        //https://symbl.cc - все коды символов в Unicode
+                        Text('\u0394 ${widget.cryptoCoinName} ${model.cryptoCoinHistoryModel!.diffPrice} \$'),
+                        growIcon ?? const SizedBox(height: 12, width: 12),
+                      ],
+                    ),
+                    Expanded(
+                        child: Center(
+                            child: CryptoCoinHistoryChart(data: model.cryptoCoinHistoryModel!.cryptoCoinEventsList))),
+                  ],
+                )
+                    : (model.sError == null)
+                    ? const Center(child: CircularProgressIndicator())
+                    : Center(child: Text(model.sError ?? "too bad, but I'm helpless ((")));
           })
         ],
       ),

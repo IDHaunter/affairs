@@ -6,8 +6,8 @@ class CryptoCoinEvent {
 
 class CryptoCoinHistoryModel {
   final String cryptoName;
-  double lastPrice;
+  double diffPrice;
   bool? isGrowUp;
   List<CryptoCoinEvent> cryptoCoinEventsList; //= <CryptoCoinEvent>[];
-  CryptoCoinHistoryModel({required this.cryptoName, required this.lastPrice, this.isGrowUp, required this.cryptoCoinEventsList});
+  CryptoCoinHistoryModel({required this.cryptoName, required this.diffPrice, this.isGrowUp, required this.cryptoCoinEventsList});
 }
