@@ -17,10 +17,10 @@ Language? languageFromName(String name) {
   }
 }
 
-//Создание экземпляра Носителя
+//Создание экземпляра обработчика
 final LanguageHandler languageHandler = LanguageHandler();
 
-//Носитель
+//обработчик
 class LanguageHandler  { //extends ChangeNotifier
   //Должен существовать в единственном экземпляре, поэтому конструируется через
   //спец конструктор _internal() и затем экземпляр просто возвращается через factory
@@ -97,19 +97,4 @@ class LanguageHandler  { //extends ChangeNotifier
         return const Locale.fromSubtags(languageCode: "en");
     }
   }
-}
-
-//----------------------------------------------------------------------------------------------------
-//Конструируем модель типа Locale для провайдера исходя из данных носителя
-class LanguageModel extends ChangeNotifier {
-  Locale currentLocale = languageHandler.getLocale();
-
-
-  //Обновление текущего языка
-  changeCurrentLocale(Language language) {
-    currentLocale = languageHandler.getLocale();
-    //Собственно уведомляем подписаных
-    notifyListeners();
-  }
-
 }

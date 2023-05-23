@@ -1,6 +1,6 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import '../core/common_export.dart';
+import '../theme/theme_model.dart';
 
 class MyApp extends StatefulWidget with WidgetsBindingObserver {
   const MyApp({Key? key}) : super(key: key);

@@ -1,5 +1,7 @@
 import '../../../core/common_export.dart';
 import '../../../core/data/hive/task.dart';
+import '../../pages/auth_settings/auth_settings_view.dart';
+import '../../pages/auth_settings/auth_settings_viewmodel.dart';
 import '../../pages/crypto_coin_history/crypto_coin_history_view.dart';
 import '../../pages/crypto_coin_history/crypto_coin_history_viewmodel.dart';
 import '../../pages/crypto_coins/crypto_coins_view.dart';
@@ -22,6 +24,7 @@ abstract class MainNavigatorRouteNames {
       '/group_page'; // Provider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
   static const theme = '/theme_page'; // ThemeView()
   static const language = '/language_page'; // LanguageView(),
+  static const auth = '/auth_page'; // AuthSettingsView()
   static const tasks = '/tasks_page'; // TasksView(),
   static const task = '/tasks_page/task_page'; // TaskView(),
   static const cryptoCoins = '/crypto_coins_page'; //CryptoCoinsView()
@@ -97,6 +100,15 @@ class MainNavigator {
                   ChangeNotifierProvider<CryptoCoinHistoryViewModel>(
                       create: (context) => CryptoCoinHistoryViewModel(cryptoCoinName: cryptoCoinName),
                       child: CryptoCoinHistoryView(cryptoCoinName: cryptoCoinName,)));
+        }
+
+      case MainNavigatorRouteNames.auth:
+        {
+          return MaterialPageRoute(
+              builder: (context) =>
+                  ChangeNotifierProvider<AuthSettingsViewModel>(
+                      create: (context) => AuthSettingsViewModel(),
+                      child: AuthSettingsView()));
         }
 
       default:

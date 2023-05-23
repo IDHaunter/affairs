@@ -76,6 +76,17 @@ class CustomNavigationDrawer extends StatelessWidget {
                       },
                     ),
                   ),
+                  Card(
+                    child: ListTile(
+                      title: Text('Авторизация', style: bold),
+                      subtitle: Text('Без авторизации', style: regular ),
+                      leading: const Icon(Icons.lock_open_outlined),
+                      trailing: const Icon(Icons.more_vert),
+                      onTap: () {
+                        Navigator.pushNamed(context, MainNavigatorRouteNames.auth);
+                      },
+                    ),
+                  ),
                   const Divider(),
                   Card(
                     child: ListTile(
