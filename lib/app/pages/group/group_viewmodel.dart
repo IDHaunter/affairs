@@ -1,6 +1,7 @@
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/data/hive/group.dart';
-import '../../../core/data/hive/box_handler.dart';
+import '../../../core/data/hive/hive_service.dart';
+import '../../../core/service_locator.dart';
 
 class GroupViewModel extends ChangeNotifier{
   int groupIndex;
@@ -26,7 +27,7 @@ class GroupViewModel extends ChangeNotifier{
       errorText='Название группы не указано';
       notifyListeners();
       return;}
-    final box = boxHandler.groupBox;
+    final box = getIt<HiveService>().groupBox;
     final group = Group(name: groupName);
     //add - не требует задания ключа, он автоинкрементиться в отличие от put
     //add вернёт нам ключ типа integer, но он нам тут не нужен
@@ -43,7 +44,7 @@ class GroupViewModel extends ChangeNotifier{
       errorText='Название группы не указано';
       notifyListeners();
       return;}
-    final box = boxHandler.groupBox;
+    final box = getIt<HiveService>().groupBox;
     final int groupKey = box.keyAt(groupIndex);
     final Group? group2edit = box.get(groupKey);
     group2edit!.name = groupName;

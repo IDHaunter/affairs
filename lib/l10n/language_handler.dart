@@ -1,7 +1,11 @@
 import 'dart:io';
-
 import 'package:affairs/core/common_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+//https://docs.flutter.dev/accessibility-and-localization/internationalization
+//настройки автогенерации находятся в файле l10n.yaml (правим если нужно)
+//шаблоны перевода в файлах app_en.arb и app_ru.arb (добавляем/правим новые слова если нужно)
+//вызов автогенератора: flutter gen-l10n - в результате пропатчится файл app_localizations.dart который прописан в l10n.yaml
 
 //Список языков
 enum Language { russian, english }

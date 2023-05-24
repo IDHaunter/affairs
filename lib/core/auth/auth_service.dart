@@ -1,7 +1,4 @@
-//Список видов авторизации
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../core/common_export.dart';
 
 enum AuthEnum { noAuth, localAuth }
 
@@ -16,23 +13,23 @@ AuthEnum? authEnumFromName(String name) {
   }
 }
 
-class AuthSettingsViewModel extends ChangeNotifier {
+class AuthService {
   //ключ для хранения настройки
   static const _authKey = "auth";
-  late SharedPreferences _preferences;
+  final SharedPreferences _preferences;
+
+  AuthService(this._preferences) {
+    _setup();
+  }
+
   AuthEnum _currentAuth = AuthEnum.noAuth;
 
   AuthEnum get currentAuth => _currentAuth;
 
-  AuthSettingsViewModel() {
-    _setup();
-  }
-
   //Обновление текущего способа авторизации
   changeCurrentAuth(AuthEnum authEnum) {
     _currentAuth = authEnum;
-    //Собственно уведомляем подписаных
-    notifyListeners();
+    _saveAuth();
   }
 
   //Получаем сохранённый способ авторизации
@@ -47,8 +44,6 @@ class AuthSettingsViewModel extends ChangeNotifier {
 
   //Инициализация (не асинхронная!)
   void _setup() async{
-    //загрузка предыдущих настроек
-    _preferences = await SharedPreferences.getInstance();
     _currentAuth = _getSavedAuth();
   }
 

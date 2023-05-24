@@ -1,4 +1,4 @@
-import 'package:affairs/theme/theme_handler.dart';
+import 'package:affairs/core/theme/theme_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

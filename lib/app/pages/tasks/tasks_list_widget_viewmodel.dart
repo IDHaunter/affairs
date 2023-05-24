@@ -1,9 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/common_export.dart';
-import '../../../core/data/hive/box_handler.dart';
+import '../../../core/data/hive/hive_service.dart';
 import '../../../core/data/hive/group.dart';
 import '../../../core/data/hive/task.dart';
+import '../../../core/service_locator.dart';
 
 class TasksListWidgetViewModel extends ChangeNotifier {
   int groupKey;
@@ -29,7 +30,7 @@ class TasksListWidgetViewModel extends ChangeNotifier {
 
   //Получение группы по ключу
   void _loadGroup() async {
-    final box = boxHandler.groupBox;
+    final box = getIt<HiveService>().groupBox;
     _group = box.get(groupKey);
     //ВАЖНЫЙ МОМЕНТ: поскольку выполнение асинхронное то загрузка группы будет происходить с задержкой, и кто-то вызывающий
     //эту асинхронную функцию для получения группы может не дождаться милисекунды для получения группы.
@@ -38,7 +39,7 @@ class TasksListWidgetViewModel extends ChangeNotifier {
   }
 
   void _readTasks() async {
-  final box = boxHandler.taskBox;
+  final box = getIt<HiveService>().taskBox;
 
   //если либо бокс пустой либо в группе нет связей то возвращаем пустой лист
   if (box.length == 0) {_tasks = <Task>[];}
@@ -51,7 +52,7 @@ class TasksListWidgetViewModel extends ChangeNotifier {
 
   void _setupListenTasks() async {
   _readTasks();
-  boxHandler.taskBox.listenable().addListener(_readTasks);
+  getIt<HiveService>().taskBox.listenable().addListener(_readTasks);
   }
 
   void deleteTask(int taskIndex) async {

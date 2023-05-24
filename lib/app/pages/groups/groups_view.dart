@@ -14,6 +14,7 @@ class GroupsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('------ GroupsView.build');
     return Scaffold(
       //backgroundColor: Colors.white,
       drawer: CustomNavigationDrawer(),

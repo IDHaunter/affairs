@@ -11,5 +11,8 @@
     "system": "System",
     "language": "Language",
     "nowLanguage": "Now it's english",
+    "authentication": "Authentication",
+    "noAuth": "No authentication",
+    "localAuth": "System",
     "aboutApp": "About application"
 }

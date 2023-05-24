@@ -8,5 +8,8 @@
     "system": "Системная",
     "language": "Язык",
     "nowLanguage": "Выбран русский",
+    "authentication": "Авторизация",
+    "noAuth": "Без авторизации",
+    "localAuth": "Системная",
     "aboutApp": "О приложении"
 }

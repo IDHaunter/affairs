@@ -1,13 +1,11 @@
-//Создание экземпляра Носителя всех боксов с данными
+//Создание экземпляра сервиса для Hive и всех используемых коллекций (box)
 import 'package:affairs/core/data/hive/task.dart';
 import 'package:hive/hive.dart';
+import '../../common_export.dart';
 import 'group.dart';
 
-//Создание экземпляра Носителя
-final BoxHandler boxHandler = BoxHandler();
-
-//Собственно носитель
-class BoxHandler {
+//Собственно сервис
+class HiveService {
   late final Box<Group> _groupBox;
   late final Box<Task> _taskBox;
 
@@ -17,21 +15,21 @@ class BoxHandler {
 
   //Должен существовать в единственном экземпляре, поэтому конструируется через
   //спец конструктор _internal() и затем экземпляр просто возвращается через factory
-  static final BoxHandler instance = BoxHandler._internal();
+  static final HiveService instance = HiveService._internal();
 
   //собственно фабрика для гарантирования инициализации одного экземпляра instance
-  factory BoxHandler() {
+  factory HiveService() {
     return instance;
   }
 
   //Собственно именованый конструктор который и нужен для создания экземпляра instance
-  BoxHandler._internal() {
-    //print('---- BoxHandler._internal done');
+  HiveService._internal() {
+    //debugPrint('---- BoxService._internal done');
   }
 
 //Набор действий при старте приложения
   Future<void> init() async {
-    //print('---- BoxHandler.init start');
+    //debugPrint('---- HiveService.init start');
 
     //Проверяем существование адаптеров и если нету то создаём
     if (!Hive.isAdapterRegistered(1)) {
@@ -45,7 +43,7 @@ class BoxHandler {
     //даже если явно не юзаем бокс то всё равно его открываем
     _taskBox = await Hive.openBox<Task>('tasks_box');
 
-    //print('---- BoxHandler.init done');
+    //debugPrint('---- HiveService.init done');
   }
 
   //Набор действий при теоретическом закрытии приложения

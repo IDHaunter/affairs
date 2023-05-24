@@ -1,6 +1,7 @@
 import 'package:affairs/core/common_export.dart';
 import 'package:affairs/core/data/hive/task.dart';
-import '../../../core/data/hive/box_handler.dart';
+import '../../../core/data/hive/hive_service.dart';
+import '../../../core/service_locator.dart';
 
 //В отличие от GroupPageModel тут мы не наследуемся от ChangeNotifier и используем через обычный Provider
 //т.к. текст сообщения об ошибке мы делаем не через  errorText: Provider.of<GroupPageModel>(context, listen: true).errorText,
@@ -43,13 +44,13 @@ class TaskViewModel /*extends ChangeNotifier*/ {
       return;
     }
 
-    final taskBox = boxHandler.taskBox;
+    final taskBox = getIt<HiveService>().taskBox;
     //Создаём Task
     final task = Task(text: _taskText, isDone: false, creationDate: DateTime.now(), taskDate: _taskDateTime);
     debugPrint('----------- saveTask ----  $_taskText -creationDate- ${DateTime.now()} -taskDate- $_taskDateTime');
     taskBox.add(task);
 
-    final groupBox = boxHandler.groupBox;
+    final groupBox = getIt<HiveService>().groupBox;
     //Получаем группу по ключу
     final group = groupBox.get(groupKey);
     debugPrint('----------- saveTask ----  $groupKey');
@@ -65,7 +66,7 @@ class TaskViewModel /*extends ChangeNotifier*/ {
       return;
     }
 
-    final taskBox = boxHandler.taskBox;
+    final taskBox = getIt<HiveService>().taskBox;
     //Модифицируем таску используя непосредственно переданную таску
     //ВНИМАНИЕ: любая таска унаследованая от HiveObject является ссылкой синглтоном на реальную таску
     debugPrint('----------- editTask ---- taskKey=$taskKey ---- taskText= ${currentTask.text} -creationDate- ${currentTask.creationDate} -taskDate- ${currentTask.taskDate}');

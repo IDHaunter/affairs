@@ -1,7 +1,10 @@
-import 'package:affairs/app/pages/auth_settings/auth_settings_viewmodel.dart';
 import 'package:affairs/app/widgets/top_bar.dart';
 import 'package:affairs/app/widgets/custom_navigation_drawer.dart';
 import 'package:affairs/core/common_export.dart';
+import 'package:affairs/core/service_locator.dart';
+
+import '../../../core/auth/auth_service.dart';
+import '../../../core/auth/auth_model.dart';
 
 class AuthSettingsView extends StatefulWidget {
   const AuthSettingsView({super.key});
@@ -11,7 +14,7 @@ class AuthSettingsView extends StatefulWidget {
 }
 
 class _SettingsView extends State<AuthSettingsView> {
-  AuthEnum? _authEnum = AuthEnum.noAuth;
+  AuthEnum? _authEnum = getIt<AuthService>().currentAuth;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class _SettingsView extends State<AuthSettingsView> {
       body: Column(
         children: [
           TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Авторизация',),
-        Consumer<AuthSettingsViewModel>(builder: (context, model, child) {
+        Consumer<AuthModel>(builder: (context, model, child) {
           return Column(
             children: [
               ListTile(
@@ -33,11 +36,12 @@ class _SettingsView extends State<AuthSettingsView> {
                     value: AuthEnum.noAuth,
                     groupValue: _authEnum,
                     onChanged: (AuthEnum? value) {
-                      setState(() {
+                      //setState(() {
                         _authEnum = value;
+                        model.currentAuth = AuthEnum.noAuth;
                         //languageHandler.updateLanguage(Language.russian, manually: true);
                         //Provider.of<LanguageModel>(context,listen: false).changeCurrentLocale(Language.russian);
-                      });
+                      //});
                     },
                   ),
                 ),
@@ -52,11 +56,12 @@ class _SettingsView extends State<AuthSettingsView> {
                     value: AuthEnum.localAuth,
                     groupValue: _authEnum,
                     onChanged: (AuthEnum? value) {
-                      setState(() {
+                      //setState(() {
                         _authEnum = value;
+                        model.currentAuth = AuthEnum.localAuth;
                         //languageHandler.updateLanguage(Language.english, manually: true);
                         //Provider.of<LanguageModel>(context,listen: false).changeCurrentLocale(Language.english);
-                      });
+                      //});
                     },
                   ),
                 ),

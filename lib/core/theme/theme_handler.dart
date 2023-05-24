@@ -1,7 +1,7 @@
 import 'package:affairs/core/common_export.dart';
-import 'package:affairs/theme/common/theme.dart';
-import 'package:affairs/theme/dark/dark_theme.dart';
-import 'package:affairs/theme/light/light_theme.dart';
+import 'package:affairs/core/theme/common/theme.dart';
+import 'package:affairs/core/theme/dark/dark_theme.dart';
+import 'package:affairs/core/theme/light/light_theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';

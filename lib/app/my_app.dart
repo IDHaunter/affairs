@@ -1,6 +1,5 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import '../core/common_export.dart';
-import '../theme/theme_model.dart';
 
 class MyApp extends StatefulWidget with WidgetsBindingObserver {
   const MyApp({Key? key}) : super(key: key);
@@ -25,12 +24,7 @@ static final mainNavigator = MainNavigator();
     //Provider это обёртка для InheritedWidget
     //flutter_bloc и MobX используют provider в своей реализации
 
-    return ChangeNotifierProvider<GlobalViewModel>(
-      create: (context) => GlobalViewModel(),
-      //Если бы использовали Provider то работали через метод create: (context)=>data,
-      //или даже просто create: (context)=>'The end of the Fucking world',
-      //где data - любая переменная (класс) с любыми данными которые автоматом были бы доступны ТОЛЬКО по дереву вниз
-      child: MaterialApp(
+    return MaterialApp(
         //отключаем баннер Debug в верхнем правом углу
         debugShowCheckedModeBanner: false,
         //тему приложения будем обновлять через провайдер
@@ -51,7 +45,7 @@ static final mainNavigator = MainNavigator();
         initialRoute: mainNavigator.initialRoute,
         routes: mainNavigator.routes,
         onGenerateRoute: mainNavigator.onGenerateRoute,
-      ),
-    );
+      );
+
   }
 }
