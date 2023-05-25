@@ -14,18 +14,22 @@ class GroupsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('------ GroupsView.build');
+    //debugPrint('------ GroupsView.build');
     return Scaffold(
       //backgroundColor: Colors.white,
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: [
-          TopBar(showCalendar: true, showFilter: true, showDatePicker: false, title: 'Список груп',),
+          TopBar(
+              showCalendar: true,
+              showFilter: true,
+              showDatePicker: false,
+              title: context.l()!.groupsList,
+              filterDefault: context.l()!.noFilter,
+              dateDefault: context.l()!.noDate),
           Expanded(
               child: ChangeNotifierProvider<GroupsListWidgetViewModel>(
-                  create: (context) => GroupsListWidgetViewModel(),
-                  child: GroupsListWidget())
-              ),
+                  create: (context) => GroupsListWidgetViewModel(), child: GroupsListWidget())),
           //TestSharedPreferences(),
           //Text(context.watch<String>()) - для обычного провайдера
           //SomeDataTest(),
@@ -49,4 +53,3 @@ class GroupsView extends StatelessWidget {
     );
   }
 }
-

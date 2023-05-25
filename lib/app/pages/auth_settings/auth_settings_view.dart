@@ -22,13 +22,13 @@ class _SettingsView extends State<AuthSettingsView> {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: [
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Авторизация',),
+          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: context.l()!.authentication, filterDefault: context.l()!.noFilter, dateDefault: context.l()!.noDate),
         Consumer<AuthModel>(builder: (context, model, child) {
           return Column(
             children: [
               ListTile(
                 leading: const Icon(Icons.lock_open_outlined),
-                title: Text('Без авторизации>', style: regular.copyWith(fontSize: titleSize)),
+                title: Text(context.l()!.noAuth, style: regular.copyWith(fontSize: titleSize)),
                 trailing: Transform.scale(
                   scale: 1.6,
                   child: Radio<AuthEnum>(
@@ -48,7 +48,7 @@ class _SettingsView extends State<AuthSettingsView> {
               ),
               ListTile(
                 leading: const Icon(Icons.lock_outline),
-                title: Text('Системная авторизация', style: regular.copyWith(fontSize: titleSize)),
+                title: Text(context.l()!.localAuth, style: regular.copyWith(fontSize: titleSize)),
                 trailing: Transform.scale(
                   scale: 1.6,
                   child: Radio<AuthEnum>(

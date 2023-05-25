@@ -9,6 +9,8 @@ class TopBar extends StatefulWidget {
   final bool showDatePicker;
   final DateTime? editDate;
   final String? title;
+  final String filterDefault;
+  final String dateDefault;
 
   const TopBar(
       {Key? key,
@@ -16,7 +18,9 @@ class TopBar extends StatefulWidget {
       required this.showCalendar,
       required this.showDatePicker,
       this.editDate,
-      this.title})
+      this.title,
+      required this.filterDefault,
+      required this.dateDefault})
       : super(key: key);
 
   @override
@@ -24,8 +28,8 @@ class TopBar extends StatefulWidget {
 }
 
 class _TopBarState extends State<TopBar> with DefaultBackColor {
-  static const _sFilterDefault = 'Фильтр не задан';
-  static const _sDateDefault = 'Дата не задана';
+  late final String _sFilterDefault;
+  late final String _sDateDefault;
   late String _sFilter;
   late String _sDate;
   DateTime? _dateTime;
@@ -34,6 +38,8 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
   @override
   void initState() {
     // TODO: implement initState
+    _sFilterDefault = widget.filterDefault;
+    _sDateDefault = widget.dateDefault;
     _sFilter = _sFilterDefault;
     if (widget.editDate == null) {
       _sDate = _sDateDefault;
@@ -86,8 +92,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
         .then((value) {
       _dateTime = value;
       //работа с датой подразумевает наличие модели TaskPageModel т.к. её выбор возможен только на странице TaskPage
-      if (_dateTime == null ||
-          DateUtils.dateOnly(_dateTime ?? DateTime.now()) == DateUtils.dateOnly(DateTime.now())) {
+      if (_dateTime == null || DateUtils.dateOnly(_dateTime ?? DateTime.now()) == DateUtils.dateOnly(DateTime.now())) {
         _sDate = _sDateDefault;
         _dateTime = null;
         Provider.of<TaskViewModel>(context, listen: false).taskDateTime = null;
@@ -117,9 +122,7 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
           bottom: context.screenHeight() > context.screenWidth() ? 10 : 0),
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: Image.asset('assets/images/bg3.png').image,
-            fit: BoxFit.contain,
-            alignment: Alignment.centerRight),
+            image: Image.asset('assets/images/bg3.png').image, fit: BoxFit.contain, alignment: Alignment.centerRight),
         gradient: curITheme.accentGradientVertical(),
       ),
       child: SafeArea(
@@ -146,16 +149,21 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                         height: 16,
                       )
                     : Row(
-                      children: [
-                        const SizedBox(width: 8, height: 16,),
-                        Container( alignment: Alignment.centerLeft, width: context.screenWidth()-130,
-                          child: Text(
+                        children: [
+                          const SizedBox(
+                            width: 8,
+                            height: 16,
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            width: context.screenWidth() - 130,
+                            child: Text(
                               widget.title!,
                               style: bold,
                             ),
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
                 widget.showCalendar
                     ? CircleAvatar(
                         backgroundColor: Color.fromRGBO(r, g, b, 0.3),

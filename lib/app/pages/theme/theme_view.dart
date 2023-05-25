@@ -18,7 +18,13 @@ class _ThemeView extends State<ThemeView> {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: context.l()!.theme),
+          TopBar(
+              showCalendar: false,
+              showFilter: false,
+              showDatePicker: false,
+              title: context.l()!.theme,
+              filterDefault: context.l()!.noFilter,
+              dateDefault: context.l()!.noDate),
           ListTile(
             leading: const Icon(Icons.light_mode_outlined),
             title: Text(AppLocalizations.of(context)!.light, style: regular.copyWith(fontSize: titleSize)),
@@ -33,9 +39,8 @@ class _ThemeView extends State<ThemeView> {
                   // setState(() {
                   _appearance = value;
                   themeHandler.updateTheme(Appearance.light);
-                  Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.light);
-                 //  });
-
+                  Provider.of<ThemeModel>(context, listen: false).changeCurrentTheme(Appearance.light);
+                  //  });
                 },
               ),
             ),
@@ -53,9 +58,8 @@ class _ThemeView extends State<ThemeView> {
                   // setState(() {
                   _appearance = value;
                   themeHandler.updateTheme(Appearance.dark);
-                  Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.dark);
+                  Provider.of<ThemeModel>(context, listen: false).changeCurrentTheme(Appearance.dark);
                   // });
-
                 },
               ),
             ),
@@ -73,7 +77,7 @@ class _ThemeView extends State<ThemeView> {
                   // setState(() {
                   _appearance = value;
                   themeHandler.updateTheme(Appearance.system);
-                  Provider.of<ThemeModel>(context,listen: false).changeCurrentTheme(Appearance.system);
+                  Provider.of<ThemeModel>(context, listen: false).changeCurrentTheme(Appearance.system);
                   // });
                 },
               ),

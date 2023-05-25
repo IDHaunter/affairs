@@ -39,28 +39,32 @@ class _CryptoCoinsViewState extends State<CryptoCoinsView> {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: 'Crypto rates'),
-          Consumer<CryptoCoinsViewModel>(builder: (context, model, child) =>
-              Expanded(
+          TopBar(
+              showCalendar: false,
+              showFilter: false,
+              showDatePicker: false,
+              title: context.l()!.cryptoRates,
+              filterDefault: context.l()!.noFilter,
+              dateDefault: context.l()!.noDate),
+          Consumer<CryptoCoinsViewModel>(
+              builder: (context, model, child) => Expanded(
                   child: (model.isLoading) //(_cryptoCoinsList == null)
                       ? const Center(child: CircularProgressIndicator())
                       : (model.cryptoCoinsList != null)
-                      ? ListView.separated(
-                      itemBuilder: (BuildContext context, int index) {
-                        final coin = model.cryptoCoinsList![index];
-                        return CryptoCoinTile(coin: coin);
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          height: 1,
-                        );
-                      },
-                      itemCount: model.cryptoCoinsList!.length)
-                      : (model.sError == null)
-                      ? const Center(child: CircularProgressIndicator())
-                      : Center(child: Text(model.sError ?? 'fucking bad')))
-
-          ) ,
+                          ? ListView.separated(
+                              itemBuilder: (BuildContext context, int index) {
+                                final coin = model.cryptoCoinsList![index];
+                                return CryptoCoinTile(coin: coin);
+                              },
+                              separatorBuilder: (BuildContext context, int index) {
+                                return const Divider(
+                                  height: 1,
+                                );
+                              },
+                              itemCount: model.cryptoCoinsList!.length)
+                          : (model.sError == null)
+                              ? const Center(child: CircularProgressIndicator())
+                              : Center(child: Text(model.sError ?? 'fucking bad')))),
         ],
       ),
       floatingActionButton: FloatingActionButton(

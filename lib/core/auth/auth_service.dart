@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../common_export.dart';
+
 enum AuthEnum { noAuth, localAuth }
 
 AuthEnum? authEnumFromName(String name) {
@@ -10,6 +12,17 @@ AuthEnum? authEnumFromName(String name) {
       return AuthEnum.localAuth;
     default:
       return null;
+  }
+}
+
+String nameFromAuth(AuthEnum authEnum, BuildContext context) {
+  switch (authEnum) {
+    case AuthEnum.noAuth:
+      return context.l()!.noAuth;
+    case AuthEnum.localAuth:
+      return context.l()!.localAuth;
+    default:
+      return context.l()!.noAuth.toLowerCase();
   }
 }
 

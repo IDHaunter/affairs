@@ -28,49 +28,55 @@ class _CryptoCoinHistoryViewState extends State<CryptoCoinHistoryView> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('---- CryptoCoinHistoryView.build ');
+    //debugPrint('---- CryptoCoinHistoryView.build ');
 
     return Scaffold(
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
           TopBar(
-              showCalendar: false, showFilter: false, showDatePicker: false, title: '${widget.cryptoCoinName} history'),
+              showCalendar: false,
+              showFilter: false,
+              showDatePicker: false,
+              title: '${widget.cryptoCoinName} ${context.l()!.statistic}',
+              filterDefault: context.l()!.noFilter,
+              dateDefault: context.l()!.noDate),
           Consumer<CryptoCoinHistoryViewModel>(builder: (context, model, child) {
             Widget? growIcon;
             if (model.cryptoCoinHistoryModel != null) {
               if ((model.cryptoCoinHistoryModel?.isGrowUp) != null) {
                 bool bGrowUp = model.cryptoCoinHistoryModel!.isGrowUp!;
-                growIcon = bGrowUp ? Icon(color: curITheme.success(), Icons.arrow_drop_up_outlined) : Icon(
-                    color: curITheme.failure(), Icons.arrow_drop_down);
+                growIcon = bGrowUp
+                    ? Icon(color: curITheme.success(), Icons.arrow_drop_up_outlined)
+                    : Icon(color: curITheme.failure(), Icons.arrow_drop_down);
               }
             }
             return Expanded(
                 child: (model.isLoading)
                     ? const Center(child: CircularProgressIndicator())
                     : (model.cryptoCoinHistoryModel != null)
-                    ? Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //https://symbl.cc - все коды символов в Unicode
-                        Text('\u0394 ${widget.cryptoCoinName} ${model.cryptoCoinHistoryModel!.diffPrice} \$'),
-                        growIcon ?? const SizedBox(height: 12, width: 12),
-                      ],
-                    ),
-                    Expanded(
-                        child: Center(
-                            child: CryptoCoinHistoryChart(data: model.cryptoCoinHistoryModel!.cryptoCoinEventsList))),
-                  ],
-                )
-                    : (model.sError == null)
-                    ? const Center(child: CircularProgressIndicator())
-                    : Center(child: Text(model.sError ?? "too bad, but I'm helpless ((")));
+                        ? Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  //https://symbl.cc - все коды символов в Unicode
+                                  Text('\u0394 ${widget.cryptoCoinName} ${model.cryptoCoinHistoryModel!.diffPrice} \$'),
+                                  growIcon ?? const SizedBox(height: 12, width: 12),
+                                ],
+                              ),
+                              Expanded(
+                                  child: Center(
+                                      child: CryptoCoinHistoryChart(
+                                          data: model.cryptoCoinHistoryModel!.cryptoCoinEventsList))),
+                            ],
+                          )
+                        : (model.sError == null)
+                            ? const Center(child: CircularProgressIndicator())
+                            : Center(child: Text(model.sError ?? "too bad, but I'm helpless ((")));
           })
         ],
       ),
-
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -79,7 +85,10 @@ class _CryptoCoinHistoryViewState extends State<CryptoCoinHistoryView> {
               onPressed: () async {
                 Provider.of<CryptoCoinHistoryViewModel>(context, listen: false).loadCryptoCoinHistory();
               }),
-          const SizedBox(height: 20, width: 20,),
+          const SizedBox(
+            height: 20,
+            width: 20,
+          ),
         ],
       ),
     );

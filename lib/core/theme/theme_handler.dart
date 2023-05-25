@@ -23,6 +23,17 @@ Appearance? appearanceFromName(String name) {
   }
 }
 
+String nameFromAppearance(Appearance appearance, BuildContext context) {
+  switch (appearance) {
+    case Appearance.light:
+      return '${context.l()!.nowItIs} ${context.l()!.light.toLowerCase()}';
+    case Appearance.dark:
+      return '${context.l()!.nowItIs} ${context.l()!.dark.toLowerCase()}';
+    default:
+      return '${context.l()!.nowItIs} ${context.l()!.system.toLowerCase()}';
+  }
+}
+
 //Создание экземпляра обработчика всех настроек цветовой схемы
 final ThemeHandler themeHandler = ThemeHandler();
 //Геттер упрощающий написание кода, чтобы не писать везде ThemeHandler().currentITheme

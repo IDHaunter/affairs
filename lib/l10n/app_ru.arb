@@ -11,5 +11,15 @@
     "authentication": "Авторизация",
     "noAuth": "Без авторизации",
     "localAuth": "Системная",
+    "groupsList": "Список групп",
+    "tasksList": "Список дел",
+    "newGroup": "Новая группа",
+    "editGroup": "Изменение группы",
+    "newTask": "Новое дело",
+    "editTask": "Изменение дела",
+    "noFilter": "Фильтр не задан",
+    "noDate": "Дата не задана",
+    "statistic": "статистика",
+    "cryptoRates": "Курсы крипты",
     "aboutApp": "О приложении"
 }

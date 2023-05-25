@@ -10,8 +10,12 @@ class TaskView extends StatelessWidget {
   final int taskKeyFromNavigator;
   final Task taskFromNavigator;
 
-  const TaskView({Key? key, required this.groupKeyFromNavigator, required this.taskFromNavigator, required this.taskKeyFromNavigator, })
-      : super(key: key);
+  const TaskView({
+    Key? key,
+    required this.groupKeyFromNavigator,
+    required this.taskFromNavigator,
+    required this.taskKeyFromNavigator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,8 @@ class TaskView extends StatelessWidget {
 
     return Provider<TaskViewModel>(
         //ChangeNotifier
-        create: (context) => TaskViewModel(groupKey: groupKeyFromNavigator, currentTask: taskFromNavigator, taskKey: taskKeyFromNavigator ),
+        create: (context) => TaskViewModel(
+            groupKey: groupKeyFromNavigator, currentTask: taskFromNavigator, taskKey: taskKeyFromNavigator),
         lazy: false,
         child: const TaskPageWidget());
   }
@@ -37,35 +42,42 @@ class TaskPageWidget extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: true, editDate: Provider.of<TaskViewModel>(context, listen: false).currentTask.taskDate, title: (Provider.of<TaskViewModel>(context, listen: false).currentTask.text=='') ? 'Новое дело' : 'Изменение дела'),
+          TopBar(
+              showCalendar: false,
+              showFilter: false,
+              showDatePicker: true,
+              editDate: Provider.of<TaskViewModel>(context, listen: false).currentTask.taskDate,
+              title: (Provider.of<TaskViewModel>(context, listen: false).currentTask.text == '')
+                  ? context.l()!.newTask
+                  : context.l()!.editTask,
+              filterDefault: context.l()!.noFilter,
+              dateDefault: context.l()!.noDate),
           Expanded(
               child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical:
-                    context.screenHeight() > context.screenWidth() ? 10 : 0,
-                horizontal: 10),
+            padding:
+                EdgeInsets.symmetric(vertical: context.screenHeight() > context.screenWidth() ? 10 : 0, horizontal: 10),
             child: TaskTextWidget(initialTask: Provider.of<TaskViewModel>(context, listen: false).currentTask),
           )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
-          if (Provider.of<TaskViewModel>(context, listen: false).currentTask.text=='')
-            { //Если входная таска была пустой то значит это внесение новой таски
-              Provider.of<TaskViewModel>(context, listen: false).addTask();
-            }
-          else { //редактирование таски
-              Provider.of<TaskViewModel>(context, listen: false).editTask();
-              //Provider.of<TasksListWidgetModel>(context, listen: false).refresh();
+          if (Provider.of<TaskViewModel>(context, listen: false).currentTask.text == '') {
+            //Если входная таска была пустой то значит это внесение новой таски
+            Provider.of<TaskViewModel>(context, listen: false).addTask();
+          } else {
+            //редактирование таски
+            Provider.of<TaskViewModel>(context, listen: false).editTask();
+            //Provider.of<TasksListWidgetModel>(context, listen: false).refresh();
           }
 
-          if (Provider.of<TaskViewModel>(context, listen: false).errorText !=
-              null) {
+          if (Provider.of<TaskViewModel>(context, listen: false).errorText != null) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: themeHandler.currentITheme.secondary(),
-                content: Text(Provider.of<TaskViewModel>(context, listen: false)
-                    .errorText!, style: regular.copyWith(color: curITheme.failure()),))  );
+                backgroundColor: themeHandler.currentITheme.secondary(),
+                content: Text(
+                  Provider.of<TaskViewModel>(context, listen: false).errorText!,
+                  style: regular.copyWith(color: curITheme.failure()),
+                )));
           } else {
             //возвращаемся на предыдущую страницу
             Navigator.of(context).pop();
@@ -80,6 +92,7 @@ class TaskPageWidget extends StatelessWidget {
 
 class TaskTextWidget extends StatefulWidget {
   final Task initialTask;
+
   const TaskTextWidget({Key? key, required this.initialTask}) : super(key: key);
 
   @override
@@ -113,8 +126,7 @@ class _TaskTextWidgetState extends State<TaskTextWidget> {
         //helperText: 'Имя группы',
       ),
       //по изменению
-      onChanged: (value) =>
-      Provider.of<TaskViewModel>(context, listen: false).taskText = value,
+      onChanged: (value) => Provider.of<TaskViewModel>(context, listen: false).taskText = value,
       controller: _controller,
     );
   }

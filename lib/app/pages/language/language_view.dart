@@ -18,7 +18,13 @@ class _LanguageView extends State<LanguageView> {
       drawer: CustomNavigationDrawer(),
       body: Column(
         children: <Widget>[
-          TopBar(showCalendar: false, showFilter: false, showDatePicker: false, title: context.l()!.language,),
+          TopBar(
+              showCalendar: false,
+              showFilter: false,
+              showDatePicker: false,
+              title: context.l()!.language,
+              filterDefault: context.l()!.noFilter,
+              dateDefault: context.l()!.noDate),
           ListTile(
             leading: const Icon(Icons.language),
             title: Text('Русский', style: regular.copyWith(fontSize: titleSize)),
@@ -29,11 +35,11 @@ class _LanguageView extends State<LanguageView> {
                 value: Language.russian,
                 groupValue: _language,
                 onChanged: (Language? value) {
-                   setState(() {
-                     _language = value;
-                     languageHandler.updateLanguage(Language.russian, manually: true);
-                     Provider.of<LanguageModel>(context,listen: false).changeCurrentLocale(Language.russian);
-                   });
+                  setState(() {
+                    _language = value;
+                    languageHandler.updateLanguage(Language.russian, manually: true);
+                    Provider.of<LanguageModel>(context, listen: false).changeCurrentLocale(Language.russian);
+                  });
                 },
               ),
             ),
@@ -48,11 +54,11 @@ class _LanguageView extends State<LanguageView> {
                 value: Language.english,
                 groupValue: _language,
                 onChanged: (Language? value) {
-                   setState(() {
-                     _language = value;
-                     languageHandler.updateLanguage(Language.english, manually: true);
-                     Provider.of<LanguageModel>(context,listen: false).changeCurrentLocale(Language.english);
-                   });
+                  setState(() {
+                    _language = value;
+                    languageHandler.updateLanguage(Language.english, manually: true);
+                    Provider.of<LanguageModel>(context, listen: false).changeCurrentLocale(Language.english);
+                  });
                 },
               ),
             ),

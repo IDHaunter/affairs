@@ -14,5 +14,15 @@
     "authentication": "Authentication",
     "noAuth": "No authentication",
     "localAuth": "System",
+    "groupsList": "Groups list",
+    "tasksList": "Tasks list",
+    "newGroup": "New group",
+    "editGroup": "Edit group",
+    "newTask": "New task",
+    "editTask": "Edit task",
+    "noFilter": "No filter set",
+    "noDate": "No date set",
+    "statistic": "statistic",
+    "cryptoRates": "Crypto rates",
     "aboutApp": "About application"
 }

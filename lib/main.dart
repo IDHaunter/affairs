@@ -13,16 +13,11 @@ void main() async {
   //удерживаем сплеш экран до момента полной инициализации
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  //инициализация наших цветовых схем
-  await themeHandler.init();
-
   //инициализация языковых настроек
   await languageHandler.init();
 
-  //Hive - NoSQL Database
-  //await Hive.initFlutter();
-  //инициализация hive боксов
-  //await hiveHandler.init();
+  //инициализация наших цветовых схем
+  await themeHandler.init();
 
   //инициализация GetIt и его содержимого
   setupGetIt();
