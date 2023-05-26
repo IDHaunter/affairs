@@ -117,11 +117,11 @@ class _TaskTextWidgetState extends State<TaskTextWidget> {
       minLines: null,
       maxLines: null,
       expands: true,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         //contentPadding: EdgeInsets.symmetric(horizontal: 25),
         //border: OutlineInputBorder(),
         border: InputBorder.none,
-        hintText: 'Текст задачи',
+        hintText: context.l()!.taskText,
         //hintStyle: basic,
         //helperText: 'Имя группы',
       ),

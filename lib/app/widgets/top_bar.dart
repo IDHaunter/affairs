@@ -7,6 +7,7 @@ class TopBar extends StatefulWidget {
   final bool showFilter;
   final bool showCalendar;
   final bool showDatePicker;
+  final bool? showDrawer;
   final DateTime? editDate;
   final String? title;
   final String filterDefault;
@@ -17,10 +18,11 @@ class TopBar extends StatefulWidget {
       required this.showFilter,
       required this.showCalendar,
       required this.showDatePicker,
+      this.showDrawer,
       this.editDate,
       this.title,
       required this.filterDefault,
-      required this.dateDefault})
+      required this.dateDefault,})
       : super(key: key);
 
   @override
@@ -133,6 +135,8 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                (widget.showDrawer==null)
+                ?
                 CircleAvatar(
                   backgroundColor: Color.fromRGBO(r, g, b, 0.3),
                   child: IconButton(
@@ -142,7 +146,8 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
                     icon: const Icon(Icons.dehaze),
                     color: curITheme.icon(),
                   ),
-                ),
+                ): const SizedBox(width: 16, height: 16,),
+
                 (widget.title == null)
                     ? const SizedBox(
                         width: 16,

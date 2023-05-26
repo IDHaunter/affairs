@@ -42,9 +42,9 @@ class GroupView extends StatelessWidget {
             Provider.of<GroupViewModel>(context, listen: false).addGroup(context);
           } else {
             //Изменение
-            debugPrint('--------- before editGroup');
+            //debugPrint('--------- before editGroup');
             Provider.of<GroupViewModel>(context, listen: false).editGroup(context);
-            debugPrint('--------- after editGroup');
+            //debugPrint('--------- after editGroup');
           }
 
           //возвращаемся на предыдущую страницу
@@ -84,7 +84,7 @@ class _GroupTextWidgetState extends State<GroupTextWidget> {
       decoration: InputDecoration(
         //contentPadding: EdgeInsets.symmetric(horizontal: 25),
         //    border: OutlineInputBorder(),
-        hintText: 'Введите имя группы',
+        hintText: context.l()!.enterGroupName,
         hintStyle: basic,
         errorText: Provider.of<GroupViewModel>(context, listen: true).errorText,
         errorStyle: regular.copyWith(fontSize: errorSize, color: curITheme.failure()),

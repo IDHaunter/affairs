@@ -24,5 +24,7 @@
     "noDate": "No date set",
     "statistic": "statistic",
     "cryptoRates": "Crypto rates",
+    "enterGroupName": "Enter group name",
+    "taskText": "Task text",
     "aboutApp": "About application"
 }

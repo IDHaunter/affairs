@@ -21,5 +21,7 @@
     "noDate": "Дата не задана",
     "statistic": "статистика",
     "cryptoRates": "Курсы крипты",
+    "enterGroupName": "Введите имя группы",
+    "taskText": "Текст задачи",
     "aboutApp": "О приложении"
 }
