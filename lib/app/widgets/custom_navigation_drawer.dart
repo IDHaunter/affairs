@@ -81,7 +81,7 @@ class CustomNavigationDrawer extends StatelessWidget {
                         : const Icon(Icons.lock_outline),
                     trailing: const Icon(Icons.more_vert),
                     onTap: () {
-                      Navigator.pushNamed(context, MainNavigatorRouteNames.auth);
+                      Navigator.pushNamed(context, MainNavigatorRouteNames.authSettings);
                     },
                   ),
                 );

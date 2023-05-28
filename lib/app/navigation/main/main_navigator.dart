@@ -1,5 +1,8 @@
+import '../../../core/auth/auth_service.dart';
 import '../../../core/common_export.dart';
 import '../../../core/data/hive/task.dart';
+import '../../../core/service_locator.dart';
+import '../../pages/auth/auth_view.dart';
 import '../../pages/auth_settings/auth_settings_view.dart';
 import '../../pages/crypto_coin_history/crypto_coin_history_view.dart';
 import '../../pages/crypto_coin_history/crypto_coin_history_viewmodel.dart';
@@ -18,12 +21,13 @@ import '../../pages/theme/theme_view.dart';
 abstract class MainNavigatorRouteNames {
   //стартовая страница всегда должна начинаться с "/", иначе (если например "/aaa") компилятор будет давать возможность делать с этой страницы
   //переход назад до "/", или нужно называть страницы вообще без символов "/" чтобы не использовать принцип deep link
-  static const groups = '/'; // GroupsPage()
+  static const auth = 'auth'; //AuthView()
+  static const groups = '/'; // GroupsView()
   static const group =
-      '/group_page'; // Provider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
+      '/group_page'; // Provider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupView()),
   static const theme = '/theme_page'; // ThemeView()
   static const language = '/language_page'; // LanguageView(),
-  static const auth = '/auth_page'; // AuthSettingsView()
+  static const authSettings = '/auth_settings_page'; // AuthSettingsView()
   static const tasks = '/tasks_page'; // TasksView(),
   static const task = '/tasks_page/task_page'; // TaskView(),
   static const cryptoCoins = '/crypto_coins_page'; //CryptoCoinsView()
@@ -44,25 +48,26 @@ class TaskPageArguments {
 }
 
 class MainNavigator {
-  final initialRoute = MainNavigatorRouteNames.groups;
+  String initialRoute = (getIt<AuthService>().currentAuth == AuthEnum.noAuth ) ? MainNavigatorRouteNames.groups : MainNavigatorRouteNames.auth;
 
   //routes проверяется до вызова onGenerateRoute
   final routes = <String, Widget Function(BuildContext)>{
     //1. тут нельзя задавать const т.к. при смене тем оформления будет глюк !!!
     //2. если страница №2 вызывается со страницы №1 то контекст первой
     //не наследуется во второй (видно в DevTools и важно для моделей данных)
+    MainNavigatorRouteNames.auth: (context) => AuthView(),
     MainNavigatorRouteNames.groups: (context) => GroupsView(),
     //MainNavigatorRouteNames.group: (context) => ChangeNotifierProvider<GroupPageModel>(create: (context) => GroupPageModel(), child: GroupPage()),
     MainNavigatorRouteNames.theme: (context) => ThemeView(),
     MainNavigatorRouteNames.language: (context) => LanguageView(),
     MainNavigatorRouteNames.tasks: (context) => TasksView(),
-    MainNavigatorRouteNames.auth: (context) => AuthSettingsView(),
+    MainNavigatorRouteNames.authSettings: (context) => AuthSettingsView(),
     //MainNavigatorRouteNames.task: (context) => TaskPage(),
     //MainNavigatorRouteNames.cryptoCoins: (context) => CryptoCoinsView(),
     //MainNavigatorRouteNames.cryptoCoinHistory: (context) => CryptoCoinHistoryView(),
   };
 
-//Эта функция позволяет в зависимости от имени и аргумента возвращать разные экраны
+  //Эта функция позволяет в зависимости от имени и аргумента возвращать разные экраны
   //кроме передачи параметров используется часто для кастомной анимации смены разных экранов
   Route<Object> onGenerateRoute(RouteSettings settings) {
     //RouteSettings содержит собственно имя "name" и аргументы "arguments"

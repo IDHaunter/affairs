@@ -1,5 +1,4 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'app/my_app.dart';
 import 'core/auth/auth_model.dart';
 import 'core/common_export.dart';

@@ -25,7 +25,7 @@ class _AuthView extends State<AuthView> {
             EdgeInsets.symmetric(vertical: context.screenHeight() > context.screenWidth() ? 10 : 0, horizontal: 10),
             child: Column(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               const Icon(Icons.perm_identity),
-              FilledButton(onPressed: () {}, child: const Text('Done!')),
+              FilledButton(onPressed: () => Navigator.pushReplacementNamed(context, MainNavigatorRouteNames.groups), child: const Text('Done!')),
             ]),
           )
 
