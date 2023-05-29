@@ -26,5 +26,6 @@
     "cryptoRates": "Crypto rates",
     "enterGroupName": "Enter group name",
     "taskText": "Task text",
+    "localizedReason": "You need to authenticate",
     "aboutApp": "About application"
 }

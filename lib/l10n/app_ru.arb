@@ -23,5 +23,6 @@
     "cryptoRates": "Курсы крипты",
     "enterGroupName": "Введите имя группы",
     "taskText": "Текст задачи",
+    "localizedReason": "Вам нужно пройти идентификацию",
     "aboutApp": "О приложении"
 }

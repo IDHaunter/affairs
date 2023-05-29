@@ -13,17 +13,17 @@ class TopBar extends StatefulWidget {
   final String filterDefault;
   final String dateDefault;
 
-  const TopBar(
-      {Key? key,
-      required this.showFilter,
-      required this.showCalendar,
-      required this.showDatePicker,
-      this.showDrawer,
-      this.editDate,
-      this.title,
-      required this.filterDefault,
-      required this.dateDefault,})
-      : super(key: key);
+  const TopBar({
+    Key? key,
+    required this.showFilter,
+    required this.showCalendar,
+    required this.showDatePicker,
+    this.showDrawer,
+    this.editDate,
+    this.title,
+    required this.filterDefault,
+    required this.dateDefault,
+  }) : super(key: key);
 
   @override
   State<TopBar> createState() => _TopBarState();
@@ -135,19 +135,18 @@ class _TopBarState extends State<TopBar> with DefaultBackColor {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                (widget.showDrawer==null)
-                ?
-                CircleAvatar(
-                  backgroundColor: Color.fromRGBO(r, g, b, 0.3),
-                  child: IconButton(
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                    icon: const Icon(Icons.dehaze),
-                    color: curITheme.icon(),
-                  ),
-                ): const SizedBox(width: 16, height: 16,),
-
+                ((widget.showDrawer == null) || (widget.showDrawer == true))
+                    ? CircleAvatar(
+                        backgroundColor: Color.fromRGBO(r, g, b, 0.3),
+                        child: IconButton(
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                          icon: const Icon(Icons.dehaze),
+                          color: curITheme.icon(),
+                        ),
+                      )
+                    : const Icon(Icons.perm_identity),
                 (widget.title == null)
                     ? const SizedBox(
                         width: 16,
